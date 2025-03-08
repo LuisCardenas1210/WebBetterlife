@@ -16,11 +16,25 @@ header nav{
     justify-content: space-between;
 }
 header div{
-    display: flex;
     height: 10vh;
-    
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 header ul{
     list-style: none;
     display: flex;
 }
+header li{
+    border: gray solid 1px;
+    align-content: center;
+}
+nav > ul > li{
+    cursor: pointer;
+    display: block;
+}
+
+nav ul ul{
+    display: none;
+}
+

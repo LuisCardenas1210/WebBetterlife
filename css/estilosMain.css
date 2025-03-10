@@ -1,40 +1,103 @@
-*{
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
-.bg_green{
+
+.bg_green {
     background-color: rgb(10, 209, 53);
 }
-header{
+
+header {
     text-align: center;
     position: fixed;
     width: 100%;
+    top: 0;
 }
-header nav{
+
+nav {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
 }
-header div{
-    height: 10vh;
+
+nav .logo, nav .login {
+    flex: 1;
+}
+
+nav .menu {
+    flex: 2;
     display: flex;
     justify-content: center;
-    align-items: center;
-}
-header ul{
     list-style: none;
-    display: flex;
 }
-header li{
-    border: gray solid 1px;
-    align-content: center;
-}
-nav > ul > li{
+
+nav .menu li {
+    margin: 0 15px;
     cursor: pointer;
+}
+
+nav .menu li ul {
+    display: none;
+    list-style: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+nav .menu li:hover ul {
     display: block;
 }
 
-nav ul ul{
-    display: none;
+main {
+    padding-top: 80px;
+    text-align: center;
 }
 
+section {
+    margin: 40px 0;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.content img {
+    width: 300px;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.profile img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #f4f4f4;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer .contact {
+    background-color: red;
+    color: white;
+    padding: 10px;
+}
+
+footer .legal a {
+    display: block;
+    margin: 5px 0;
+    color: gray;
+}
+
+footer .social-icons span {
+    margin: 0 5px;
+    cursor: pointer;
+}

@@ -4,33 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BetterLife</title>
-    <link rel="stylesheet" href="..\betterlife\css\estilosMain.css">
+    <link rel="stylesheet" href="C:\Users\alexo\Documents\ITSUR\6 SEMESTRE\PRO. WEB\Betterlife\WebBetterlife\css\estilosMain.css">
 </head>
 <body>
-    <header>
-        <nav class="bg_green">
-            <div>
-                BetterLife
-            </div>
-            <ul>
+    <header class="bg_green">
+        <nav>
+            <div class="logo">BetterLife</div>
+            <ul class="menu">
                 <li>Rutinas
-                    <ul>
+                    <ul class="submenu">
                         <li>Dietas</li>
                         <li>Ejercicios</li>
                     </ul>
                 </li>
                 <li>Profesionales</li>
             </ul>
-            <div>
-                login
-            </div>
+            <div class="login">Login / Registrar</div>
         </nav>
     </header>
-    <main>
 
+    <main>
+        <h1>RUTINAS</h1>
+        <section class="exercise">
+            <h2>Ejercicios</h2>
+            <div class="content">
+                <img src="gym.png" alt="Imagen rutina">
+                <p>Texto explicativo de la rutina (objetivos, condiciones, etc.)</p>
+            </div>
+        </section>
+
+        <section class="diet">
+            <h2>Dietas</h2>
+            <div class="content">
+                <p>Texto explicativo de la rutina (objetivos, condiciones, etc.)</p>
+                <img src="dieta.png" alt="Imagen rutina">
+            </div>
+        </section>
+
+        <section class="professionals">
+            <h2>Profesionales</h2>
+            <p>Descripción de las capacidades de los profesionales, títulos, maestrías, etc.</p>
+            <div class="profile">
+                <img src="profile.png" alt="Foto del profesional">
+                <p>Click en la foto para ir al perfil del profesional</p>
+            </div>
+        </section>
     </main>
+
     <footer>
-        
+        <div class="contact">
+            <p>Contactanos</p>
+            <div class="social-icons">
+                <span>🟠</span><span>⚫</span><span>⚪</span>
+            </div>
+        </div>
+        <div class="legal">
+            <p>BetterLife© 2025 All Rights Reserved.</p>
+            <a href="#">Preguntas frecuentes</a>
+            <a href="#">Aviso de Privacidad</a>
+            <a href="#">Términos y condiciones</a>
+        </div>
     </footer>
 </body>
 </html>

@@ -89,6 +89,10 @@ section {
     cursor: pointer;
 }
 
+.professionals p{
+    white-space: pre-line;    
+}
+
 footer {
     background-color: #f4f4f4;
     padding: 20px 0;

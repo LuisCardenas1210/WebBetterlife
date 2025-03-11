@@ -4,15 +4,17 @@
     box-sizing: border-box;
 }
 
-.bg_green {
-    background-color: rgb(10, 209, 53);
-}
-
 header {
     text-align: center;
     position: fixed;
     width: 100%;
     top: 0;
+    background: linear-gradient(to right, rgb(10, 209, 53), #0f750f);
+}
+
+header a{
+    color: black;
+    text-decoration: none;
 }
 
 nav {
@@ -34,7 +36,7 @@ nav .menu {
 }
 
 nav .menu li {
-    margin: 0 15px;
+    padding: 0px 15px 0px 15px;
     cursor: pointer;
 }
 
@@ -49,6 +51,14 @@ nav .menu li ul {
 nav .menu li:hover ul {
     display: block;
 }
+
+nav .menu li{
+    background-color: rgb(10, 209, 53);
+} 
+
+nav .menu li > ul > li:hover{
+    background-color: rgb(29, 126, 50);
+} 
 
 main {
     padding-top: 80px;
@@ -86,7 +96,7 @@ footer {
 }
 
 footer .contact {
-    background-color: red;
+    background: linear-gradient(to left, red, orange);
     color: white;
     padding: 10px;
 }

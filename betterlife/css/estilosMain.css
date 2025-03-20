@@ -3,7 +3,10 @@
     margin: 0;
     box-sizing: border-box;
 }
-
+img {
+    border: 2px solid black;
+    border-radius: 5px; /* Opcional: bordes redondeados */
+}
 header {
     text-align: center;
     position: fixed;
@@ -115,3 +118,13 @@ footer .social-icons span {
     margin: 0 5px;
     cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+

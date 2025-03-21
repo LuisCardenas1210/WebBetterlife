@@ -64,19 +64,46 @@ nav .menu li > ul > li:hover{
 } 
 
 main {
-    padding-top: 80px;
     text-align: center;
+    padding: 0px 20px;
+    padding-top: 80px;
+
 }
 
 section {
     margin: 40px 0;
+    text-decoration: none;
+    padding: 20px;
+    width: 80vw;
+    align-items: center;
+    color: black;
+
+}
+#Ejercicios{
+    text-decoration: none;
+    border-radius: 10px;
+}
+h2{
+    margin: 8px;
+}
+a{
+    text-decoration: none;
+}
+#Ejercicios:hover{
+    background-color:rgb(184, 234, 195);
+    color: rgb(59, 10, 10);
 }
 
+#Dietas:hover{
+    background-color:rgb(184, 234, 195);
+    color: rgb(59, 10, 10);
+}
 .content {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
+    text-align: justify;
 }
 
 .content img {
@@ -121,8 +148,22 @@ footer .social-icons span {
 
 
 
-
-
+.legal{
+    margin-top: 20px;
+}
+.legal2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0 20vw;
+    
+}
+.legal2 a{
+    all: unset;
+    text-decoration: none;
+    color: black;
+    font-size: 15px;
+}
 
 
 

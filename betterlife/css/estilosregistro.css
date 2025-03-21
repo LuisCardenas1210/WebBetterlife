@@ -10,7 +10,8 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background: linear-gradient(to right, rgb(10, 209, 53), #0f750f);
+    /* background: linear-gradient(to right, rgb(157, 224, 171), #0f750f); */
+    background: aquamarine;
 }
 
 .login-container {

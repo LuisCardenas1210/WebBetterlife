@@ -13,8 +13,8 @@
             <ul class="menu">
                 <li>Rutinas
                     <ul class="submenu">
-                        <li><a href="#Ejercicios">Ejercicios</a></li>
-                        <li><a href="#Dietas">Dietas</a></li>
+                        <li class="liSubmenu"><a href="#Ejercicios">Ejercicios</a></li>
+                        <li class="liSubmenu"><a href="#Dietas">Dietas</a></li>
                     </ul>
                 </li>
                 <li><a href="#Profesionales">Profesionales</a></li>
@@ -30,6 +30,55 @@
     </header>
 
     <main id="Inicio">
+
+        <div class="carrusel">
+            <div class="imagenes">
+                <div class="imagen" onclick="irAPagina('pagina1.html')">
+                    <img src="imgs/banner1.png" alt="Imagen 1">
+                    <div class="texto">
+                        <div class="titulo">Título 1</div>
+                        <div class="subtitulo">Subtema 1</div>
+                    </div>
+                </div>
+                <div class="imagen" onclick="irAPagina('pagina2.html')">
+                    <img src="imgs/banner2.1.jpg" alt="Imagen 2">
+                    <div class="texto">
+                        <div class="titulo">Título 2</div>
+                        <div class="subtitulo">Subtema 2</div>
+                    </div>
+                </div>
+                <div class="imagen" onclick="irAPagina('pagina3.html')">
+                    <img src="imgs/banner3.png" alt="Imagen 3">
+                    <div class="texto">
+                        <div class="titulo">Título 3</div>
+                        <div class="subtitulo">Subtema 3</div>
+                    </div>
+                </div>
+            </div>
+    
+            <button class="flecha izquierda" onclick="cambiarImagen(-1)">❮</button>
+            <button class="flecha derecha" onclick="cambiarImagen(1)">❯</button>
+        </div>
+    
+        <script>
+            let indice = 0;
+            const imagenes = document.querySelector('.imagenes');
+            const totalImagenes = document.querySelectorAll('.imagen').length;
+        
+            function cambiarImagen(direccion) {
+                indice = (indice + direccion + totalImagenes) % totalImagenes;
+                imagenes.style.transform = `translateX(-${indice * 100}%)`;
+            }
+        
+            function irAPagina(url) {
+                window.location.href = url;
+            }
+        
+            setInterval(() => cambiarImagen(1), 4200);
+        </script>
+
+
+
         <h1>RUTINAS</h1>
         <a href="Rutina.html">
             <section id="Ejercicios" class="exercise">

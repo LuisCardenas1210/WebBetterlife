@@ -1,0 +1,21 @@
+p{
+    white-space: pre-line;    
+}
+thead{
+    font-size: 25px;
+    background: aquamarine;
+}
+thead, th{
+    padding: 2vh;
+}
+
+img{
+    width: 150px;
+    height: 150px;
+}
+
+.kanit{
+    font-family: "Kanit", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}

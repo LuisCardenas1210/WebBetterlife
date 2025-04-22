@@ -24,7 +24,7 @@ header {
     background: linear-gradient(to right, rgb(10, 209, 53), #0f750f);
 }
 
-header a{
+a{
     color: black;
     text-decoration: none;
 }
@@ -199,10 +199,6 @@ main{
 .login a:hover, h4:hover{
     color: beige;
 }
-
-
-
-
 
 
 .carrusel {

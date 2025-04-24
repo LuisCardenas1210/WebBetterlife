@@ -1,0 +1,25 @@
+.kanit{
+    font-family: "Kanit", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+
+legend{
+    font-size: 30px;
+}
+
+form div{
+    margin: 20px;
+    font-size: 18px;
+}
+
+.Rutina textarea{
+    width: 70vw;
+    height: 52vh;
+} 
+
+button{
+    width: 15vw;
+    height: 7vh;
+    font-size: 20px;
+}

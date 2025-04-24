@@ -1,0 +1,19 @@
+table{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+th, td{
+    padding: 2vh;
+}
+.Contenido:hover{
+    background-color: #9e9e9e;
+}
+.Titulo{
+    background: aquamarine;
+}
+.kanit{
+    font-family: "Kanit", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}

@@ -10,9 +10,9 @@
 <body>
 <?php
 include_once 'Controller/CargarUsuario.php';
-echo "<pre>";
+/* echo "<pre>";
 var_dump($Lista_usuarios);
-echo "</pre>";
+echo "</pre>"; */
 
 if (!empty($_POST)) {
     if (isset($_POST["email"], $_POST["password"])) {

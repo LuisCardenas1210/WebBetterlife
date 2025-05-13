@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,24 +23,15 @@
                 </li>
                 <li><a href="#Profesionales">Profesionales</a></li>
             </ul>
-            <?php 
-            session_start();
-            if(isset($_SESSION["nombre"])){
-            ?>
-                <div class="login">
-                    Bienvenido <?= $_SESSION["nombre"]?>
-                </div>
-            <?php
-            }else{
-            ?>
-                <div class="login">
-                    <a href="Login.php">Login</a>
-                    <h4>/</h4>
-                    <a href="Registrar.html">Registar</a>
-                </div>
-            <?php
-            }
-            ?>
+            <div class="login">
+    <?php if (isset($_SESSION["nombre"])): ?>
+        <span>Bienvenido, <?= htmlspecialchars($_SESSION["nombre"]) ?></span>
+        <a href="logout.php">Cerrar sesión</a>
+    <?php else: ?>
+        <a href="Login.php">Login</a> / <a href="registrar.html">Registrar</a>
+    <?php endif; ?>
+</div>
+
         </nav>
     </header>
     

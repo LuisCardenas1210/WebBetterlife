@@ -6,6 +6,33 @@
     <title>BetterLife</title>
     <link rel="stylesheet" href="css/estilosregistro.css">
 </head>
+<!--  metodo para validar en js :p -->
+<script>
+function validarFormulario() {
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    if (email === "" || password === "") {
+        alert("Por favor, completa todos los campos.");
+        return false;
+    }
+    //expresion regular para validar el formato de el mail
+    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!regexCorreo.test(email)) {
+        alert("Correo inválido.");
+        return false;
+    }
+
+    if (password.length < 6) {
+        alert("La contraseña debe tener al menos 6 caracteres.");
+        return false;
+    }
+
+    return true; // Envía el formulario
+}
+</script>
+
+
 <body>
     <?php
     include_once 'Controller/CargarUsuario.php';
@@ -24,7 +51,7 @@
     ?>
     <div class="login-container">
         <h2>Iniciar Sesión</h2>
-        <form method="post">
+        <form method="post" id="loginForm" onsubmit="return validarFormulario();">
             <div class="input-group">
                 <label for="email">Correo Electrónico:</label>
                 <input type="email" id="email" name="email" required autocomplete="off"

@@ -9,7 +9,7 @@
 <body>
     <header>
         <nav>
-            <div class="logo"><a href="index.html">BetterLife</a></div>
+            <div class="logo"><a href="index.php">BetterLife</a></div>
             <ul class="menu">
                 <li>Rutinas
                     <ul class="submenu">
@@ -19,16 +19,22 @@
                 </li>
                 <li><a href="#Profesionales">Profesionales</a></li>
             </ul>
-            <div class="login">
-                <a href="Login.html">Login</a>
-                <h4>/</h4>
-                <a href="Registrar.html">Registar</a>
-            </div>
-            
-
+            <?php session_start();
+            if(isset($_SESSION["nombre"])){
+                echo "Bienvenido".htmlspecialchars($_SESSION["usuario"]);
+            }else{
+            ?>
+                <div class="login">
+                    <a href="Login.php">Login</a>
+                    <h4>/</h4>
+                    <a href="Registrar.html">Registar</a>
+                </div>
+            <?php
+            }
+            ?>
         </nav>
     </header>
-
+    
     <main id="Inicio">
         <br><br>
         <div class="carrusel">

@@ -11,11 +11,11 @@
     include_once 'Controller/CargarUsuario.php';
     if(!empty($_POST)){
         if(isset($_POST["email"])&&isset($_POST["password"])){
-            for($i;$i<count($lista_usuarios);$i++){
-                if($lista_usuarios[$i]->correoE==$_POST["email"]&&
-                $lista_usuarios[$i]->contrasenia==$_POST["password"]){
+            for($i=0;$i<count($Lista_usuarios);$i++){
+                if($Lista_usuarios[$i]->correoE==$_POST["email"]&&
+                $Lista_usuarios[$i]->contrasenia==$_POST["password"]){
                     session_start();
-                    $_SESSION["email"]=$lista_usuarios[$i]->nombre;
+                    $_SESSION["email"]=$Lista_usuarios[$i]->nombre;
                     header("Location: index.php");
                 }
             }
@@ -24,7 +24,7 @@
     ?>
     <div class="login-container">
         <h2>Iniciar Sesión</h2>
-        <form action="index.php" method="post">
+        <form method="post">
             <div class="input-group">
                 <label for="email">Correo Electrónico:</label>
                 <input type="email" id="email" name="email" required autocomplete="off"
@@ -36,8 +36,12 @@
                 value="<?= isset($POST["password"])?$POST["password"]:"" ?>">
             </div>
             <button type="submit">Ingresar</button>
+            <!-- <button type="button"  onclick="location.href='index.php'">Ingresar</button> -->
         </form>
         <p>¿No tienes una cuenta? <a href="Registrar.html">Regístrate aquí</a></p>
     </div>
+    <?php
+    var_dump($_POST);
+    ?>
 </body>
 </html>

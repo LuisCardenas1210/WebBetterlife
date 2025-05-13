@@ -24,9 +24,7 @@
             if(isset($_SESSION["nombre"])){
             ?>
                 <div class="login">
-                    <?php
-                        echo "Bienvenido".htmlspecialchars($_SESSION["usuario"]);
-                    ?>
+                    Bienvenido <?= $_SESSION["nombre"]?>
                 </div>
             <?php
             }else{

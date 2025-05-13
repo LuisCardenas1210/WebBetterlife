@@ -10,23 +10,16 @@
     <?php
     include_once 'Controller/CargarUsuario.php';
     if(!empty($_POST)){
-        if(isset($_POST["correo"])&&isset($_POST["pass"])){
+        if(isset($_POST["email"])&&isset($_POST["password"])){
             for($i;$i<count($lista_usuarios);$i++){
-                if($lista_usuarios[$i]->correoE==$_POST["correo"]&&
-                $lista_usuarios[$i]->contrasenia==$_POST["pass"]){
+                if($lista_usuarios[$i]->correoE==$_POST["email"]&&
+                $lista_usuarios[$i]->contrasenia==$_POST["password"]){
                     session_start();
-                    $_SESSION["correo"]=$lista_usuarios[$i]->nombre;
+                    $_SESSION["email"]=$lista_usuarios[$i]->nombre;
                     header("Location: index.php");
                 }
             }
         }
-    }else{
-        /* if(!isset($_POST["correo"])||$_POST["correo"]==""
-        ||!isset($_POST["pass"])||$_POST["pass"]==""){
-            echo "<div style='color: red;'>Ingresa los datos</div>";
-        }else{
-            echo "<div style='color: red;'>Datos incorrectos</div>";
-        } */
     }
     ?>
     <div class="login-container">
@@ -35,12 +28,12 @@
             <div class="input-group">
                 <label for="email">Correo Electrónico:</label>
                 <input type="email" id="email" name="email" required autocomplete="off"
-                value="<?= isset($POST["correo"])?$POST["correo"]:"" ?>">
+                value="<?= isset($POST["email"])?$POST["email"]:"" ?>">
             </div>
             <div class="input-group">
                 <label for="password">Contraseña:</label>
                 <input type="password" id="password" name="password" required
-                value="<?= isset($POST["pass"])?$POST["pass"]:"" ?>">
+                value="<?= isset($POST["password"])?$POST["password"]:"" ?>">
             </div>
             <button type="submit">Ingresar</button>
         </form>

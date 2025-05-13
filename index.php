@@ -19,9 +19,16 @@
                 </li>
                 <li><a href="#Profesionales">Profesionales</a></li>
             </ul>
-            <?php session_start();
+            <?php 
+            session_start();
             if(isset($_SESSION["nombre"])){
-                echo "Bienvenido".htmlspecialchars($_SESSION["usuario"]);
+            ?>
+                <div class="login">
+                    <?php
+                        echo "Bienvenido".htmlspecialchars($_SESSION["usuario"]);
+                    ?>
+                </div>
+            <?php
             }else{
             ?>
                 <div class="login">

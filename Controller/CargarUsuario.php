@@ -5,12 +5,12 @@ $usuario=new Usuario();
 $usuario->nombre="Luis Manuel";
 $usuario->apellido="Cardenas Ibarra";
 $usuario->edad=20;
-$usuario->correoE="Lcardenas@gmail.com";
+$usuario->correoE="lcardenas@gmail.com";
 $usuario->sexo="Masculino";
 $usuario->fechaNac="04/11/2004";
 $usuario->intereces="Ambas";
 $usuario->contrasenia="1234";
 
-$Lista_usuarios[] = $usuario;  // <-- ESTA LÍNEA ES FUNDAMENTAL
+$Lista_usuarios[] = $usuario;
 
 ?>

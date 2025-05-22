@@ -7,33 +7,6 @@
     <link rel="stylesheet" href="css/estilosregistro.css">
     <script src="js/validacionLogin.js" defer></script>
 </head>
-<!--  metodo para validar en js :p -->
-<script>
-function validarFormulario() {
-    const email = document.getElementById("email").value.trim();
-    const password = document.getElementById("password").value.trim();
-
-    if (email === "" || password === "") {
-        alert("Por favor, completa todos los campos.");
-        return false;
-    }
-    //expresion regular para validar el formato de el mail
-    const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!regexCorreo.test(email)) {
-        alert("Correo inválido.");
-        return false;
-    }
-
-    if (password.length < 6) {
-        alert("La contraseña debe tener al menos 6 caracteres.");
-        return false;
-    }
-
-    return true; // Envía el formulario
-}
-</script>
-
-
 <body>
 <?php
 include_once 'Controller/CargarUsuario.php';
@@ -58,30 +31,6 @@ if (!empty($_POST)) {
 
         echo "<script>alert('Correo o contraseña incorrectos.');</script>";
     }
-<<<<<<< HEAD
-    ?>
-    <div class="login-container">
-        <h2>Iniciar Sesión</h2>
-        <form method="post" id="loginForm" onsubmit="return validarFormulario();">
-            <div class="input-group">
-                <label for="email">Correo Electrónico:</label>
-                <input type="email" id="email" name="email" required autocomplete="off"
-                value="<?= isset($POST["email"])?$POST["email"]:"" ?>">
-            </div>
-            <div class="input-group">
-                <label for="password">Contraseña:</label>
-                <input type="password" id="password" name="password" required
-                value="<?= isset($POST["password"])?$POST["password"]:"" ?>">
-            </div>
-            <button type="submit">Ingresar</button>
-            <!-- <button type="button"  onclick="location.href='index.php'">Ingresar</button> -->
-        </form>
-        <p>¿No tienes una cuenta? <a href="Registrar.html">Regístrate aquí</a></p>
-    </div>
-    <?php
-    var_dump($_POST);
-    ?>
-=======
 }
 ?>
 <div class="login-container">
@@ -97,10 +46,10 @@ if (!empty($_POST)) {
             <input type="password" id="password" name="password" required
                 value="<?= isset($_POST['password']) ? htmlspecialchars($_POST['password']) : '' ?>">
         </div>
-        <button type="submit">Ingresar</button>
+        <button type="submit" formnovalidate>Ingresar</button>
     </form>
     <p>¿No tienes una cuenta? <a href="registrar.html">Regístrate aquí</a></p>
+    <script src="Scripts/validacionLogin.js"></script>
 </div>
->>>>>>> 8ba3f506c17378bb3bc999e8f3224656afc89457
 </body>
 </html>

@@ -32,14 +32,8 @@ class DAOUsuario
             
 			$sentenciaSQL = $this->conexion->prepare("SELECT id_usuario,nombre,apellidos,tipousuario
             FROM usuarios WHERE correoE=? AND 
-            contrasenia=sha224(?)");
-            //' or true;--
-            /*$sentenciaSQL = $this->conexion->prepare("SELECT id,nombre,apellido1,apellido2,rol 
-            FROM usuarios WHERE email='".$correo."' AND 
-            contrasenia=sha224('".$password."')");*/
-			//Se ejecuta la sentencia sql con los parametros dentro del arreglo 
+            contrasenia=sha224(?)"); 
             $sentenciaSQL->execute([$correoE,$contrasenia]);
-            //$sentenciaSQL->execute();
             
             /*Obtiene los datos*/
 			$fila=$sentenciaSQL->fetch(PDO::FETCH_OBJ);

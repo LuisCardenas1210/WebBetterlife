@@ -24,16 +24,11 @@ echo "</pre>"; */
                     $_SESSION["email"]="$correoE->nombre $correoE->apellidos";
                     $_SESSION["nombre"]=$correoE->nombre;
                     $_SESSION["tipoUsuario"]=$correoE->tipoUsuario;
-                    //$_SESSION["usuario"]=$usuario->nombre." ".$usuario->apellidos;
                     header("Location: index.php");
             }else{
                 echo "<div style='color: red;'>Usuario y/o contraseña incorrectos</div>";
             }            
         }else{
-            //Datos vacíos
-            //usuario está vacío "" O es una cadena de espacios
-            //contraseña está vacía "" O es una cadena de espacios
-            //O no llegaron las variables esperadas en POST
             if(!isset($_POST["email"]) || trim($_POST["email"])=="" ||
             !isset($_POST["password"]) || trim($_POST["password"])==""){
             ?>
@@ -45,25 +40,7 @@ echo "</pre>"; */
             }
         }
     }
-/* 
-if (!empty($_POST)) {
-    if (isset($_POST["email"], $_POST["password"])) {
-        $email = trim(strtolower($_POST["email"]));
-        $password = trim($_POST["password"]);
 
-        foreach ($Lista_usuarios as $usuario) {
-            if (strtolower($usuario->correoE) === $email && $usuario->contrasenia === $password) {
-                session_start();
-                $_SESSION["nombre"] = $usuario->nombre;
-                $_SESSION["email"] = $usuario->correoE;
-                header("Location: index.php");
-                exit();
-            }
-        }
-
-        echo "<script>alert('Correo o contraseña incorrectos.');</script>";
-    }
-} */
 ?>
 <div class="login-container">
     <h2>Iniciar Sesión</h2>

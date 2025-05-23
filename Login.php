@@ -9,11 +9,43 @@
 </head>
 <body>
 <?php
-include_once 'Controller/CargarUsuario.php';
+    include_once 'Datos/DAOUsuario.php';
 /* echo "<pre>";
 var_dump($Lista_usuarios);
 echo "</pre>"; */
 
+    if(!empty($_POST)){
+            //isset verifica que la variable venga en POST
+        if(isset($_POST["email"]) && isset($_POST["password"])){    
+            $correoE=(new DAOUsuario())->autenticar($_POST["email"],
+                                        $_POST["password"]);
+            if($correoE!=null){
+                    session_start();
+                    $_SESSION["email"]="$correoE->nombre $correoE->apellidos";
+                    $_SESSION["nombre"]=$correoE->nombre;
+                    $_SESSION["tipoUsuario"]=$correoE->tipoUsuario;
+                    //$_SESSION["usuario"]=$usuario->nombre." ".$usuario->apellidos;
+                    header("Location: index.php");
+            }else{
+                echo "<div style='color: red;'>Usuario y/o contraseña incorrectos</div>";
+            }            
+        }else{
+            //Datos vacíos
+            //usuario está vacío "" O es una cadena de espacios
+            //contraseña está vacía "" O es una cadena de espacios
+            //O no llegaron las variables esperadas en POST
+            if(!isset($_POST["email"]) || trim($_POST["email"])=="" ||
+            !isset($_POST["password"]) || trim($_POST["password"])==""){
+            ?>
+                <div style="color: red;">Ingresa los datos</div>
+            <?php
+            }else{
+                //Datos incorrectos
+                echo "<div style='color: red;'>Usuario y/o contraseña incorrectos</div>";
+            }
+        }
+    }
+/* 
 if (!empty($_POST)) {
     if (isset($_POST["email"], $_POST["password"])) {
         $email = trim(strtolower($_POST["email"]));
@@ -31,7 +63,7 @@ if (!empty($_POST)) {
 
         echo "<script>alert('Correo o contraseña incorrectos.');</script>";
     }
-}
+} */
 ?>
 <div class="login-container">
     <h2>Iniciar Sesión</h2>

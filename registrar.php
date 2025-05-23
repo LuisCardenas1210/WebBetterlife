@@ -42,8 +42,8 @@
                 <label for="preferencia">¿Qué buscas?:</label>
                 <select id="preferencia" name="preferencia" required>
                     <option value="">Seleccione...</option>
-                    <option value="gimnasio">Rutina de gimnasio</option>
-                    <option value="comida">Rutina de comida</option>
+                    <option value="ejercicio">Rutina de gimnasio</option>
+                    <option value="dieta">Rutina de comida</option>
                     <option value="ambas">Ambas</option>
                 </select>
             </div>

@@ -17,13 +17,14 @@ echo "</pre>"; */
     if(!empty($_POST)){
             //isset verifica que la variable venga en POST
         if(isset($_POST["email"]) && isset($_POST["password"])){    
-            $correoE=(new DAOUsuario())->autenticar($_POST["email"],
+            $usuario=(new DAOUsuario())->autenticar($_POST["email"],
                                         $_POST["password"]);
-            if($correoE!=null){
+            if($usuario!=null){
                     session_start();
-                    $_SESSION["email"]="$correoE->nombre $correoE->apellidos";
-                    $_SESSION["nombre"]=$correoE->nombre;
-                    $_SESSION["tipoUsuario"]=$correoE->tipoUsuario;
+                    $_SESSION["id"]="$usuario->correoE";
+                    $_SESSION["nombre"]="$usuario->nombre";
+                    $_SESSION["apellidos"]="$usuario->apellidos";
+                    $_SESSION["tipoUsuario"]="$usuario->tipoUsuario";
                     header("Location: index.php");
             }else{
                 echo "<div style='color: red;'>Usuario y/o contraseña incorrectos</div>";

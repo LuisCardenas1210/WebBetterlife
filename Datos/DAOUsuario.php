@@ -42,8 +42,8 @@ class DAOUsuario
                 
                 $obj->id_usuario = $fila->id_usuario;
                 $obj->nombre = $fila->nombre;
-                $obj->apellidos = $fila->apellido;
-                $obj->tipoUsuario = $fila->tipoUsuario;
+                $obj->apellidos = $fila->apellidos;
+                $obj->tipoUsuario = $fila->tipousuario;
             }
             return $obj;
 		}

@@ -24,9 +24,18 @@ session_start();
                 <li><a href="#Profesionales">Profesionales</a></li>
             </ul>
             <div class="login">
-    <?php if (isset($_SESSION["nombre"])): ?>
-        <span>Bienvenido, <?= htmlspecialchars($_SESSION["nombre"]) ?></span>
-        <a href="logout.php">Cerrar sesión</a>
+    <?php if (isset($_SESSION["nombre"])):?>
+        <ul class="menu">
+            <li>
+                <span>Bienvenido, <?= htmlspecialchars($_SESSION["nombre"]) ?></span>
+                <ul class="submenu">
+                    <?php if($_SESSION["tipoUsuario"]==="profesional"):?>
+                    <li class="liSubmenu"><a href="usuarios.html">Crear Rutina</a></li>
+                    <?php endif;?>
+                    <li class="liSubmenu"><a href="logout.php">Cerrar sesión</a></li>
+                </ul>
+            </li>
+        </ul>
     <?php else: ?>
         <a href="Login.php">Login</a> / <a href="registrar.html">Registrar</a>
     <?php endif; ?>

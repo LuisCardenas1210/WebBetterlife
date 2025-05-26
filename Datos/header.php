@@ -4,11 +4,11 @@
             <ul class="menu">
                 <li>Rutinas
                     <ul class="submenu">
-                        <li class="liSubmenu"><a href="index.php#Ejercicios">Ejercicios</a></li>
-                        <li class="liSubmenu"><a href="index.php#Dietas">Dietas</a></li>
+                        <li class="liSubmenu"><a href="#Ejercicios">Ejercicios</a></li>
+                        <li class="liSubmenu"><a href="#Dietas">Dietas</a></li>
                     </ul>
                 </li>
-                <li><a href="index.php#Profesionales">Profesionales</a></li>
+                <li><a href="#Profesionales">Profesionales</a></li>
             </ul>
             <div class="login">
                 <?php if (isset($_SESSION["nombre"])):?>
@@ -27,6 +27,7 @@
                                     <li class="liSubmenu"><a href="#">Ver rutinas</a></li> <!-- ver_rutinas.php -->
                                 <?php elseif($_SESSION["tipoUsuario"] === "profesional"): ?>
                                     <li class="liSubmenu"><a href="usuarios.php">Crear Rutina</a></li>
+                                    <li class="liSubmenu"><a href="Solicitudes.php">Ver Solicitudes</a></li>
                                 <?php endif; ?>
                                 <li class="liSubmenu"><a href="logout.php">Cerrar sesión</a></li>
                             </ul>

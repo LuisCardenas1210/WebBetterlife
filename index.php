@@ -11,48 +11,9 @@ session_start();
     <link rel="stylesheet" href="css/estilosMain.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo"><a href="index.php">BetterLife</a></div>
-            <ul class="menu">
-                <li>Rutinas
-                    <ul class="submenu">
-                        <li class="liSubmenu"><a href="#Ejercicios">Ejercicios</a></li>
-                        <li class="liSubmenu"><a href="#Dietas">Dietas</a></li>
-                    </ul>
-                </li>
-                <li><a href="#Profesionales">Profesionales</a></li>
-            </ul>
-            <div class="login">
-                <?php if (isset($_SESSION["nombre"])):?>
-                    <?php
-                    # print_r($_SESSION);
-                    # var_dump(trim($_SESSION["tipoUsuario"]) );
-                    ?>
-                    <ul class="menu">
-                        <li>
-                            <span>Bienvenido, <?= htmlspecialchars($_SESSION["nombre"]) ?></span>
-                            <ul class="submenu">
-                                <?php if (trim($_SESSION["tipoUsuario"]) === "usuario"): ?>
-                                    <li class="liSubmenu"><a href="#">Solicitar dieta</a></li> <!-- solicitar_dieta.php -->
-                                    <li class="liSubmenu"><a href="#">Solicitar ejercicios</a></li> <!-- solicitar_ejercicios.php -->
-                                    <li class="liSubmenu"><a href="#">Ver solicitudes</a></li> <!-- ver_solicitudes.php -->
-                                    <li class="liSubmenu"><a href="#">Ver rutinas</a></li> <!-- ver_rutinas.php -->
-                                <?php elseif($_SESSION["tipoUsuario"] === "profesional"): ?>
-                                    <li class="liSubmenu"><a href="usuarios.html">Crear Rutina</a></li>
-                                <?php endif; ?>
-                                <li class="liSubmenu"><a href="logout.php">Cerrar sesión</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                <?php else: ?>
-                    <a href="Login.php">Login</a> / <a href="registrar.php">Registrar</a>
-                <?php endif; ?>
-            </div>
-
-        </nav>
-    </header>
-    
+    <?php
+    require_once('Datos/header.php');
+    ?>
     <main id="Inicio">
         <br><br>
         <div class="carrusel">
@@ -104,7 +65,7 @@ session_start();
 
 
         <h1>RUTINAS</h1>
-        <a href="Rutina.html">
+        <a href="Rutina.php">
             <section id="Ejercicios" class="exercise">
                 <h2 >Ejercicios</h2>
                 <div class="content">
@@ -126,7 +87,7 @@ session_start();
                 </div>
             </section>
         </a>
-        <a href="Rutina.html#dieta">
+        <a href="Rutina.php#dieta">
             
             <section id="Dietas" class="diet">
                 <h2 >Dietas</h2>
@@ -155,7 +116,7 @@ session_start();
         <section id="Profesionales" class="professionals">
             <h2>Profesionales</h2>
             <p>Descripción de las capacidades de los profesionales, títulos, maestrías, etc.</p>
-            <a href="Profesionales.html">
+            <a href="Profesionales.php">
                 <div class="profile">
                     <img src="imgs/nutriologo.jpg" alt="Foto del profesional">
                     <p>             Juan Perez - Nutriologo Certificado
@@ -171,7 +132,7 @@ session_start();
                 </div>
             </a>
             <br><br><br>
-            <a href="Profesionales.html">
+            <a href="Profesionales.php">
                 <div class="profile">
                     <img src="imgs/entrenador.jpg" alt="Foto del profesional">
                     <p>             Alberto Jaime - Entrenador personal

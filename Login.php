@@ -58,7 +58,7 @@ echo "</pre>"; */
         </div>
         <button type="submit" formnovalidate>Ingresar</button>
     </form>
-    <p>¿No tienes una cuenta? <a href="registrar.html">Regístrate aquí</a></p>
+    <p>¿No tienes una cuenta? <a href="registrar.php">Regístrate aquí</a></p>
     <script src="Scripts/validacionLogin.js"></script>
 </div>
 </body>

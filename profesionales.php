@@ -8,26 +8,9 @@
     <link rel="stylesheet" href="css/estilosMain.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo"><a href="index.php">BetterLife</a></div>
-            <ul class="menu">
-                <li>Rutinas
-                    <ul class="submenu">
-                        <li><a href="Rutina.html#Ejercicios">Ejercicios</a></li>
-                        <li><a href="Rutina.html#Dietas">Dietas</a></li>
-                    </ul>
-                </li>
-                <li><a href="Profesionales.html">Profesionales</a></li>
-            </ul>
-            <div class="login">
-                <a href="Login.php">Login</a>
-        
-                <h4>/</h2>
-                <a href="Registrar.html">Registar</a>
-            </div>
-        </nav>
-    </header>
+    <?php
+    require_once('Datos/header.php');
+    ?>
     <main>
         <table>
             <thead class="kanit">

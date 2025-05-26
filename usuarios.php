@@ -8,25 +8,9 @@
     <link rel="stylesheet" href="css/estilosUsuarios.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo"><a href="index.php">BetterLife</a></div>
-            <ul class="menu">
-                <li>Rutinas
-                    <ul class="submenu">
-                        <li class="liSubmenu"><a href="Rutina.html#Ejercicios">Ejercicios</a></li>
-                        <li class="liSubmenu"><a href="Rutina.html#Dietas">Dietas</a></li>
-                    </ul>
-                </li>
-                <li><a href="Profesionales.html">Profesionales</a></li>
-            </ul>
-            <div class="login">
-                <a href="Login.php">Login</a>
-                <h4>/</h4>
-                <a href="Registrar.html">Registar</a>
-            </div>
-        </nav>
-    </header>
+    <?php
+    require_once('Datos/header.php');
+    ?>
     <main>
         <table border="1">
             <tr class="Titulo kanit">
@@ -35,25 +19,25 @@
                 <th>Edad</th>
                 <th>Genero</th>
             </tr>
-            <tr onclick="window.location='CrearRutina.html';" class="Contenido">
+            <tr onclick="window.location='CrearRutina.php';" class="Contenido">
                 <td>Luis Manuel</th>
                 <td>Cárdenas Ibarra</th>
                 <td>20</th>
                 <td>Hombre</th>
             </tr>
-            <tr onclick="window.location='CrearRutina.html';" class="Contenido">
+            <tr onclick="window.location='CrearRutina.php';" class="Contenido">
                 <td>Alejandro</th>
                 <td>Lezama Torres</th>
                 <td>20</th>
                 <td>Hombre</th>
             </tr>
-            <tr onclick="window.location='CrearRutina.html';" class="Contenido">
+            <tr onclick="window.location='CrearRutina.php';" class="Contenido">
                 <td>Jovanny</th>
                 <td>Lobato García</th>
                 <td>21</th>
                 <td>Hombre</th>
             </tr>
-            <tr onclick="window.location='CrearRutina.html';" class="Contenido">
+            <tr onclick="window.location='CrearRutina.php';" class="Contenido">
                 <td>Manuel</th>
                 <td>Cano Zavala</th>
                 <td>20</th>

@@ -30,8 +30,8 @@ session_start();
                     disabled value="0">
                     <br>
                     <label for="lblPeso">Peso:</label>
-                    <input type="number" name="txtPeso" id="txtPeso"
-                    disabled value="0">
+                    <input type="text" name="txtPeso" id="txtPeso"
+                    disabled value="0kg">
                     <br>
                     <label for="lblEstatura">Estatura:</label>
                     <input type="text" name="txtEstatura" id="txtEstatura"

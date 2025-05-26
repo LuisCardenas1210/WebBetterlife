@@ -1,3 +1,5 @@
+create DATABASE BetterLife;
+
 create table usuarios(
 id_usuario serial primary key,
 nombre varchar(50) not null,
@@ -10,6 +12,19 @@ intereses char(8),
 contrasenia bytea not null,
 tipoUsuario char(11) not null
 );
+
+CREATE TABLE solicitudes (
+    id SERIAL PRIMARY KEY,
+    usuario_id INTEGER NOT NULL,
+    objetivo VARCHAR(255),
+    fecha_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);
+
+
+
 
 insert into usuarios values(default, 'Luis Manuel', 'Cardenas Ibarra', 27, 'lcardenas@gmail.com',
 'masculino','1998-11-04', null, sha224('1234'),'admin');

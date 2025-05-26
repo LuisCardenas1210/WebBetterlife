@@ -9,8 +9,9 @@ class Conexion
     private static $db = 'BetterLife' ;
     private static $usuario = 'postgres';
     private static $password = 'root';
-    private static $puerto = '3308';
-    
+    # private static $puerto = '3308';
+    private static $puerto = '5432';
+
     //Referencia de la conexión a la BD para que 
     //si ocupamos transacciones podamos usar siempre la misma
     //conexion
@@ -37,7 +38,14 @@ class Conexion
         {     
             try
             {
-                self::$conexion =  new PDO( "pgsql:host=".self::$servidor.";port=".self::$puerto.";dbname=".self::$db, self::$usuario, self::$password); 
+                self::$conexion =  new PDO( 
+                    "pgsql:host=".self::$servidor.
+                    ";port=".self::$puerto.
+                    ";dbname=".self::$db .
+                    ";sslmode=disable", 
+                    self::$usuario, 
+                    self::$password
+                ); 
                 //self::$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_SILENT);
                 self::$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }

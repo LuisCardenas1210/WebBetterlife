@@ -24,22 +24,31 @@ session_start();
                 <li><a href="#Profesionales">Profesionales</a></li>
             </ul>
             <div class="login">
-    <?php if (isset($_SESSION["nombre"])):?>
-        <ul class="menu">
-            <li>
-                <span>Bienvenido, <?= htmlspecialchars($_SESSION["nombre"]) ?></span>
-                <ul class="submenu">
-                    <?php if($_SESSION["tipoUsuario"]==="profesional"):?>
-                    <li class="liSubmenu"><a href="usuarios.html">Crear Rutina</a></li>
-                    <?php endif;?>
-                    <li class="liSubmenu"><a href="logout.php">Cerrar sesión</a></li>
-                </ul>
-            </li>
-        </ul>
-    <?php else: ?>
-        <a href="Login.php">Login</a> / <a href="registrar.html">Registrar</a>
-    <?php endif; ?>
-</div>
+                <?php if (isset($_SESSION["nombre"])):?>
+                    <?php
+                    # print_r($_SESSION);
+                    # var_dump(trim($_SESSION["tipoUsuario"]) );
+                    ?>
+                    <ul class="menu">
+                        <li>
+                            <span>Bienvenido, <?= htmlspecialchars($_SESSION["nombre"]) ?></span>
+                            <ul class="submenu">
+                                <?php if (trim($_SESSION["tipoUsuario"]) === "usuario"): ?>
+                                    <li class="liSubmenu"><a href="#">Solicitar dieta</a></li> <!-- solicitar_dieta.php -->
+                                    <li class="liSubmenu"><a href="#">Solicitar ejercicios</a></li> <!-- solicitar_ejercicios.php -->
+                                    <li class="liSubmenu"><a href="#">Ver solicitudes</a></li> <!-- ver_solicitudes.php -->
+                                    <li class="liSubmenu"><a href="#">Ver rutinas</a></li> <!-- ver_rutinas.php -->
+                                <?php elseif($_SESSION["tipoUsuario"] === "profesional"): ?>
+                                    <li class="liSubmenu"><a href="usuarios.html">Crear Rutina</a></li>
+                                <?php endif; ?>
+                                <li class="liSubmenu"><a href="logout.php">Cerrar sesión</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                <?php else: ?>
+                    <a href="Login.php">Login</a> / <a href="registrar.php">Registrar</a>
+                <?php endif; ?>
+            </div>
 
         </nav>
     </header>
@@ -48,21 +57,21 @@ session_start();
         <br><br>
         <div class="carrusel">
             <div class="imagenes">
-                <div class="imagen" onclick="irAPagina('pagina1.html')">
+                <div class="imagen" onclick="irAPagina('#')">
                     <img src="imgs/banner1.png" alt="Imagen 1">
                     <div class="texto">
                         <div class="titulo">Título 1</div>
                         <div class="subtitulo">Subtema 1</div>
                     </div>
                 </div>
-                <div class="imagen" onclick="irAPagina('pagina2.html')">
+                <div class="imagen" onclick="irAPagina('#')">
                     <img src="imgs/banner2.1.jpg" alt="Imagen 2">
                     <div class="texto">
                         <div class="titulo">Título 2</div>
                         <div class="subtitulo">Subtema 2</div>
                     </div>
                 </div>
-                <div class="imagen" onclick="irAPagina('pagina3.html')">
+                <div class="imagen" onclick="irAPagina('#')">
                     <img src="imgs/banner3.png" alt="Imagen 3">
                     <div class="texto">
                         <div class="titulo">Título 3</div>

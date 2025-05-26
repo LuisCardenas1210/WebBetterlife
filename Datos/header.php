@@ -4,11 +4,11 @@
             <ul class="menu">
                 <li>Rutinas
                     <ul class="submenu">
-                        <li class="liSubmenu"><a href="#Ejercicios">Ejercicios</a></li>
-                        <li class="liSubmenu"><a href="#Dietas">Dietas</a></li>
+                        <li class="liSubmenu"><a href="index.php#Ejercicios">Ejercicios</a></li>
+                        <li class="liSubmenu"><a href="index.php#Dietas">Dietas</a></li>
                     </ul>
                 </li>
-                <li><a href="#Profesionales">Profesionales</a></li>
+                <li><a href="index.php#Profesionales">Profesionales</a></li>
             </ul>
             <div class="login">
                 <?php if (isset($_SESSION["nombre"])):?>

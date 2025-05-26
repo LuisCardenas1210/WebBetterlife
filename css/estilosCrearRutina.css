@@ -6,80 +6,6 @@ body {
     color: #333;
 }
 
-header {
-    background-color: #2c3e50;
-    padding: 15px 30px;
-    color: white;
-}
-
-nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.logo a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.menu {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-.menu li {
-    position: relative;
-}
-
-.menu a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.submenu {
-    display: none;
-    position: absolute;
-    top: 100%;
-    background-color: #34495e;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    min-width: 150px;
-    z-index: 1000;
-}
-
-.menu li:hover .submenu {
-    display: block;
-}
-
-.liSubmenu a {
-    display: block;
-    padding: 10px;
-    color: white;
-    text-decoration: none;
-}
-
-.liSubmenu a:hover {
-    background-color: #3b5998;
-}
-
-.login {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.login a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
 main {
     max-width: 1000px;
     margin: 30px auto;
@@ -88,7 +14,6 @@ main {
     border-radius: 10px;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
     margin-top: 100px;
-
 }
 
 legend.kanit {
@@ -122,7 +47,7 @@ textarea {
 
 textarea {
     resize: vertical;
-    height: 120px;
+    height: 200px;
 }
 
 input[disabled] {
@@ -158,11 +83,13 @@ button#btnGuardar:hover {
     flex: 1;
     min-width: 400px;
 }
+
 .Rutina {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;  
+    align-items: center;
+    justify-content: center;
     margin-top: 20px;
 }
 

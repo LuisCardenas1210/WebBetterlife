@@ -116,4 +116,14 @@ class DAORutina
             Conexion::desconectar();
         }
     }
+    public function obtenerRutinasPorCliente($id_cliente)
+    {
+        $this->conectar();
+
+        $sql = "SELECT * FROM rutinas WHERE id_cliente = :id";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute(['id' => $id_cliente]);
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

@@ -42,7 +42,7 @@ viernes varchar(200) not null,
 sabado varchar(200) not null,
 domingo varchar(200) not null,
 foreign key (id_Cliente) references Clientes(id_Cliente),
-foreign key (id_Cliente) references Clientes(id_Cliente)
+foreign key (id_Profesional) references Profesionales(id_Profesionales)
 );
 
 CREATE TABLE solicitudes (

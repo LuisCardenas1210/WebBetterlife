@@ -8,8 +8,11 @@
 body {
     background: aquamarine;
     min-height: 100vh;
-    overflow-y: auto;
     padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
 }
 
 .login-container {

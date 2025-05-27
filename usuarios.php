@@ -5,6 +5,7 @@ include_once('Datos/DAOCliente.php');
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,14 +13,18 @@ include_once('Datos/DAOCliente.php');
     <link rel="stylesheet" href="css/estilosMain.css">
     <link rel="stylesheet" href="css/estilosUsuarios.css">
 </head>
+
 <body>
     <?php
     require_once('Datos/header.php');
     ?>
     <main>
+        <form id="formEnviar" method="POST" action="CrearRutina.php">
+            <input type="hidden" name="id" id="inputIdUsuario">
+        </form>
         <table border="1">
             <thead>
-                <th>Nombre</th> 
+                <th>Nombre</th>
                 <th>Apellidos</th>
                 <th>Edad</th>
                 <th>Genero</th>
@@ -28,11 +33,11 @@ include_once('Datos/DAOCliente.php');
             </thead>
             <tbody>
                 <?php
-                $lista=(new DAOCliente())->obtenerTodos();
-                if($lista!=null){
-                    foreach($lista as $Cliente){
-                        echo"
-                        <tr onclick=\"window.location='CrearRutina.php';\" class=\"Contenido\">
+                $lista = (new DAOCliente())->obtenerTodos();
+                if ($lista != null) {
+                    foreach ($lista as $Cliente) {
+                        echo "
+                        <tr onclick=\"enviarFormulario($Cliente->id_Cliente)\">
                             <td>$Cliente->nombreCliente</td>
                             <td>$Cliente->apellidos</td>
                             <td>$Cliente->edad</td>
@@ -46,6 +51,8 @@ include_once('Datos/DAOCliente.php');
                 ?>
             </tbody>
         </table>
+        <script src="Scripts/scriptUsuarios.js"></script>
     </main>
 </body>
+
 </html>

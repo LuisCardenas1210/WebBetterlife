@@ -29,7 +29,7 @@ class DAOCliente
 
             $lista = array();
             /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
-            $sentenciaSQL = $this->conexion->prepare("SELECT c.nombre as nombreCliente, c.apellidos, c.edad, c.genero, s.tipoRutina, p.nombre as nombreProfesional
+            $sentenciaSQL = $this->conexion->prepare("SELECT c.id_Cliente, c.nombre as nombreCliente, c.apellidos, c.edad, c.genero, s.tipoRutina, p.nombre as nombreProfesional
             FROM Clientes c JOIN solicitudes s ON c.id_Cliente=s.id_Cliente
             JOIN profesionales p ON p.id_profesional=s.id_profesional;");
             //Se ejecuta la sentencia sql, retorna un cursor con todos los elementos
@@ -41,6 +41,7 @@ class DAOCliente
             /*Se recorre el cursor para obtener los datos*/
             foreach ($resultado as $fila) {
                 $cliente = new ClienteConRutina();
+                $cliente->id_Cliente = $fila->id_cliente;
                 $cliente->nombreCliente = $fila->nombrecliente;
                 $cliente->apellidos = $fila->apellidos;
                 $cliente->edad = $fila->edad;

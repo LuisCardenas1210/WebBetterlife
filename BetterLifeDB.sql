@@ -1,16 +1,46 @@
-create DATABASE BetterLife;
-
-create table usuarios(
-id_usuario serial primary key,
+create table Profesionales(
+id_Profesional serial primary key,
 nombre varchar(50) not null,
 apellidos varchar(50) not null,
-edad int not null,
-correoE varchar(100) not null,
-sexo char(10) not null,
-fechaNac date not null,
-intereses char(8),
+email varchar(100) not null,
 contrasenia bytea not null,
+especialidad varchar(30) not null,
+enfoque varchar(600)not null,
+eslogan varchar(150),
 tipoUsuario char(11) not null
+);
+
+create table Clientes(
+id_cliente serial primary key,
+nombre varchar(50) not null,
+apellidos varchar(50) not null,
+email varchar(100) not null,
+contrasenia bytea not null,
+edad int not null,
+peso char(5) not null,
+estatura char(5) not null,
+brazoR char(4) not null,
+brazoC char(4) not null,
+cintura char(5) not null,
+pierna char(4) not null,
+intereses varchar(10) not null,
+genero varchar(10) not null,
+tipoUsuario char(7) not null
+);
+
+create table Rutinas(
+id_Rutina serial primary key,
+id_Cliente int,
+id_Profesional int,
+lunes varchar(200) not null,
+martes varchar(200) not null,
+miercoles varchar(200) not null,
+jueves varchar(200) not null,
+viernes varchar(200) not null,
+sabado varchar(200) not null,
+domingo varchar(200) not null,
+foreign key (id_Cliente) references Clientes(id_Cliente),
+foreign key (id_Cliente) references Clientes(id_Cliente)
 );
 
 CREATE TABLE solicitudes (
@@ -23,22 +53,18 @@ CREATE TABLE solicitudes (
         ON UPDATE CASCADE
 );
 
+insert into Profesionales values(default, 'Luis Manuel', 'Cardenas Ibarra', 'lcardenas@gmail.com', 
+sha224('1234'),'Nutriologo', 'Control de peso y habitos saludables
+Asesoria para enfermedades metabólicas',
+null, 'profesional');
 
+insert into Profesionales values(default, 'Alejandro', 'Lezama Torres', 'alezama@gmail.com', 
+sha224('5678'),'Entrenador', 'Entrenamiento personalizado según objetivos (pérdida de peso, ganancia muscular, tonificación)
+Rutinas especializadas para principiantes y avanzados
+Preparación para competencias fitness y culturismo
+Corrección de técnica y prevención de lesiones
+Motivación y hábitos saludables para un cambio duradero',
+null, 'profesional');
 
-
-insert into usuarios values(default, 'Luis Manuel', 'Cardenas Ibarra', 27, 'lcardenas@gmail.com',
-'masculino','1998-11-04', null, sha224('1234'),'admin');
-
-insert into usuarios values(default, 'Alejandro', 'Lezama Torres', 21, 'alezama@gmail.com',
-'masculino','2004-06-15', null, sha224('5678'),'profesional');
-
-insert into usuarios values(default, 'Jovanny', 'Lobato Garcia', 21, 'jlobato@gmail.com',
-'masculino','2004-05-26', 'dieta', sha224('4321'),'usuario');
-
-select * from usuarios order by id_usuario asc;
-
-
-SELECT id_usuario,nombre,apellidos,tipousuario
-            FROM usuarios WHERE correoE='alezama@gmail.com' AND 
-            contrasenia=sha224('5678');
-
+insert into Clientes values(default, 'Jovanny', 'Lobato Garcia', 'jlobato@gmail.com', sha224('4321'), 21,
+'74kg', '174cm', '32cm','35cm','67cm','45cm','dieta','masculino','cliente');

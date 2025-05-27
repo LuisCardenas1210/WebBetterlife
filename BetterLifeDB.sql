@@ -69,3 +69,57 @@ null, 'profesional');
 
 insert into Clientes values(default, 'Jovanny', 'Lobato Garcia', 'jlobato@gmail.com', sha224('4321'), 21,
 '74kg', '174cm', '32cm','35cm','67cm','45cm','dieta','masculino','cliente');
+
+
+INSERT INTO rutinas (
+    id_cliente,
+    id_profesional,
+    descripciónrutina,
+    tiporutina,
+    lunes,
+    martes,
+    miercoles,
+    jueves,
+    viernes,
+    sabado,
+    domingo
+) VALUES (
+    1,                      -- id_cliente 
+    1,                      -- id_profesional 
+    'Rutina para pérdida de peso',  -- descripcion
+    'dieta',                -- tiporutina
+    'avena',      -- lunes
+    'huevos',     -- martes
+    'yogur',      -- miercoles
+    'fruta',      -- jueves
+    'cereal',     -- viernes
+    'jugo natural', -- sabado
+    'pan integral'  -- domingo
+);
+
+INSERT INTO rutinas (
+    id_cliente,
+    id_profesional,
+    descripciónrutina,
+    tiporutina,
+    lunes,
+    martes,
+    miercoles,
+    jueves,
+    viernes,
+    sabado,
+    domingo
+) VALUES (
+    1,                      -- id_cliente
+    1,                      -- id_profesional 
+    'Rutina para tonificación muscular', 
+    'ejercicio',            -- tiporutina
+    'Pecho y tríceps',      -- lunes
+    'Espalda y bíceps',     -- martes
+    'Cardio',               -- miercoles
+    'Piernas',              -- jueves
+    'Hombros y abdominales',-- viernes
+    'Descanso activo',      -- sabado
+    'Descanso'              -- domingo
+);
+

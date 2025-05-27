@@ -11,7 +11,6 @@ session_start();
 
 <body>
 <?php require_once('Datos/header.php'); ?>
-
 <?php
 require_once 'datos/Conexion.php';
 
@@ -27,10 +26,9 @@ $stmt = $conexion->prepare($sql);
 $stmt->execute(['id' => $id_cliente]);
 $rutina = $stmt->fetch(PDO::FETCH_ASSOC);
 
-// Definir tipo de rutina manualmente o por lógica propia
-$tipo = 'dieta'; // o 'ejercicio'
-
 if ($rutina):
+    // Obtener el tipo de rutina desde la BD
+    $tipo = strtolower($rutina['tiporutina']);  // 'dieta' o 'ejercicio'
 ?>
     <h2>Rutina semanal (<?php echo ucfirst($tipo); ?>)</h2>
     <table border="1">
@@ -47,7 +45,7 @@ if ($rutina):
         foreach ($dias as $dia) {
             echo "<tr>
                     <td>" . ucfirst($dia) . "</td>
-                    <td><input type='text' name='txt$dia' value='{$rutina[$dia]}'></td>
+                    <td><input type='text' name='txt$dia' value='" . htmlspecialchars($rutina[$dia]) . "'></td>
                     <td><input type='text' name='txtExtra$dia'></td>
                 </tr>";
         }

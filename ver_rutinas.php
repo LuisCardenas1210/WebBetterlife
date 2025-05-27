@@ -11,50 +11,55 @@ session_start();
 
 <body>
 <?php require_once('Datos/header.php'); ?>
+
 <?php
 require_once 'datos/Conexion.php';
 
-// Obtener conexión a la base de datos
+
 $conexion = Conexion::conectar();
 
-// ID del cliente (puedes obtenerlo desde la URL o sesión)
+
 $id_cliente = 1;
 
-// Consulta a la tabla de Rutinas
-$sql = "SELECT * FROM Rutinas WHERE id_cliente = :id";
+$sql = "SELECT * FROM rutinas WHERE id_cliente = :id";
 $stmt = $conexion->prepare($sql);
 $stmt->execute(['id' => $id_cliente]);
-$rutina = $stmt->fetch(PDO::FETCH_ASSOC);
+$rutinas = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-if ($rutina):
-    // Obtener el tipo de rutina desde la BD
-    $tipo = strtolower($rutina['tiporutina']);  // 'dieta' o 'ejercicio'
-?>
-    <h2>Rutina semanal (<?php echo ucfirst($tipo); ?>)</h2>
-    <table border="1">
-        <thead>
-            <tr>
-                <td>Día</td>
-                <td><?php echo ($tipo == 'dieta') ? 'Comida' : 'Área a entrenar'; ?></td>
-                <td><?php echo ($tipo == 'dieta') ? 'Ingredientes o preparación' : 'Ejercicios'; ?></td>
-            </tr>
-        </thead>
-        <tbody>
-        <?php
-        $dias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
-        foreach ($dias as $dia) {
-            echo "<tr>
-                    <td>" . ucfirst($dia) . "</td>
-                    <td><input type='text' name='txt$dia' value='" . htmlspecialchars($rutina[$dia]) . "'></td>
-                    <td><input type='text' name='txtExtra$dia'></td>
-                </tr>";
-        }
+
+if ($rutinas):
+    foreach ($rutinas as $rutina):
+        $tipo = strtolower($rutina['tiporutina']);
         ?>
-        </tbody>
-    </table>
-<?php
+        <h2>Rutina semanal (<?php echo ucfirst($tipo); ?>)</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>Día</td>
+                    <td><?php echo ($tipo == 'dieta') ? 'Comida' : 'Área a entrenar'; ?></td>
+                    <td><?php echo ($tipo == 'dieta') ? 'Ingredientes o preparación' : 'Ejercicios'; ?></td>
+                </tr>
+            </thead>
+            <tbody>
+            <?php
+            $dias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
+            foreach ($dias as $dia) {
+                echo "<tr>
+                        <td>" . ucfirst($dia) . "</td>
+                        <td>" . htmlspecialchars($rutina[$dia]) . "</td>
+                        <td><input type='text' name='txtExtra{$rutina['id_rutina']}{$dia}'></td>
+                      </tr>";
+            }
+            ?>
+            </tbody>
+        </table>
+        <br><br>
+    <?php
+    endforeach;
 else:
-    echo "No se encontró una rutina para este cliente.";
-endif;
-// Conexion::desconectar();
+    echo "No se encontró ninguna rutina para este cliente.";
+endif;  
+
 ?>
+</body>
+</html>

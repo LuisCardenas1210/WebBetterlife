@@ -71,8 +71,12 @@ null, 'profesional');
 insert into Clientes values(default, 'Jovanny', 'Lobato Garcia', 'jlobato@gmail.com', sha224('4321'), 21,
 '74kg', '174cm', '32cm','35cm','67cm','45cm','dieta','masculino','cliente');
 
-insert into solicitudes values (default,1,1,'dieta','');
+insert into solicitudes values (default,1,1,'dieta',default);
+insert into solicitudes values (default,1,2,'ejercicio',default);
+insert into solicitudes values (default,1,1,'dietaYejercicio',default);
 
-select c.nombre, c.apellidos, c.Edad, c.genero, s.tipoRutina, p.nombre
-from Clientes c join solicitudes s on c.id_Cliente=s.id_Cliente
-join profesionales p on p.id_profesional=s.id_profesional; 
+select * from solicitudes;
+
+SELECT c.nombre as nombreCliente, c.apellidos, c.edad, c.genero, s.tipoRutina, p.nombre as nombreProfesional
+            FROM Clientes c JOIN solicitudes s ON c.id_Cliente=s.id_Cliente
+            JOIN profesionales p ON p.id_profesional=s.id_profesional;

@@ -24,26 +24,19 @@ session_start();
 <?php require_once('Datos/header.php'); ?>
 
 <?php
-require_once 'datos/Conexion.php';
-
-
-$conexion = Conexion::conectar();
-
+require_once 'Datos/DAORutina.php';
 
 $id_cliente = 1;
 
-$sql = "SELECT * FROM rutinas WHERE id_cliente = :id";
-$stmt = $conexion->prepare($sql);
-$stmt->execute(['id' => $id_cliente]);
-$rutinas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+$daoRutina = new DAORutina();
+$rutinas = $daoRutina->obtenerRutinasPorCliente($id_cliente);
 
 if ($rutinas):
     foreach ($rutinas as $rutina):
         $tipo = strtolower($rutina['tiporutina']);
         ?>
         <h2>Rutina semanal (<?php echo ucfirst($tipo); ?>)</h2>
-        <table border="1">
+        <table>
             <thead>
                 <tr>
                     <td>Día</td>
@@ -68,9 +61,8 @@ if ($rutinas):
     <?php
     endforeach;
 else:
-    echo "No se encontró ninguna rutina para este cliente.";
-endif;  
-
+    echo "<p style='margin-left: 20px;'>No se encontró ninguna rutina para este cliente.</p>";
+endif;
 ?>
 </body>
 </html>

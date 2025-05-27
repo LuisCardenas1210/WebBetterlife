@@ -1,6 +1,7 @@
 <?php
 session_start();
-require_once('Datos/DAORutina.php');
+require_once 'Datos/DAORutina.php';
+require_once 'Modelos/Rutina.php';
 ?>
 
 <!DOCTYPE html>
@@ -25,13 +26,14 @@ require_once('Datos/DAORutina.php');
             $cliente = (new DAORutina())->obtenerUno($_POST['id']);
         }
         ?>
-        <form action="usuarios.php" method="post">
+        <form action="usuarios.php" method="POST">
             <!-- Aquí irá el contenido del formulario -->
             <div class="contenedorInfo">
                 <div class="DatosGenerales">
                     <legend class="kanit">Crear Rutina</legend>
                     <label for="lblCliente">Cliente:</label>
-                    <input type="text" name="txtCliente" id="txtCliente" disabled value="<?= $cliente?->nombre ?? '' ?>">
+                    <input type="text" name="txtCliente" id="txtCliente" disabled
+                        value="<?= $cliente?->nombre ?? '' ?>">
                     <br>
                     <label for="lblEdad">Edad:</label>
                     <input type="number" name="txtEdad" id="txtEdad" disabled value="<?= $cliente?->edad ?? '' ?>">
@@ -40,7 +42,8 @@ require_once('Datos/DAORutina.php');
                     <input type="text" name="txtPeso" id="txtPeso" disabled value="<?= $cliente?->peso ?? '' ?>">
                     <br>
                     <label for="lblEstatura">Estatura:</label>
-                    <input type="text" name="txtEstatura" id="txtEstatura" disabled value="<?= $cliente?->estatura ?? '' ?>">
+                    <input type="text" name="txtEstatura" id="txtEstatura" disabled
+                        value="<?= $cliente?->estatura ?? '' ?>">
                     <br>
                 </div>
                 <div class="DatosMedidas">
@@ -52,14 +55,14 @@ require_once('Datos/DAORutina.php');
                     <input type="text" name="txtBrazoC" id="txtBrazoC" disabled value="<?= $cliente?->brazoC ?? '' ?>">
                     <br>
                     <label for="lblCintura">Cintura:</label>
-                    <input type="text" name="txtCintura" id="txtCintura" disabled value="<?= $cliente?->cintura ?? '' ?>">
+                    <input type="text" name="txtCintura" id="txtCintura" disabled
+                        value="<?= $cliente?->cintura ?? '' ?>">
                     <br>
                     <label for="lblPierna">Pierna:</label>
                     <input type="text" name="txtPierna" id="txtPierna" disabled value="<?= $cliente?->pierna ?? '' ?>">
                     <br>
                 </div>
                 <div>
-
                     <div class="Rutina">
                         <legend class="kanit">Descripción de rutina</legend>
                         <textarea name="txtRutina" id="txtRutina"
@@ -74,6 +77,31 @@ require_once('Datos/DAORutina.php');
                         <button type="submit" id="btnGuardar">Guardar y volver</button>
                     </div>
         </form>
+        <!-- <?php
+        /* if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $rutina = new Rutina();
+            $rutina->id_Cliente = $_POST['id_Cliente']; // Asegúrate de enviar este ID desde antes (por sesión o campo hidden)
+            $rutina->descripciónRutina = $_POST['txtRutina'];
+            // Días de la semana
+            $rutina->lunes = $_POST['txtComidaL'];
+            $rutina->martes = $_POST['txtComidaM'];
+            $rutina->miercoles = $_POST['txtComidaW'];
+            $rutina->jueves = $_POST['txtComidaJ'];
+            $rutina->viernes = $_POST['txtComidaV'];
+            $rutina->sabado = $_POST['txtComidaS'];
+            $rutina->domingo = $_POST['txtComidaD'];
+
+            $dao = new DAORutina();
+            $resultado = $dao->agregar($rutina);
+
+            if ($resultado > 0) {
+                echo "<script>alert('Rutina guardada correctamente'); window.location='Usuarios.php';</script>";
+            } else {
+                echo "<script>alert('Error al guardar la rutina');</script>";
+            }
+        } */
+        ?> -->
+
     </main>
 </body>
 

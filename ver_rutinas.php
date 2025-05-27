@@ -1,4 +1,18 @@
 <?php
+session_start();
+?>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Rutina Semanal</title>
+    <link rel="stylesheet" href="css/estilosMain.css">
+</head>
+
+<body>
+<?php require_once('Datos/header.php'); ?>
+
+<?php
 require_once 'datos/Conexion.php';
 
 // Obtener conexión a la base de datos

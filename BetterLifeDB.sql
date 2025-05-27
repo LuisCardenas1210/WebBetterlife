@@ -41,18 +41,17 @@ jueves varchar(200) not null,
 viernes varchar(200) not null,
 sabado varchar(200) not null,
 domingo varchar(200) not null,
-foreign key (id_Cliente) references Clientes(id_Cliente),
-foreign key (id_Profesional) references Profesionales(id_Profesionales)
+foreign key (id_Cliente) references Clientes(id_Cliente)
 );
 
 CREATE TABLE solicitudes (
     id_Solicitud SERIAL PRIMARY KEY,
-    id_Cliente INT NOT NULL
-    id_Profesional int not null,
+    id_Cliente INT NOT NULL,
+	id_Profesional int not null,
     TipoRutina VARCHAR(15) not null,
     fecha_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_Cliente) REFERENCES Clientes(id_Cliente),
-    FOREIGN KEY (id_Profesional) REFERENCES Profesionales(id_Profesional)
+	FOREIGN KEY (id_Profesional) REFERENCES Profesionales(id_Profesional)
 );
 
 insert into Profesionales values(default, 'Luis Manuel', 'Cardenas Ibarra', 'lcardenas@gmail.com', 
@@ -70,13 +69,3 @@ null, 'profesional');
 
 insert into Clientes values(default, 'Jovanny', 'Lobato Garcia', 'jlobato@gmail.com', sha224('4321'), 21,
 '74kg', '174cm', '32cm','35cm','67cm','45cm','dieta','masculino','cliente');
-
-insert into solicitudes values (default,1,1,'dieta',default);
-insert into solicitudes values (default,1,2,'ejercicio',default);
-insert into solicitudes values (default,1,1,'dietaYejercicio',default);
-
-select * from solicitudes;
-
-SELECT c.nombre as nombreCliente, c.apellidos, c.edad, c.genero, s.tipoRutina, p.nombre as nombreProfesional
-            FROM Clientes c JOIN solicitudes s ON c.id_Cliente=s.id_Cliente
-            JOIN profesionales p ON p.id_profesional=s.id_profesional;

@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once('Datos/DAOCliente.php');
 ?>
 
 <!DOCTYPE html>
@@ -17,36 +18,33 @@ session_start();
     ?>
     <main>
         <table border="1">
-            <tr class="Titulo kanit">
-                <th>Nombre</th>
+            <thead>
+                <th>Nombre</th> 
                 <th>Apellidos</th>
                 <th>Edad</th>
                 <th>Genero</th>
-            </tr>
-            <tr onclick="window.location='CrearRutina.php';" class="Contenido">
-                <td>Luis Manuel</th>
-                <td>Cárdenas Ibarra</th>
-                <td>20</th>
-                <td>Hombre</th>
-            </tr>
-            <tr onclick="window.location='CrearRutina.php';" class="Contenido">
-                <td>Alejandro</th>
-                <td>Lezama Torres</th>
-                <td>20</th>
-                <td>Hombre</th>
-            </tr>
-            <tr onclick="window.location='CrearRutina.php';" class="Contenido">
-                <td>Jovanny</th>
-                <td>Lobato García</th>
-                <td>21</th>
-                <td>Hombre</th>
-            </tr>
-            <tr onclick="window.location='CrearRutina.php';" class="Contenido">
-                <td>Manuel</th>
-                <td>Cano Zavala</th>
-                <td>20</th>
-                <td>Hombre</th>
-            </tr>
+                <th>Tipo de rutina</th>
+                <th>Profesional</th>
+            </thead>
+            <tbody>
+                <?php
+                $lista=(new DAOCliente())->obtenerTodos();
+                if($lista!=null){
+                    foreach($lista as $Cliente){
+                        echo"
+                        <tr onclick=\"window.location='CrearRutina.php';\" class=\"Contenido\">
+                            <td>$Cliente->nombreCliente</td>
+                            <td>$Cliente->apellidos</td>
+                            <td>$Cliente->edad</td>
+                            <td>$Cliente->genero</td>
+                            <td>$Cliente->tipoRutina</td>
+                            <td>$Cliente->nombreProfesional</td>
+                        </tr>
+                        ";
+                    }
+                }
+                ?>
+            </tbody>
         </table>
     </main>
 </body>

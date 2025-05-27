@@ -139,3 +139,7 @@ SELECT c.id_cliente, p.id_profesional,
             COALESCE(c.tipousuario, p.tipousuario) AS tipoUsuario FROM Clientes c
             FULL OUTER JOIN Profesionales p ON 1=0 WHERE (c.email='mcano@gmail.com' AND c.contrasenia=sha224('8765'))
             or (p.email='mcano@gmail.com' AND p.contrasenia=sha224('8765'));
+
+select * from clientes;
+
+SELECT  id_profesional, nombre, apellidos, tipousuario, email from profesionales where tipousuario != 'admin      ';

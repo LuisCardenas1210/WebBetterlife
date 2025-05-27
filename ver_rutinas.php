@@ -7,6 +7,17 @@ session_start();
     <meta charset="UTF-8">
     <title>Rutina Semanal</title>
     <link rel="stylesheet" href="css/estilosMain.css">
+    <style>
+        table {
+            margin-top: 50px;
+            margin-left: 20px;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+            padding: 5px;
+        }
+    </style>
 </head>
 
 <body>

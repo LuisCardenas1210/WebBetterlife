@@ -32,6 +32,8 @@ create table Rutinas(
 id_Rutina serial primary key,
 id_Cliente int,
 id_Profesional int,
+descripciónRutina varchar(800),
+tipoRutina varchar(15), 
 lunes varchar(200) not null,
 martes varchar(200) not null,
 miercoles varchar(200) not null,

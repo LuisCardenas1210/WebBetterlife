@@ -44,13 +44,13 @@ foreign key (id_Cliente) references Clientes(id_Cliente)
 );
 
 CREATE TABLE solicitudes (
-    id SERIAL PRIMARY KEY,
-    usuario_id INTEGER NOT NULL,
-    objetivo VARCHAR(255),
+    id_Solicitud SERIAL PRIMARY KEY,
+    id_Cliente INT NOT NULL,
+	id_Profesional int not null,
+    TipoRutina VARCHAR(15) not null,
     fecha_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (usuario_id) REFERENCES usuarios(id_usuario)
-        ON DELETE CASCADE
-        ON UPDATE CASCADE
+    FOREIGN KEY (id_Cliente) REFERENCES Clientes(id_Cliente)
+	FOREIGN KEY (id_Profesional) REFERENCES Profesionales(id_Profesional)
 );
 
 insert into Profesionales values(default, 'Luis Manuel', 'Cardenas Ibarra', 'lcardenas@gmail.com', 

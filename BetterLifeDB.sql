@@ -70,6 +70,17 @@ null, 'profesional');
 insert into Clientes values(default, 'Jovanny', 'Lobato Garcia', 'jlobato@gmail.com', sha224('4321'), 21,
 '74kg', '174cm', '32cm','35cm','67cm','45cm','dieta','masculino','cliente');
 
+id_Profesional serial primary key,
+nombre varchar(50) not null,
+apellidos varchar(50) not null,
+email varchar(100) not null,
+contrasenia bytea not null,
+especialidad varchar(30) not null,
+enfoque varchar(600)not null,
+eslogan varchar(150),
+tipoUsuario char(11) not null
+
+insert into Profesionales values (default, 'Manuel', 'Cano Zavala', 'mcano@gmail.com',sha224('8765'),'','',null,'admin');
 
 INSERT INTO rutinas (
     id_cliente,
@@ -123,3 +134,8 @@ INSERT INTO rutinas (
     'Descanso'              -- domingo
 );
 
+SELECT c.id_cliente, p.id_profesional,
+            COALESCE(c.nombre, p.nombre) AS nombre, COALESCE(c.apellidos, p.apellidos) AS apellidos,
+            COALESCE(c.tipousuario, p.tipousuario) AS tipoUsuario FROM Clientes c
+            FULL OUTER JOIN Profesionales p ON 1=0 WHERE (c.email='mcano@gmail.com' AND c.contrasenia=sha224('8765'))
+            or (p.email='mcano@gmail.com' AND p.contrasenia=sha224('8765'));

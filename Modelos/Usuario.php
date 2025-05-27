@@ -3,7 +3,7 @@ class Usuario{
     public $id_Cliente="";
     public $id_Profesional="";
     public $nombre="";
-    public $apellido="";
+    public $apellidos="";
     public $edad=0;
     public $correoE="";
     public $sexo="";

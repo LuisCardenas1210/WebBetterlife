@@ -25,7 +25,7 @@
                                     <li class="liSubmenu"><a href="#">Solicitar ejercicios</a></li> <!-- solicitar_ejercicios.php -->
                                     <li class="liSubmenu"><a href="#">Ver solicitudes</a></li> <!-- ver_solicitudes.php -->
                                     <li class="liSubmenu"><a href="#">Ver rutinas</a></li> <!-- ver_rutinas.php -->
-                                <?php elseif($_SESSION["tipoUsuario"] === "Profesional"): ?>
+                                <?php elseif($_SESSION["tipoUsuario"] === "profesional"): ?>
                                     <li class="liSubmenu"><a href="usuarios.php">Crear Rutina</a></li>
                                     <li class="liSubmenu"><a href="Solicitudes.php">Ver Solicitudes</a></li>
                                 <?php endif; ?>

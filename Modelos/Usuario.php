@@ -1,6 +1,7 @@
 <?php
 class Usuario{
-    public $id_usuario="";
+    public $id_Cliente="";
+    public $id_Profesional="";
     public $nombre="";
     public $apellido="";
     public $edad=0;

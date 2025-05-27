@@ -23,7 +23,7 @@ echo "</pre>"; */
                     session_start();
                     $_SESSION["id"]="$usuario->correoE";
                     $_SESSION["nombre"]="$usuario->nombre";
-                    $_SESSION["apellidos"]="$usuario->apellidos";
+                    $_SESSION["apellidos"]="$usuario->apellido";
                     $_SESSION["tipoUsuario"]="$usuario->tipoUsuario";
                     header("Location: index.php");
             }else{

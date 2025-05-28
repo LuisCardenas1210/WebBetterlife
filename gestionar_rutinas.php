@@ -43,59 +43,6 @@ try {
     <title>Gestionar Rutinas</title>
     <link rel="stylesheet" href="css/estilosMain.css">
     <link rel="stylesheet" href="css/estilosVer_rutinas.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-
-        h2 {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .mensaje {
-            text-align: center;
-            font-weight: bold;
-            margin-top: 20px;
-            color: #2c3e50;
-        }
-
-        table {
-            margin: 30px auto;
-            border-collapse: collapse;
-            width: 95%;
-        }
-
-        table, th, td {
-            border: 1px solid #000;
-        }
-
-        th, td {
-            padding: 12px 10px;
-            text-align: center;
-        }
-
-        th {
-            background-color: #c0392b;
-        }
-
-        button {
-            padding: 7px 12px;
-            background-color: #c0392b;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #922b21;
-        }
-
-        form {
-            margin: 0;
-        }
-    </style>
 </head>
 <body>
 <?php require_once('Datos/header.php'); ?>
@@ -140,19 +87,58 @@ try {
                 <td><?php echo htmlspecialchars($rutina['viernes']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['sabado']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['domingo']); ?></td>
+        <!--
                 <td>
                     <form method="post" action="" onsubmit="return confirm('¿Seguro que deseas eliminar esta rutina?')">
                         <input type="hidden" name="id_rutina" value="<?php echo $rutina['id_rutina']; ?>">
                         <button type="submit">Eliminar</button>
                     </form>
                 </td>
+        -->
+                <td>
+                    <form method="post" action="" class="form-eliminar">
+                        <input type="hidden" name="id_rutina" value="<?php echo $rutina['id_rutina']; ?>">
+                        <button type="button" onclick="mostrarModal(this)">Eliminar</button>
+                    </form>
+                </td>
+
             </tr>
         <?php endforeach; ?>
         </tbody>
     </table>
-<?php else: ?>
-    <p class="mensaje">No hay rutinas registradas.</p>
-<?php endif; ?>
+    <?php else: ?>
+        <p class="mensaje">No hay rutinas registradas.</p>
+    <?php endif; ?>
+
+
+    <div id="modalConfirmacion" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+        <div style="background:white; padding:20px; border-radius:10px; max-width:300px; text-align:center;">
+            <p>¿Seguro que deseas eliminar esta rutina?</p>
+            <button onclick="confirmarEliminar()">Sí, eliminar</button>
+            <button onclick="cerrarModal()">Cancelar</button>
+        </div>
+    </div>
+
+    <script>
+        let formularioActual = null;
+
+        function mostrarModal(boton) {
+            formularioActual = boton.closest('form');
+            document.getElementById('modalConfirmacion').style.display = 'flex';
+        }
+
+        function cerrarModal() {
+            document.getElementById('modalConfirmacion').style.display = 'none';
+            formularioActual = null;
+        }
+
+        function confirmarEliminar() {
+            if (formularioActual) {
+                formularioActual.submit();
+            }
+        }
+    </script>
 
 </body>
 </html>

@@ -70,7 +70,7 @@ if (isset($_SESSION['message'])) {
         <?php
         try {
             $conexion = Conexion::conectar();
-            $stmt = $conexion->prepare("SELECT id_profesional, nombre, apellidos FROM profesionales WHERE especialidad ILIKE 'Nutriologo' or especialidad ILIKE 'Entrenador'");
+            $stmt = $conexion->prepare("SELECT id_profesional, nombre, apellidos FROM profesionales WHERE especialidad ILIKE 'Nutriologo' or especialidad ILIKE 'Entrenador' and status=TRUE");
             $stmt->execute();
 
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {

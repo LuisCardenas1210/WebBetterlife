@@ -1,6 +1,14 @@
 <?php
 session_start();
+
+if (!isset($_SESSION["tipoUsuario"])) {
+    echo "<p style='color:red; text-align:center;'>No ha iniciado sesión.</p>";
+    exit;
+}
+
+$tipoUsuario = $_SESSION["tipoUsuario"];
 ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,27 +28,42 @@ session_start();
         h2, p {
             text-align: center;
         }
-        body{
-            margin-top: 100px;
-        }
     </style>
 </head>
 
 <body>
 <?php require_once('Datos/header.php'); ?>
+
 <?php
 require_once 'Datos/Conexion.php';
 
-$id_cliente = 1; // puedes cambiar esto por $_SESSION["id_cliente"] si ya lo tienes en sesión
+// Usa el ID del cliente de la sesión si existe, si no, usa uno fijo (modo prueba)
+$id_cliente = isset($_SESSION["id_cliente"]) ? $_SESSION["id_cliente"] : 1;
 
 try {
     $conexion = Conexion::conectar();
-    $sql = "SELECT solicitudes.id_solicitud, solicitudes.tiporutina, solicitudes.fecha_solicitud,
-                   profesionales.nombre AS nombre_profesional, profesionales.apellidos AS apellidos_profesional
+
+    $sql = "SELECT 
+                solicitudes.id_solicitud, 
+                solicitudes.tiporutina, 
+                solicitudes.fecha_solicitud,
+                profesionales.nombre AS nombre_profesional, 
+                profesionales.apellidos AS apellidos_profesional,
+                clientes.nombre AS nombre_cliente,
+                clientes.apellidos AS apellidos_cliente
             FROM solicitudes
             JOIN profesionales ON solicitudes.id_profesional = profesionales.id_profesional
-            WHERE solicitudes.id_cliente = :id_cliente
-            ORDER BY solicitudes.fecha_solicitud DESC";
+            JOIN clientes ON solicitudes.id_cliente = clientes.id_cliente
+            WHERE solicitudes.id_cliente = :id_cliente";
+
+    // Filtrado según tipoUsuario
+    if ($tipoUsuario === 'entrenador') {
+        $sql .= " AND solicitudes.tiporutina = 'ejercicio'";
+    } elseif ($tipoUsuario === 'nutriologo') {
+        $sql .= " AND solicitudes.tiporutina = 'dieta'";
+    }
+
+    $sql .= " ORDER BY solicitudes.fecha_solicitud DESC";
 
     $stmt = $conexion->prepare($sql);
     $stmt->execute(['id_cliente' => $id_cliente]);
@@ -57,15 +80,17 @@ try {
                     <th>Tipo de Rutina</th>
                     <th>Fecha de Solicitud</th>
                     <th>Profesional Asignado</th>
+                    <th>Cliente</th>
                 </tr>
             </thead>
             <tbody>
             <?php foreach ($solicitudes as $solicitud): ?>
                 <tr>
-                    <td><?php echo htmlspecialchars($solicitud['id_solicitud']); ?></td>
-                    <td><?php echo ucfirst(htmlspecialchars($solicitud['tiporutina'])); ?></td>
-                    <td><?php echo htmlspecialchars($solicitud['fecha_solicitud']); ?></td>
-                    <td><?php echo htmlspecialchars($solicitud['nombre_profesional'] . ' ' . $solicitud['apellidos_profesional']); ?></td>
+                    <td><?= htmlspecialchars($solicitud['id_solicitud']) ?></td>
+                    <td><?= ucfirst(htmlspecialchars($solicitud['tiporutina'])) ?></td>
+                    <td><?= htmlspecialchars($solicitud['fecha_solicitud']) ?></td>
+                    <td><?= htmlspecialchars($solicitud['nombre_profesional'] . ' ' . $solicitud['apellidos_profesional']) ?></td>
+                    <td><?= htmlspecialchars($solicitud['nombre_cliente'] . ' ' . $solicitud['apellidos_cliente']) ?></td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
@@ -81,5 +106,6 @@ try {
     Conexion::desconectar();
 }
 ?>
+
 </body>
 </html>

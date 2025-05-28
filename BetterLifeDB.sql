@@ -169,9 +169,9 @@ VALUES
 		1, -- id_profesional 
 		'Rutina para tonificación muscular',
 		'ejercicio', -- tiporutina
-		'Pecho y tríceps', -- lunes
+		'Pecho y triceps', -- lunes
 		'Remo 3x10 y copa 3x15',
-		'Espalda y bíceps', -- martes
+		'Espalda y biceps', -- martes
 		'ejercicios de espalda y bíceps',
 		'Cardio', -- miercoles
 		'Caminadora 30min.',
@@ -214,16 +214,7 @@ SELECT
 FROM
 	CLIENTES;
 
-SELECT
-	ID_PROFESIONAL,
-	NOMBRE,
-	APELLIDOS,
-	TIPOUSUARIO,
-	EMAIL
-FROM
-	PROFESIONALES
-WHERE
-	TIPOUSUARIO != 'admin      ';
+SELECT  id_profesional, nombre, apellidos, tipousuario, email from profesionales where tipousuario != 'admin      ';
 
 -- ejecutar esto (ref pulpito){
 -- Agrega columna "status" a Clientes

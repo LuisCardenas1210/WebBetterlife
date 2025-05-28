@@ -23,15 +23,23 @@ class DAOUsuario
             $this->conectar();
 
             $obj = null;
-            $correoE2 = $correoE;
-            $contrasenia2 = $contrasenia;
-            $sentenciaSQL = $this->conexion->prepare("SELECT c.id_cliente, p.id_profesional,
-            COALESCE(c.nombre, p.nombre) AS nombre, COALESCE(c.apellidos, p.apellidos) AS apellidos,
-            COALESCE(c.tipousuario, p.tipousuario) AS tipoUsuario, COALESCE(c.status, p.status) AS status
-            FROM Clientes c
-            FULL OUTER JOIN Profesionales p ON 1=0 WHERE (c.email=? AND c.contrasenia=sha224(?))
-            or (p.email=? AND p.contrasenia=sha224(?));");
-            $sentenciaSQL->execute([$correoE, $contrasenia, $correoE2, $contrasenia2]);
+            $sentenciaSQL = $this->conexion->prepare("
+                SELECT 
+                    c.id_cliente, 
+                    p.id_profesional,
+                    COALESCE(c.nombre, p.nombre) AS nombre, 
+                    COALESCE(c.apellidos, p.apellidos) AS apellidos,
+                    COALESCE(c.tipousuario, p.tipousuario) AS tipoUsuario, 
+                    COALESCE(c.status, p.status) AS status,
+                    p.especialidad
+                FROM Clientes c
+                FULL OUTER JOIN Profesionales p ON 1=0 
+                WHERE 
+                    (c.email = ? AND c.contrasenia = sha224(?))
+                    OR 
+                    (p.email = ? AND p.contrasenia = sha224(?));
+            ");
+            $sentenciaSQL->execute([$correoE, $contrasenia, $correoE, $contrasenia]);
 
             $fila = $sentenciaSQL->fetch(PDO::FETCH_OBJ);
             if ($fila) {
@@ -42,6 +50,7 @@ class DAOUsuario
                 $obj->apellidos = $fila->apellidos;
                 $obj->tipoUsuario = $fila->tipousuario;
                 $obj->status = $fila->status;
+                $obj->especialidad = isset($fila->especialidad) ? $fila->especialidad : null;
             }
             return $obj;
         } catch (Exception $e) {
@@ -87,18 +96,19 @@ class DAOUsuario
             $this->conectar();
 
             $lista = array();
-            $sentenciaSQL = $this->conexion->prepare("SELECT id_profesional, nombre, apellidos, tipousuario, email, status FROM profesionales WHERE tipousuario != 'admin'");
+            $sentenciaSQL = $this->conexion->prepare("SELECT id_profesional, nombre, apellidos, tipousuario, email, especialidad, status FROM profesionales WHERE tipousuario != 'admin'");
             $sentenciaSQL->execute();
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
 
             foreach ($resultado as $fila) {
-                $cliente = new Profesional();
-                $cliente->id_Profesional = $fila->id_profesional;
-                $cliente->nombreProfesional = $fila->nombre;
-                $cliente->apellidos = $fila->apellidos;
-                $cliente->tipoUsuario = $fila->tipousuario;
-                $cliente->email = $fila->email;
-                $lista[] = $cliente;
+                $profesional = new Profesional();
+                $profesional->id_Profesional = $fila->id_profesional;
+                $profesional->nombreProfesional = $fila->nombre;
+                $profesional->apellidos = $fila->apellidos;
+                $profesional->tipoUsuario = $fila->tipousuario;
+                $profesional->email = $fila->email;
+                $profesional->especialidad = $fila->especialidad;
+                $lista[] = $profesional;
             }
 
             return $lista;
@@ -151,37 +161,4 @@ class DAOUsuario
             Conexion::desconectar();
         }
     }
-
-
-    /**
-     * Función para editar al empleado de acuerdo al objeto recibido como parámetro
-     */
-    /* public function editar(Usuario $obj)
-    {
-        try {
-            $sql = "UPDATE usuarios
-                    SET nombre = ?, apellido1 = ?, apellido2 = ?, email = ?, genero = ?, telefono = ?, rol = ?, contrasenia = sha224(?)
-                    WHERE id = ?";
-
-            $this->conectar();
-
-            $sentenciaSQL = $this->conexion->prepare($sql);
-            $sentenciaSQL->execute([
-                $obj->nombre,
-                $obj->apellido1,
-                $obj->apellido2,
-                $obj->correo,
-                $obj->genero,
-                $obj->telefono,
-                $obj->rol,
-                $obj->contrasenia,
-                $obj->id
-            ]);
-            return true;
-        } catch (PDOException $e) {
-            return false;
-        } finally {
-            Conexion::desconectar();
-        }
-    } */
 }

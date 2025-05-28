@@ -21,13 +21,12 @@
                             <span>Bienvenido, <?= htmlspecialchars($_SESSION["nombre"]) ?></span>
                             <ul class="submenu">
                                 <?php if (trim($_SESSION["tipoUsuario"]) === "cliente"): ?>
-                                    <li class="liSubmenu"><a href="solicitar_dieta.php">Solicitar dieta</a></li> <!-- solicitar_dieta.php -->
-                                    <li class="liSubmenu"><a href="solicitar_ejercicios.php">Solicitar ejercicios</a></li> <!-- solicitar_ejercicios.php -->
+                                    <li class="liSubmenu"><a href="solicitar_dieta.php">Solicitar Rutina</a></li> <!-- solicitar_dieta.php -->
                                     <li class="liSubmenu"><a href="ver_solicitudes.php">Ver solicitudes</a></li> <!-- ver_solicitudes.php -->
                                     <li class="liSubmenu"><a href="ver_rutinas.php">Ver rutinas</a></li> <!-- ver_rutinas.php -->
                                 <?php elseif($_SESSION["tipoUsuario"] === "profesional"): ?>
                                     <li class="liSubmenu"><a href="usuarios.php">Crear Rutina</a></li>
-                                    <li class="liSubmenu"><a href="Solicitudes.php">Ver Solicitudes</a></li>                                
+                                    <li class="liSubmenu"><a href="ver_solicitudes_profesionales.php">Ver Solicitudes</a></li>                                
                                 <?php elseif($_SESSION["tipoUsuario"] === "admin      "): ?>
                                     <li class="liSubmenu"><a href="GestionUsuarios.php">Gestionar Usuarios</a></li>
                                     <li class="liSubmenu"><a href="gestionar_rutinas.php">Gestionar Rutinas</a></li>

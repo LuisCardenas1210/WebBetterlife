@@ -6,7 +6,7 @@ require_once 'Modelos/Cliente.php';
 require_once 'Modelos/Profesional.php';
 $errores = [];
 $mensaje = "";
-$tipo = $_POST['tipoUsuario'] ?? ''; 
+$tipo = $_POST['tipoUsuario'] ?? '';
 
 function validarMedida($valor)
 {
@@ -69,36 +69,57 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($errores)) {
         // Registro exitoso
         $mensaje = $tipo === 'cliente'
-            ? "Cliente registrado correctamente: $nombre ($correo)"
-            : "Profesional registrado correctamente: $nombre ($correo)";
+            ? "Cliente registrado correctamente."
+            : "Profesional registrado correctamente.";
         // Aquí iría la lógica de inserción en BD
         if ($tipo === 'cliente') {
-        $cliente = new Cliente();
-        $cliente->nombreCliente = $nombre;
-        $cliente->apellidos = $apellidos;
-        $cliente->email = $correo;
-        $cliente->contrasenia = $password;
-        $cliente->edad = $edad;
-        $cliente->peso = $peso;
-        $cliente->estatura = $estatura;
-        $cliente->brazoR = $brazoR;
-        $cliente->brazoC = $brazoC;
-        $cliente->cintura = $cintura;
-        $cliente->pierna = $pierna;
-        $cliente->intereses = $preferencia;
-        $cliente->genero = $sexo;
-        $cliente->tipoUsuario = "cliente";
+            $cliente = new Cliente();
+            $cliente->nombreCliente = $nombre;
+            $cliente->apellidos = $apellidos;
+            $cliente->email = $correo;
+            $cliente->contrasenia = $password;
+            $cliente->edad = $edad;
+            $cliente->peso = $peso;
+            $cliente->estatura = $estatura;
+            $cliente->brazoR = $brazoR;
+            $cliente->brazoC = $brazoC;
+            $cliente->cintura = $cintura;
+            $cliente->pierna = $pierna;
+            $cliente->intereses = $preferencia;
+            $cliente->genero = $sexo;
+            $cliente->tipoUsuario = "cliente";
 
-        $daoCliente = new DAOCliente();
-        $idInsertado = $daoCliente->agregarCliente($cliente);
+            $daoCliente = new DAOCliente();
+            $idInsertado = $daoCliente->agregarCliente($cliente);
 
-        if ($idInsertado > 0) {
-            $mensaje = "Cliente registrado correctamente.";
-        } else {
-            $errores[] = "Ocurrió un error al registrar el cliente.";
+            if ($idInsertado > 0) {
+                $mensaje = "Cliente registrado correctamente.";
+            } else {
+                $errores[] = "Ocurrió un error al registrar el cliente.";
+            }
+
+            if ($tipo === 'profesional') {
+                $profesional = new Profesional();
+                $profesional->nombreProfesional = $nombre;
+                $profesional->apellidos = $apellidos;
+                $profesional->email = $correo;
+                $profesional->contrasenia = $password;
+                $profesional->especialidad = $especialidad;
+                $profesional->enfoque = $enfoque;
+                $profesional->eslogan = $eslogan;
+                $profesional->tipoUsuario = "profesional";
+
+                $daoProfesional = new DAOProfesional();
+                $idInsertado = $daoProfesional->agregarProfesional($profesional);
+
+                if ($idInsertado > 0) {
+                    $mensaje = "Profesional registrado correctamente.";
+                } else {
+                    $errores[] = "Ocurrió un error al registrar el profesional.";
+                }
+            }
         }
     }
-}
 }
 ?>
 
@@ -117,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2>Registro de Usuario</h2>
 
         <?php if (!empty($errores)): ?>
-            <div id ="errores" class="error">
+            <div id="errores" class="error">
                 <ul>
                     <?php foreach ($errores as $error): ?>
                         <li><?= htmlspecialchars($error) ?></li>
@@ -129,7 +150,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php endif; ?>
 
         <form action="registrar.php" method="post">
-            
+
             <div class="input-group">
                 <label for="tipoUsuario">Tipo de usuario:</label>
                 <select name="tipoUsuario" id="tipoUsuario">

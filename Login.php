@@ -10,9 +10,6 @@
 <body>
 <?php
     include_once 'Datos/DAOUsuario.php';
-/* echo "<pre>";
-var_dump($Lista_usuarios);
-echo "</pre>"; */
 
     if(!empty($_POST)){
             //isset verifica que la variable venga en POST
@@ -23,7 +20,7 @@ echo "</pre>"; */
                     session_start();
                     $_SESSION["id"]="$usuario->correoE";
                     $_SESSION["nombre"]="$usuario->nombre";
-                    $_SESSION["apellidos"]="$usuario->apellido";
+                    $_SESSION["apellidos"]="$usuario->apellidos";
                     $_SESSION["tipoUsuario"]="$usuario->tipoUsuario";
                     header("Location: index.php");
             }else{

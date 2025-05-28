@@ -59,13 +59,13 @@ class DAOCliente
         }
     }
 
-    public function agregar(Cliente $obj)
+    public function agregarCliente(Cliente $obj)
     {
         $clave = 0;
         try {
             $sql = "INSERT INTO Clientes (nombre, apellidos, email, contrasenia, edad, peso, estatura, brazoR, brazoC, cintura, pierna, intereses, genero, tipoUsuario)
             values(
-            :nombre, :apellidos, :email, :contrasenia, :edad, :peso, :estatura, :brazoR, :brazoC, :cintura, :pierna, :intereses, :genero, :tipoUsuario);";
+            :nombre, :apellidos, :email, SHA224(:contrasenia), :edad, :peso, :estatura, :brazoR, :brazoC, :cintura, :pierna, :intereses, :genero, :tipoUsuario);";
 
             $this->conectar();
             $this->conexion->prepare($sql)

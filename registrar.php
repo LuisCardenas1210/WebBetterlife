@@ -90,7 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cliente->tipoUsuario = "cliente";
 
         $daoCliente = new DAOCliente();
-        $idInsertado = $daoCliente->agregar($cliente);
+        $idInsertado = $daoCliente->agregarCliente($cliente);
 
         if ($idInsertado > 0) {
             $mensaje = "Cliente registrado correctamente.";

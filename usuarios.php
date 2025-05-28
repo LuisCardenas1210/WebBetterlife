@@ -22,21 +22,22 @@ include_once('Datos/DAOCliente.php');
         <form id="formEnviar" method="POST" action="CrearRutina.php">
             <input type="hidden" name="id" id="inputIdUsuario">
         </form>
-        <table border="1">
-            <thead>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Edad</th>
-                <th>Genero</th>
-                <th>Tipo de rutina</th>
-                <th>Profesional</th>
-            </thead>
-            <tbody>
-                <?php
-                $lista = (new DAOCliente())->obtenerTodos();
-                if ($lista != null) {
-                    foreach ($lista as $Cliente) {
-                        echo "
+        <div id="tabla">
+            <table border="1">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Edad</th>
+                    <th>Genero</th>
+                    <th>Tipo de rutina</th>
+                    <th>Profesional</th>
+                </thead>
+                <tbody>
+                    <?php
+                    $lista = (new DAOCliente())->obtenerTodos();
+                    if ($lista != null) {
+                        foreach ($lista as $Cliente) {
+                            echo "
                         <tr onclick=\"enviarFormulario($Cliente->id_Cliente)\">
                             <td>$Cliente->nombreCliente</td>
                             <td>$Cliente->apellidos</td>
@@ -46,11 +47,12 @@ include_once('Datos/DAOCliente.php');
                             <td>$Cliente->nombreProfesional</td>
                         </tr>
                         ";
+                        }
                     }
-                }
-                ?>
-            </tbody>
-        </table>
+                    ?>
+                </tbody>
+            </table>
+        </div>
         <script src="Scripts/scriptUsuarios.js"></script>
     </main>
 </body>

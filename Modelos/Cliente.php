@@ -1,7 +1,7 @@
 <?php
 class Cliente
 {
-    public $id_cliente = 0;
+    public $id_Cliente = 0;
     public $nombreCliente = "";
     public $apellidos = "";
     public $email = "";

@@ -110,4 +110,55 @@ class DAOCliente
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function eliminarCliente($id)
+    {
+        try {
+            $this->conectar();
+
+            $sentenciaSQL = $this->conexion->prepare("DELETE FROM Clientes WHERE id_cliente = ?");
+            $resultado = $sentenciaSQL->execute(array($id));
+            return $resultado;
+        } catch (PDOException $e) {
+            //Si quieres acceder expecíficamente al numero de error
+            //se puede consultar la propiedad errorInfo
+            echo "Error al eliminar: " . $e->getMessage();
+            return false;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
+
+    public function obtenerClientes()
+    {
+        try {
+            $this->conectar();
+
+            $lista = array();
+            /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
+            $sentenciaSQL = $this->conexion->prepare("SELECT  id_cliente, nombre, apellidos, tipousuario, email from clientes;");
+            //Se ejecuta la sentencia sql, retorna un cursor con todos los elementos
+            $sentenciaSQL->execute();
+            //$resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
+            /*Podemos obtener un cursor (resultado con todos los renglones como 
+            un arreglo de arreglos asociativos o un arreglo de objetos*/
+            /*Se recorre el cursor para obtener los datos*/
+            foreach ($resultado as $fila) {
+                $cliente = new Cliente();
+                $cliente->id_Cliente = $fila->id_cliente;
+                $cliente->nombreCliente = $fila->nombre;
+                $cliente->apellidos = $fila->apellidos;
+                $cliente->tipoUsuario = $fila->tipousuario;
+                $cliente->email = $fila->email;
+                $lista[] = $cliente;
+            }
+
+            return $lista;
+        } catch (PDOException $e) {
+            return null;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
 }

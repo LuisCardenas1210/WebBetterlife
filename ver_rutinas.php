@@ -7,6 +7,7 @@ session_start();
     <meta charset="UTF-8">
     <title>Rutina Semanal</title>
     <link rel="stylesheet" href="css/estilosMain.css">
+    <link rel="stylesheet" href="css/estilosVer_rutinas.css">
     <style>
         table {
             margin-top: 50px;

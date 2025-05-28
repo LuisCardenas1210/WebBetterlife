@@ -1,10 +1,17 @@
 <?php
 session_start();
-include_once 'Datos/DAOUsuario.php';
+include_once 'Datos/DAOCliente.php';
+include_once 'Datos/DAOProfesional.php';
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminarCliente'])) {
     $id = intval($_POST['eliminarCliente']);
-    (new DAOUsuario())->eliminarCliente($id);
+    (new DAOCliente())->eliminarCliente($id);
+    exit;
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminarProfesional'])) {
+    $id = intval($_POST['eliminarProfesional']);
+    (new DAOProfesional())->eliminarProfesional($id);
     exit;
 }
 ?>
@@ -34,15 +41,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminarCliente'])) {
             </thead>
             <tbody>
                 <?php
-                $lista = (new DAOUsuario())->obtenerClientes();
+                $lista = (new DAOCliente())->obtenerClientes();
                 if ($lista != null) {
                     foreach ($lista as $Cliente) {
                         echo "
                         <tr>
-                            <td>$Cliente->nombre</td>
+                            <td>$Cliente->nombreCliente</td>
                             <td>$Cliente->apellidos</td>
                             <td>$Cliente->tipoUsuario</td>
-                            <td>$Cliente->correoE</td>
+                            <td>$Cliente->email</td>
                             <td>
                             <form method='POST' style='display:inline;'>
                                 <input type='hidden' name='eliminarCliente' value='" . $Cliente->id_Cliente . "'>
@@ -68,16 +75,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminarCliente'])) {
             </thead>
             <tbody>
                 <?php
-                $lista = (new DAOUsuario())->obtenerProfesionales();
+                $lista = (new DAOProfesional())->obtenerProfesionales();
                 if ($lista != null) {
-                    foreach ($lista as $Cliente) {
+                    foreach ($lista as $Profesional) {
                         echo "
                         <tr>
-                            <td>$Cliente->nombre</td>
-                            <td>$Cliente->apellidos</td>
-                            <td>$Cliente->tipoUsuario</td>
-                            <td>$Cliente->correoE</td>
-                            <td></td>
+                            <td>$Profesional->nombreProfesional</td>
+                            <td>$Profesional->apellidos</td>
+                            <td>$Profesional->tipoUsuario</td>
+                            <td>$Profesional->email</td>
+                            <td>
+                            <form method='POST' style='display:inline;'>
+                                <input type='hidden' name='eliminarProfesional' value='" . $Profesional->id_Profesional . "'>
+                                <button type='submit' onclick=\"return confirm('¿Eliminar Profesional?');\">Eliminar</button>
+                            </form>
+                            </td>
                         </tr>
                         ";
                     }

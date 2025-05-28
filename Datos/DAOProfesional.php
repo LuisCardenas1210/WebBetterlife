@@ -76,7 +76,7 @@ class DAOProfesional
 
             $lista = array();
             /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
-            $sentenciaSQL = $this->conexion->prepare("SELECT  id_profesional, nombre, apellidos, tipousuario, email from profesionales where tipousuario != 'admin      ';");
+            $sentenciaSQL = $this->conexion->prepare("SELECT  id_profesional, nombre, apellidos, tipousuario, email, status from profesionales where tipousuario != 'admin';");
             //Se ejecuta la sentencia sql, retorna un cursor con todos los elementos
             $sentenciaSQL->execute();
             //$resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
@@ -85,16 +85,59 @@ class DAOProfesional
             un arreglo de arreglos asociativos o un arreglo de objetos*/
             /*Se recorre el cursor para obtener los datos*/
             foreach ($resultado as $fila) {
-                $cliente = new Profesional();
-                $cliente->id_Profesional = $fila->id_profesional;
-                $cliente->nombreProfesional = $fila->nombre;
-                $cliente->apellidos = $fila->apellidos;
-                $cliente->tipoUsuario = $fila->tipousuario;
-                $cliente->email = $fila->email;
-                $lista[] = $cliente;
+                $Profesional = new Profesional();
+                $Profesional->id_Profesional = $fila->id_profesional;
+                $Profesional->nombreProfesional = $fila->nombre;
+                $Profesional->apellidos = $fila->apellidos;
+                $Profesional->tipoUsuario = $fila->tipousuario;
+                $Profesional->email = $fila->email;
+                $Profesional->status = $fila->status;
+                $lista[] = $Profesional;
             }
 
             return $lista;
+        } catch (PDOException $e) {
+            return null;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
+
+    public function cambiarEstadoProfesional($idProfesional, $nuevoEstado){
+        try {
+            $this->conectar();
+            $sql = $this->conexion->prepare("UPDATE profesionales SET status = :estado WHERE id_profesional = :id;");
+            $sql->bindParam(':estado', $nuevoEstado, PDO::PARAM_BOOL);
+            $sql->bindParam(':id', $idProfesional, PDO::PARAM_INT);
+            $sql->execute();
+        } catch (PDOException $e) {
+            // Manejo de errores
+        } finally {
+            Conexion::desconectar();
+        }
+    }
+
+    public function obtenerProfesionalPorId($idProfesional){
+        try {
+            $this->conectar();
+
+            $sql = $this->conexion->prepare("SELECT id_profesional, nombre, apellidos, tipousuario, email, status FROM profesionales WHERE id_profesional = :id;");
+            $sql->bindParam(':id', $idProfesional, PDO::PARAM_INT);
+            $sql->execute();
+            $fila = $sql->fetch(PDO::FETCH_OBJ);
+
+            if ($fila) {
+                $Profesional = new Profesional();
+                $Profesional->id_Profesional = $fila->id_profesional;
+                $Profesional->nombre = $fila->nombre;
+                $Profesional->apellidos = $fila->apellidos;
+                $Profesional->tipoUsuario = $fila->tipousuario;
+                $Profesional->email = $fila->email;
+                $Profesional->status = $fila->status;
+                return $Profesional;
+            } else {
+                return null;
+            }
         } catch (PDOException $e) {
             return null;
         } finally {

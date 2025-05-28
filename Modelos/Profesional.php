@@ -9,5 +9,7 @@ class Profesional{
     public $enfoque="";
     public $eslogan="";
     public $tipoUsuario="";
+
+    public $status="";
 }
 ?>

@@ -7,7 +7,8 @@ contrasenia bytea not null,
 especialidad varchar(30) not null,
 enfoque varchar(600)not null,
 eslogan varchar(150),
-tipoUsuario char(11) not null
+tipoUsuario char(11) not null,
+status BOOLEAN DEFAULT TRUE
 );
 
 create table Clientes(
@@ -19,13 +20,14 @@ contrasenia bytea not null,
 edad int not null,
 peso char(5) not null,
 estatura char(5) not null,
-brazoR char(4) not null,
-brazoC char(4) not null,
+brazoR varchar(5) not null,
+brazoC varchar(5) not null,
 cintura char(5) not null,
-pierna char(4) not null,
+pierna varchar(5) not null,
 intereses varchar(10) not null,
 genero varchar(10) not null,
-tipoUsuario char(7) not null
+tipoUsuario char(7) not null,
+status BOOLEAN DEFAULT TRUE
 );
 
 create table Rutinas(
@@ -158,7 +160,14 @@ ALTER COLUMN brazoc TYPE varchar(5),
 ALTER COLUMN pierna TYPE varchar(5);
 --}
 
-
+SELECT c.id_cliente, p.id_profesional,
+            COALESCE(c.nombre, p.nombre) AS nombre, COALESCE(c.apellidos, p.apellidos) AS apellidos,
+            COALESCE(c.tipousuario, p.tipousuario) AS tipoUsuario
+			COALESCE(c.status, p.status) AS status 
+			FROM Clientes c
+            FULL OUTER JOIN Profesionales p ON 1=0 WHERE (c.email='lcardenas@gmail.com' AND c.contrasenia=sha224('1234'))
+            or (p.email='lcardenas@gmail.com' AND p.contrasenia=sha224('1234'));
+			
 insert into Clientes values(default, 'Guadalupe Elizabeth', 'Camarena Castro', 'ecamarena@gmail.com', sha224('2345'), 21,
 21,
     '74kg', '174cm', '32cm','35cm','67cm','45cm'

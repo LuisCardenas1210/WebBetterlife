@@ -1,6 +1,8 @@
 <?php
 require_once 'Conexion.php';
 require_once 'Modelos/Usuario.php';
+require_once 'Modelos/Cliente.php';
+require_once 'Modelos/Profesional.php';
 
 class DAOUsuario
 {
@@ -21,38 +23,26 @@ class DAOUsuario
             $this->conectar();
 
             $obj = null;
-            $sentenciaSQL = $this->conexion->prepare("
-                SELECT id_cliente AS id, nombre, apellidos, tipousuario, email, 'cliente' AS tipo 
-                FROM Clientes 
-                WHERE email = ? AND contrasenia = sha224(?)
-                
-                UNION
-                
-                SELECT id_profesional AS id, nombre, apellidos, tipousuario, email, 'profesional' AS tipo 
-                FROM Profesionales 
-                WHERE email = ? AND contrasenia = sha224(?)
-            ");
-            $sentenciaSQL->execute([$correoE, $contrasenia, $correoE, $contrasenia]);
+            $correoE2 = $correoE;
+            $contrasenia2 = $contrasenia;
+            $sentenciaSQL = $this->conexion->prepare("SELECT c.id_cliente, p.id_profesional,
+            COALESCE(c.nombre, p.nombre) AS nombre, COALESCE(c.apellidos, p.apellidos) AS apellidos,
+            COALESCE(c.tipousuario, p.tipousuario) AS tipoUsuario, COALESCE(c.status, p.status) AS status
+            FROM Clientes c
+            FULL OUTER JOIN Profesionales p ON 1=0 WHERE (c.email=? AND c.contrasenia=sha224(?))
+            or (p.email=? AND p.contrasenia=sha224(?));");
+            $sentenciaSQL->execute([$correoE, $contrasenia, $correoE2, $contrasenia2]);
 
             $fila = $sentenciaSQL->fetch(PDO::FETCH_OBJ);
             if ($fila) {
-    $obj = new Usuario();
-    // asigna el ID al campo correcto:
-    if ($fila->tipo === 'cliente') {
-        $obj->id_Cliente = $fila->id;
-    } else {
-        $obj->id_Profesional = $fila->id;
-    }
-    $obj->nombre      = $fila->nombre;
-    $obj->apellidos   = $fila->apellidos;
-    $obj->tipoUsuario = $fila->tipousuario;
-    $obj->correoE     = $fila->email;
-    // el campo $fila->tipo ('cliente'|'profesional') podrías guardarlo en, por ejemplo:
-    $obj->sexo        = $fila->tipo;  // o crea una propiedad 'rol'
-}
-
-            
-
+                $obj = new Usuario();
+                $obj->id_Cliente = $fila->id_cliente;
+                $obj->id_Profesional = $fila->id_profesional;
+                $obj->nombre = $fila->nombre;
+                $obj->apellidos = $fila->apellidos;
+                $obj->tipoUsuario = $fila->tipousuario;
+                $obj->status = $fila->status;
+            }
             return $obj;
         } catch (Exception $e) {
             var_dump($e);
@@ -73,12 +63,12 @@ class DAOUsuario
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
 
             foreach ($resultado as $fila) {
-                $cliente = new Usuario();
+                $cliente = new Cliente();
                 $cliente->id_Cliente = $fila->id_cliente;
                 $cliente->nombre = $fila->nombre;
                 $cliente->apellidos = $fila->apellidos;
                 $cliente->tipoUsuario = $fila->tipousuario;
-                $cliente->correoE = $fila->email;
+                $cliente->email = $fila->email;
                 $cliente->status = $fila->status;
                 $lista[] = $cliente;
             }
@@ -102,13 +92,13 @@ class DAOUsuario
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
 
             foreach ($resultado as $fila) {
-                $profesional = new Usuario();
-                $profesional->id_Profesional = $fila->id_profesional;
-                $profesional->nombre = $fila->nombre;
-                $profesional->apellidos = $fila->apellidos;
-                $profesional->tipoUsuario = $fila->tipousuario;
-                $profesional->correoE = $fila->email;
-                $lista[] = $profesional;
+                $cliente = new Profesional();
+                $cliente->id_Profesional = $fila->id_profesional;
+                $cliente->nombreProfesional = $fila->nombre;
+                $cliente->apellidos = $fila->apellidos;
+                $cliente->tipoUsuario = $fila->tipousuario;
+                $cliente->email = $fila->email;
+                $lista[] = $cliente;
             }
 
             return $lista;
@@ -119,8 +109,7 @@ class DAOUsuario
         }
     }
 
-    public function cambiarEstadoCliente($idCliente, $nuevoEstado)
-    {
+    public function cambiarEstadoCliente($idCliente, $nuevoEstado){
         try {
             $this->conectar();
             $sql = $this->conexion->prepare("UPDATE clientes SET status = :estado WHERE id_cliente = :id");
@@ -145,12 +134,12 @@ class DAOUsuario
             $fila = $sql->fetch(PDO::FETCH_OBJ);
 
             if ($fila) {
-                $cliente = new Usuario();
+                $cliente = new Cliente();
                 $cliente->id_Cliente = $fila->id_cliente;
                 $cliente->nombre = $fila->nombre;
                 $cliente->apellidos = $fila->apellidos;
                 $cliente->tipoUsuario = $fila->tipousuario;
-                $cliente->correoE = $fila->email;
+                $cliente->email = $fila->email;
                 $cliente->status = $fila->status;
                 return $cliente;
             } else {
@@ -163,7 +152,11 @@ class DAOUsuario
         }
     }
 
-    public function editar(Usuario $obj)
+
+    /**
+     * Función para editar al empleado de acuerdo al objeto recibido como parámetro
+     */
+    /* public function editar(Usuario $obj)
     {
         try {
             $sql = "UPDATE usuarios
@@ -190,5 +183,5 @@ class DAOUsuario
         } finally {
             Conexion::desconectar();
         }
-    }
+    } */
 }

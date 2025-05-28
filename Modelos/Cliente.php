@@ -16,6 +16,7 @@ class Cliente
     public $intereses = "";
     public $genero = "";
     public $tipoUsuario = "";
+    public $status = "";
 }
 
 class ClienteConRutina{

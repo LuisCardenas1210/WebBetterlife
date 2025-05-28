@@ -143,3 +143,32 @@ SELECT c.id_cliente, p.id_profesional,
 select * from clientes;
 
 SELECT  id_profesional, nombre, apellidos, tipousuario, email from profesionales where tipousuario != 'admin      ';
+
+
+-- ejecutar esto (ref pulpito){
+-- Agrega columna "status" a Clientes
+ALTER TABLE Clientes ADD COLUMN status BOOLEAN DEFAULT TRUE;
+-- Agrega columna status a Profesionales
+ALTER TABLE Profesionales ADD COLUMN status BOOLEAN DEFAULT TRUE;
+-- Esto es para poner todos los status en true que estaban antes de la 
+-- agregacion del campo status, creo que ni es necesario
+UPDATE Clientes SET status = TRUE WHERE status IS NULL;
+UPDATE Profesionales SET status = TRUE WHERE status IS NULL;
+-- esto es para cambiar el tipo de dato y permita registrar clientes
+-- con una entrada como esta: ... '74kg', '174cm', '32cm','35cm','67cm','45cm' ...
+ALTER TABLE Clientes
+ALTER COLUMN brazor TYPE varchar(5),
+ALTER COLUMN brazoc TYPE varchar(5),
+ALTER COLUMN pierna TYPE varchar(5);
+--}
+
+
+
+
+insert into Clientes values(default, 'Guadalupe Elizabeth', 'Camarena Castro', 'ecamarena@gmail.com', sha224('2345'), 21,
+21,
+    '74kg', '174cm', '32cm','35cm','67cm','45cm'
+    'dieta',
+    'femenino',
+    'cliente'
+);

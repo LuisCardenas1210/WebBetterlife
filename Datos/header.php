@@ -30,7 +30,7 @@
                                     <li class="liSubmenu"><a href="Solicitudes.php">Ver Solicitudes</a></li>                                
                                 <?php elseif($_SESSION["tipoUsuario"] === "admin      "): ?>
                                     <li class="liSubmenu"><a href="GestionUsuarios.php">Gestionar Usuarios</a></li>
-                                    <li class="liSubmenu"><a href="#">Gestionar Rutinas</a></li>
+                                    <li class="liSubmenu"><a href="gestionar_rutinas.php">Gestionar Rutinas</a></li>
                                 <?php endif; ?>
                                 <li class="liSubmenu"><a href="logout.php">Cerrar sesión</a></li>
                             </ul>

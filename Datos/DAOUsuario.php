@@ -33,7 +33,8 @@ class DAOUsuario
             $contrasenia2 = $contrasenia;
             $sentenciaSQL = $this->conexion->prepare("SELECT c.id_cliente, p.id_profesional,
             COALESCE(c.nombre, p.nombre) AS nombre, COALESCE(c.apellidos, p.apellidos) AS apellidos,
-            COALESCE(c.tipousuario, p.tipousuario) AS tipoUsuario FROM Clientes c
+            COALESCE(c.tipousuario, p.tipousuario) AS tipoUsuario, COALESCE(c.status, p.status) AS status
+            FROM Clientes c
             FULL OUTER JOIN Profesionales p ON 1=0 WHERE (c.email=? AND c.contrasenia=sha224(?))
             or (p.email=? AND p.contrasenia=sha224(?));");
             $sentenciaSQL->execute([$correoE, $contrasenia, $correoE2, $contrasenia2]);
@@ -47,6 +48,7 @@ class DAOUsuario
                 $obj->nombre = $fila->nombre;
                 $obj->apellidos = $fila->apellidos;
                 $obj->tipoUsuario = $fila->tipousuario;
+                $obj->status = $fila->status;
             }
             return $obj;
         } catch (Exception $e) {

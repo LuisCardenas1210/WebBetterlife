@@ -160,8 +160,14 @@ ALTER COLUMN brazoc TYPE varchar(5),
 ALTER COLUMN pierna TYPE varchar(5);
 --}
 
-select * from profesionales;
-
+SELECT c.id_cliente, p.id_profesional,
+            COALESCE(c.nombre, p.nombre) AS nombre, COALESCE(c.apellidos, p.apellidos) AS apellidos,
+            COALESCE(c.tipousuario, p.tipousuario) AS tipoUsuario
+			COALESCE(c.status, p.status) AS status 
+			FROM Clientes c
+            FULL OUTER JOIN Profesionales p ON 1=0 WHERE (c.email='lcardenas@gmail.com' AND c.contrasenia=sha224('1234'))
+            or (p.email='lcardenas@gmail.com' AND p.contrasenia=sha224('1234'));
+			
 insert into Clientes values(default, 'Guadalupe Elizabeth', 'Camarena Castro', 'ecamarena@gmail.com', sha224('2345'), 21,
 21,
     '74kg', '174cm', '32cm','35cm','67cm','45cm'

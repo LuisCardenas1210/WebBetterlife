@@ -16,7 +16,7 @@
         if(isset($_POST["email"]) && isset($_POST["password"])){    
             $usuario=(new DAOUsuario())->autenticar($_POST["email"],
                                         $_POST["password"]);
-            if($usuario!=null){
+            if($usuario!=null && $usuario->status==1){
                     session_start();
                     $_SESSION["id"]="$usuario->correoE";
                     $_SESSION["nombre"]="$usuario->nombre";

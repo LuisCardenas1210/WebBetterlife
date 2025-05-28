@@ -11,5 +11,6 @@ class Usuario{
     public $intereces="";
     public $contrasenia="";
     public $tipoUsuario="";
+    public $status=0;
 }
 ?>

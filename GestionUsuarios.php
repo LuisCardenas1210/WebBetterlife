@@ -5,7 +5,6 @@ include_once 'Datos/DAOUsuario.php';
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminarCliente'])) {
     $id = intval($_POST['eliminarCliente']);
     (new DAOUsuario())->eliminarCliente($id);
-    //header("Location: GestionUsuarios.php"); // Redirige para evitar reenvío de formulario
     exit;
 }
 ?>

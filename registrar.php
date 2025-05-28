@@ -1,5 +1,9 @@
 <?php
 session_start();
+require_once 'Datos/DAOCliente.php';
+require_once 'Datos/DAOProfesional.php';
+require_once 'Modelos/Cliente.php';
+require_once 'Modelos/Profesional.php';
 $errores = [];
 $mensaje = "";
 $tipo = $_POST['tipoUsuario'] ?? ''; 
@@ -24,8 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errores[] = "Los apellidos deben tener al menos 2 caracteres.";
     if (!filter_var($correo, FILTER_VALIDATE_EMAIL))
         $errores[] = "Correo electrónico no válido.";
-    if (strlen($password) < 6)
-        $errores[] = "La contraseña debe tener al menos 6 caracteres.";
+    if (strlen($password) < 4)
+        $errores[] = "La contraseña debe tener al menos 4 caracteres.";
     if ($password !== $confirm_password)
         $errores[] = "Las contraseñas no coinciden.";
 
@@ -68,7 +72,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ? "Cliente registrado correctamente: $nombre ($correo)"
             : "Profesional registrado correctamente: $nombre ($correo)";
         // Aquí iría la lógica de inserción en BD
+        if ($tipo === 'cliente') {
+        $cliente = new Cliente();
+        $cliente->nombreCliente = $nombre;
+        $cliente->apellidos = $apellidos;
+        $cliente->email = $correo;
+        $cliente->contrasenia = $password;
+        $cliente->edad = $edad;
+        $cliente->peso = $peso;
+        $cliente->estatura = $estatura;
+        $cliente->brazoR = $brazoR;
+        $cliente->brazoC = $brazoC;
+        $cliente->cintura = $cintura;
+        $cliente->pierna = $pierna;
+        $cliente->intereses = $preferencia;
+        $cliente->genero = $sexo;
+        $cliente->tipoUsuario = "cliente";
+
+        $daoCliente = new DAOCliente();
+        $idInsertado = $daoCliente->agregar($cliente);
+
+        if ($idInsertado > 0) {
+            $mensaje = "Cliente registrado correctamente.";
+        } else {
+            $errores[] = "Ocurrió un error al registrar el cliente.";
+        }
     }
+}
 }
 ?>
 
@@ -87,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h2>Registro de Usuario</h2>
 
         <?php if (!empty($errores)): ?>
-            <div class="error">
+            <div id ="errores" class="error">
                 <ul>
                     <?php foreach ($errores as $error): ?>
                         <li><?= htmlspecialchars($error) ?></li>
@@ -98,11 +128,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="success"><?= htmlspecialchars($mensaje) ?></div>
         <?php endif; ?>
 
-
         <form action="registrar.php" method="post">
+            
             <div class="input-group">
                 <label for="tipoUsuario">Tipo de usuario:</label>
-                <select name="tipoUsuario" id="tipoUsuario" onchange="cambiarFormulario()">
+                <select name="tipoUsuario" id="tipoUsuario">
                     <option value="cliente" <?= ($tipo === 'cliente') ? 'selected' : '' ?>>Cliente</option>
                     <option value="profesional" <?= ($tipo === 'profesional') ? 'selected' : '' ?>>Profesional</option>
                 </select>
@@ -191,10 +221,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         placeholder="Ej: ¡Transforma tu vida hoy!"></div>
             </div>
 
-            <button type="submit" formnovalidate>Registrarse</button>
+            <div id="errores" class="error" style="display: none;"></div>
+
+            <button type="submit" formnovalidate onclick="">Registrarse</button>
         </form>
 
-        <p>¿Ya tienes una cuenta? <a href="Login.php">Inicia sesión aquí</a></p>
+        <p>¿Ya tienes una cuenta?<a href="Login.php">Inicia sesión aquí</a></p>
     </div>
 
     <script src="Scripts/validacionRegistro.js"></script>

@@ -6,20 +6,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function cambiarFormulario() {
         const tipo = document.getElementById('tipoUsuario').value;
-        document.getElementById('camposCliente').style.display = tipo === 'cliente' ? 'block' : 'none';
-        document.getElementById('camposProfesional').style.display = tipo === 'profesional' ? 'block' : 'none';
+        camposCliente.style.display = tipo === 'cliente' ? 'block' : 'none';
+        camposProfesional.style.display = tipo === 'profesional' ? 'block' : 'none';
     }
-    window.onload = cambiarFormulario;
-
 
     tipoUsuario.addEventListener("change", cambiarFormulario);
     cambiarFormulario();
 
-    function mostrarError(msg) {
-        alert(msg);
+    function mostrarErrores(listaErrores) {
+        const errorDiv = document.getElementById("errores");
+        errorDiv.innerHTML = "";
+        errorDiv.style.display = "block"; // Mostrarlo si había estado oculto
+
+        listaErrores.forEach(msg => {
+            const p = document.createElement("p");
+            p.textContent = msg;
+            errorDiv.appendChild(p);
+        });
     }
 
     function validarFormulario(e) {
+        const errores = [];
         const nombre = document.getElementById("nombre").value.trim();
         const apellidos = document.getElementById("apellidos").value.trim();
         const correo = document.getElementById("correo").value.trim();
@@ -31,11 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const medidaRegex = /^\d+(kg|cm)$/i;
 
-        if (nombre.length < 2) return mostrarError("El nombre debe tener al menos 2 caracteres."), e.preventDefault();
-        if (apellidos.length < 2) return mostrarError("Los apellidos deben tener al menos 2 caracteres."), e.preventDefault();
-        if (!emailRegex.test(correo)) return mostrarError("Correo electrónico no válido."), e.preventDefault();
-        if (password.length < 4) return mostrarError("La contraseña debe tener al menos 6 caracteres."), e.preventDefault();
-        if (password !== confirm) return mostrarError("Las contraseñas no coinciden."), e.preventDefault();
+        if (nombre.length < 2) errores.push("El nombre debe tener al menos 2 caracteres.");
+        if (apellidos.length < 2) errores.push("Los apellidos deben tener al menos 2 caracteres.");
+        if (!emailRegex.test(correo)) errores.push("Correo electrónico no válido.");
+        if (password.length < 4) errores.push("La contraseña debe tener al menos 4 caracteres.");
+        if (password !== confirm) errores.push("Las contraseñas no coinciden.");
 
         if (tipo === "cliente") {
             const edad = parseInt(document.querySelector("[name='txtEdad']").value);
@@ -48,19 +55,25 @@ document.addEventListener("DOMContentLoaded", () => {
             const sexo = document.querySelector("[name='sexo']").value;
             const preferencia = document.querySelector("[name='preferencia']").value;
 
-            if (isNaN(edad) || edad <= 0) return mostrarError("Edad no válida."), e.preventDefault();
-            if (![peso, estatura, brazoC, brazoR, cintura, pierna].every(v => medidaRegex.test(v)))
-                return mostrarError("Todas las medidas deben tener formato válido (ej: 70kg, 170cm)."), e.preventDefault();
-            if (!sexo) return mostrarError("Seleccione un sexo."), e.preventDefault();
-            if (!preferencia) return mostrarError("Seleccione una preferencia."), e.preventDefault();
+            if (isNaN(edad) || edad <= 0) errores.push("Edad no válida.");
+            if (![peso, estatura, brazoC, brazoR, cintura, pierna].every(v => medidaRegex.test(v))) {
+                errores.push("Todas las medidas deben tener formato válido (ej: 70kg, 170cm).");
+            }
+            if (!sexo) errores.push("Seleccione un sexo.");
+            if (!preferencia) errores.push("Seleccione una preferencia.");
         }
 
         if (tipo === "profesional") {
             const especialidad = document.querySelector("[name='txtEspecialidad']").value.trim();
             const enfoque = document.querySelector("[name='txtEnfoque']").value.trim();
 
-            if (especialidad.length < 3) return mostrarError("La especialidad debe tener al menos 3 caracteres."), e.preventDefault();
-            if (enfoque.length < 5) return mostrarError("El enfoque debe tener al menos 5 caracteres."), e.preventDefault();
+            if (especialidad.length < 3) errores.push("La especialidad debe tener al menos 3 caracteres.");
+            if (enfoque.length < 5) errores.push("El enfoque debe tener al menos 5 caracteres.");
+        }
+
+        if (errores.length > 0) {
+            e.preventDefault();
+            mostrarErrores(errores);
         }
     }
 

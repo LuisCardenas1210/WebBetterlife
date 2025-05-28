@@ -10,13 +10,16 @@ session_start();
     <link rel="stylesheet" href="css/estilosVer_rutinas.css">
     <style>
         table {
-            margin-top: 50px;
+            margin-top: 10px;
             margin-left: 20px;
             border-collapse: collapse;
         }
         table, th, td {
             border: 1px solid black;
             padding: 5px;
+        }
+        body{
+            margin-top: 100px;
         }
     </style>
 </head>
@@ -34,7 +37,7 @@ $rutinas = $daoRutina->obtenerRutinasPorCliente($id_cliente);
 
 if ($rutinas):
     foreach ($rutinas as $rutina):
-        $tipo = strtolower($rutina['tipoRutina']);
+        $tipo = strtolower($rutina['tiporutina']);
         ?>
         <h2>Rutina semanal (<?php echo ucfirst($tipo); ?>)</h2>
         <table>

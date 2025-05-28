@@ -4,8 +4,8 @@ class Rutina
     public $id_Rutina = 0;
     public $id_Cliente = 0;
     public $id_Profesional = 0;
-    public $descripciónRutina = "";
-    public $tipoRutina = "";
+    public $descripcionRutina = "";
+    public $tiporutina = "";
     public $lunes = "";
     public $martes = "";
     public $miercoles = "";

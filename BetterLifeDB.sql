@@ -1,177 +1,288 @@
-create table Profesionales(
-id_Profesional serial primary key,
-nombre varchar(50) not null,
-apellidos varchar(50) not null,
-email varchar(100) not null,
-contrasenia bytea not null,
-especialidad varchar(30) not null,
-enfoque varchar(600)not null,
-eslogan varchar(150),
-tipoUsuario char(11) not null,
-status BOOLEAN DEFAULT TRUE
+CREATE TABLE PROFESIONALES (
+	ID_PROFESIONAL SERIAL PRIMARY KEY,
+	NOMBRE VARCHAR(50) NOT NULL,
+	APELLIDOS VARCHAR(50) NOT NULL,
+	EMAIL VARCHAR(100) NOT NULL,
+	CONTRASENIA BYTEA NOT NULL,
+	ESPECIALIDAD VARCHAR(30) NOT NULL,
+	ENFOQUE VARCHAR(600) NOT NULL,
+	ESLOGAN VARCHAR(150),
+	TIPOUSUARIO CHAR(11) NOT NULL,
+	STATUS BOOLEAN DEFAULT TRUE
 );
 
-create table Clientes(
-id_cliente serial primary key,
-nombre varchar(50) not null,
-apellidos varchar(50) not null,
-email varchar(100) not null,
-contrasenia bytea not null,
-edad int not null,
-peso char(5) not null,
-estatura char(5) not null,
-brazoR varchar(5) not null,
-brazoC varchar(5) not null,
-cintura char(5) not null,
-pierna varchar(5) not null,
-intereses varchar(10) not null,
-genero varchar(10) not null,
-tipoUsuario char(7) not null,
-status BOOLEAN DEFAULT TRUE
+CREATE TABLE CLIENTES (
+	ID_CLIENTE SERIAL PRIMARY KEY,
+	NOMBRE VARCHAR(50) NOT NULL,
+	APELLIDOS VARCHAR(50) NOT NULL,
+	EMAIL VARCHAR(100) NOT NULL,
+	CONTRASENIA BYTEA NOT NULL,
+	EDAD INT NOT NULL,
+	PESO CHAR(5) NOT NULL,
+	ESTATURA CHAR(5) NOT NULL,
+	BRAZOR VARCHAR(5) NOT NULL,
+	BRAZOC VARCHAR(5) NOT NULL,
+	CINTURA CHAR(5) NOT NULL,
+	PIERNA VARCHAR(5) NOT NULL,
+	INTERESES VARCHAR(10) NOT NULL,
+	GENERO VARCHAR(10) NOT NULL,
+	TIPOUSUARIO CHAR(7) NOT NULL,
+	STATUS BOOLEAN DEFAULT TRUE
 );
 
-create table Rutinas(
-id_Rutina serial primary key,
-id_Cliente int,
-id_Profesional int,
-descripcionRutina varchar(800),
-tipoRutina varchar(15), 
-lunes varchar(100) not null,
-detallesL varchar(200) not null,
-martes varchar(100) not null,
-detallesM varchar(200) not null,
-miercoles varchar(100) not null,
-detallesW varchar(200) not null,
-jueves varchar(100) not null,
-detallesJ varchar(200) not null,
-viernes varchar(100) not null,
-detallesV varchar(200) not null,
-sabado varchar(100) not null,
-detallesS varchar(200) not null,
-domingo varchar(100) not null,
-detallesD varchar(200) not null,
-foreign key (id_Cliente) references Clientes(id_Cliente)
-on delete cascade,
-foreign key (id_Profesional) references Profesionales(id_Profesional)
-on delete cascade
+CREATE TABLE RUTINAS (
+	ID_RUTINA SERIAL PRIMARY KEY,
+	ID_CLIENTE INT,
+	ID_PROFESIONAL INT,
+	DESCRIPCIONRUTINA VARCHAR(800),
+	TIPORUTINA VARCHAR(15),
+	LUNES VARCHAR(100) NOT NULL,
+	DETALLESL VARCHAR(200) NOT NULL,
+	MARTES VARCHAR(100) NOT NULL,
+	DETALLESM VARCHAR(200) NOT NULL,
+	MIERCOLES VARCHAR(100) NOT NULL,
+	DETALLESW VARCHAR(200) NOT NULL,
+	JUEVES VARCHAR(100) NOT NULL,
+	DETALLESJ VARCHAR(200) NOT NULL,
+	VIERNES VARCHAR(100) NOT NULL,
+	DETALLESV VARCHAR(200) NOT NULL,
+	SABADO VARCHAR(100) NOT NULL,
+	DETALLESS VARCHAR(200) NOT NULL,
+	DOMINGO VARCHAR(100) NOT NULL,
+	DETALLESD VARCHAR(200) NOT NULL,
+	FOREIGN KEY (ID_CLIENTE) REFERENCES CLIENTES (ID_CLIENTE) ON DELETE CASCADE,
+	FOREIGN KEY (ID_PROFESIONAL) REFERENCES PROFESIONALES (ID_PROFESIONAL) ON DELETE CASCADE
 );
 
-CREATE TABLE solicitudes (
-    id_Solicitud SERIAL PRIMARY KEY,
-    id_Cliente INT NOT NULL,
-	id_Profesional int not null,
-    TipoRutina VARCHAR(15) not null,
-    fecha_solicitud TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_Cliente) REFERENCES Clientes(id_Cliente)
-	on delete cascade,
-	FOREIGN KEY (id_Profesional) REFERENCES Profesionales(id_Profesional)
-	on delete cascade
+CREATE TABLE SOLICITUDES (
+	ID_SOLICITUD SERIAL PRIMARY KEY,
+	ID_CLIENTE INT NOT NULL,
+	ID_PROFESIONAL INT NOT NULL,
+	TIPORUTINA VARCHAR(15) NOT NULL,
+	FECHA_SOLICITUD TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	FOREIGN KEY (ID_CLIENTE) REFERENCES CLIENTES (ID_CLIENTE) ON DELETE CASCADE,
+	FOREIGN KEY (ID_PROFESIONAL) REFERENCES PROFESIONALES (ID_PROFESIONAL) ON DELETE CASCADE
 );
 
-insert into Profesionales values(default, 'Luis Manuel', 'Cardenas Ibarra', 'lcardenas@gmail.com', 
-sha224('1234'),'Nutriologo', 'Control de peso y habitos saludables
+INSERT INTO
+	PROFESIONALES
+VALUES
+	(
+		DEFAULT,
+		'Luis Manuel',
+		'Cardenas Ibarra',
+		'lcardenas@gmail.com',
+		SHA224('1234'),
+		'Nutriologo',
+		'Control de peso y habitos saludables
 Asesoria para enfermedades metabólicas',
-null, 'profesional');
+		NULL,
+		'profesional'
+	);
 
-insert into Profesionales values(default, 'Alejandro', 'Lezama Torres', 'alezama@gmail.com', 
-sha224('5678'),'Entrenador', 'Entrenamiento personalizado según objetivos (pérdida de peso, ganancia muscular, tonificación)
+INSERT INTO
+	PROFESIONALES
+VALUES
+	(
+		DEFAULT,
+		'Alejandro',
+		'Lezama Torres',
+		'alezama@gmail.com',
+		SHA224('5678'),
+		'Entrenador',
+		'Entrenamiento personalizado según objetivos (pérdida de peso, ganancia muscular, tonificación)
 Rutinas especializadas para principiantes y avanzados
 Preparación para competencias fitness y culturismo
 Corrección de técnica y prevención de lesiones
 Motivación y hábitos saludables para un cambio duradero',
-null, 'profesional');
+		NULL,
+		'profesional'
+	);
 
-insert into Clientes values(default, 'Jovanny', 'Lobato Garcia', 'jlobato@gmail.com', sha224('4321'), 21,
-'74kg', '174cm', '32cm','35cm','67cm','45cm','dieta','masculino','cliente');
+INSERT INTO
+	CLIENTES
+VALUES
+	(
+		DEFAULT,
+		'Jovanny',
+		'Lobato Garcia',
+		'jlobato@gmail.com',
+		SHA224('4321'),
+		21,
+		'74kg',
+		'174cm',
+		'32cm',
+		'35cm',
+		'67cm',
+		'45cm',
+		'dieta',
+		'masculino',
+		'cliente'
+	);
 
-insert into Profesionales values (default, 'Manuel', 'Cano Zavala', 'mcano@gmail.com',sha224('8765'),'','',null,'admin');
+INSERT INTO
+	PROFESIONALES
+VALUES
+	(
+		DEFAULT,
+		'Manuel',
+		'Cano Zavala',
+		'mcano@gmail.com',
+		SHA224('8765'),
+		'',
+		'',
+		NULL,
+		'admin'
+	);
 
-INSERT INTO rutinas VALUES (
-	default, 				-- id_Rutina
-    1,                      -- id_cliente 
-    1,                      -- id_profesional 
-    'Rutina para pérdida de peso',  -- descripcion
-    'dieta',                -- tiporutina
-    'Sanwitch',	  -- lunes
-	'Pan integra, jamon, crema, lechuga, jitomate, cebolla',
-    'Ensalada',     -- martes
-	'Lechuga, aguacate, cebolla morada, jitomate',
-    'yogur con fruta',      -- miercoles
-	'yogur natural, manzana picada, pera picada, fresa picada, avena',
-    'pechuga rellena',      -- jueves
-	'pechuga de pollo, espinaca, queso, apio',
-    'cereal',     -- viernes
-	'cereal integral, leche light',
-    'Licuado de manzana', -- sabado
-	'leche light, manzana, avena, azucar, esencia de vainilla',
-    'espagueti verde',  -- domingo
-	'pasta de espagueti, brocoli, nata o crema, ajo, cilantro'
-);
+INSERT INTO
+	RUTINAS
+VALUES
+	(
+		DEFAULT, -- id_Rutina
+		1, -- id_cliente 
+		1, -- id_profesional 
+		'Rutina para pérdida de peso', -- descripcion
+		'dieta', -- tiporutina
+		'Sanwitch', -- lunes
+		'Pan integra, jamon, crema, lechuga, jitomate, cebolla',
+		'Ensalada', -- martes
+		'Lechuga, aguacate, cebolla morada, jitomate',
+		'yogur con fruta', -- miercoles
+		'yogur natural, manzana picada, pera picada, fresa picada, avena',
+		'pechuga rellena', -- jueves
+		'pechuga de pollo, espinaca, queso, apio',
+		'cereal', -- viernes
+		'cereal integral, leche light',
+		'Licuado de manzana', -- sabado
+		'leche light, manzana, avena, azucar, esencia de vainilla',
+		'espagueti verde', -- domingo
+		'pasta de espagueti, brocoli, nata o crema, ajo, cilantro'
+	);
 
-INSERT INTO rutinas VALUES (
-	default,				-- id_rutina
-    1,                      -- id_cliente
-    1,                      -- id_profesional 
-    'Rutina para tonificación muscular', 
-    'ejercicio',            -- tiporutina
-    'Pecho y tríceps',      -- lunes
-	'Remo 3x10 y copa 3x15',
-    'Espalda y bíceps',     -- martes
-	'ejercicios de espalda y bíceps',
-    'Cardio',               -- miercoles
-	'Caminadora 30min.',
-    'Piernas',              -- jueves
-	'prensa 3x20',
-    'Hombros y abdominales',-- viernes
-	'abdominales 3x10 y ejercicio para hombro',
-    'Descanso activo',      -- sabado
-	'calentamiento',
-    'Descanso',              -- domingo
-	'descanso completo'
-);
+INSERT INTO
+	RUTINAS
+VALUES
+	(
+		DEFAULT, -- id_rutina
+		1, -- id_cliente
+		1, -- id_profesional 
+		'Rutina para tonificación muscular',
+		'ejercicio', -- tiporutina
+		'Pecho y triceps', -- lunes
+		'Remo 3x10 y copa 3x15',
+		'Espalda y biceps', -- martes
+		'ejercicios de espalda y bíceps',
+		'Cardio', -- miercoles
+		'Caminadora 30min.',
+		'Piernas', -- jueves
+		'prensa 3x20',
+		'Hombros y abdominales', -- viernes
+		'abdominales 3x10 y ejercicio para hombro',
+		'Descanso activo', -- sabado
+		'calentamiento',
+		'Descanso', -- domingo
+		'descanso completo'
+	);
 
+INSERT INTO
+	SOLICITUDES
+VALUES
+	(DEFAULT, 1, 1, 'dieta', DEFAULT);
 
-insert into solicitudes values(default,1,1,'dieta',default);
+SELECT
+	C.ID_CLIENTE,
+	P.ID_PROFESIONAL,
+	COALESCE(C.NOMBRE, P.NOMBRE) AS NOMBRE,
+	COALESCE(C.APELLIDOS, P.APELLIDOS) AS APELLIDOS,
+	COALESCE(C.TIPOUSUARIO, P.TIPOUSUARIO) AS TIPOUSUARIO
+FROM
+	CLIENTES C
+	FULL OUTER JOIN PROFESIONALES P ON 1 = 0
+WHERE
+	(
+		C.EMAIL = 'mcano@gmail.com'
+		AND C.CONTRASENIA = SHA224('8765')
+	)
+	OR (
+		P.EMAIL = 'mcano@gmail.com'
+		AND P.CONTRASENIA = SHA224('8765')
+	);
 
-SELECT c.id_cliente, p.id_profesional,
-            COALESCE(c.nombre, p.nombre) AS nombre, COALESCE(c.apellidos, p.apellidos) AS apellidos,
-            COALESCE(c.tipousuario, p.tipousuario) AS tipoUsuario FROM Clientes c
-            FULL OUTER JOIN Profesionales p ON 1=0 WHERE (c.email='mcano@gmail.com' AND c.contrasenia=sha224('8765'))
-            or (p.email='mcano@gmail.com' AND p.contrasenia=sha224('8765'));
+SELECT
+	*
+FROM
+	CLIENTES;
 
-select * from clientes;
-
-SELECT  id_profesional, nombre, apellidos, tipousuario, email from profesionales where tipousuario != 'admin';
+SELECT  id_profesional, nombre, apellidos, tipousuario, email from profesionales where tipousuario != 'admin      ';
 
 -- ejecutar esto (ref pulpito){
 -- Agrega columna "status" a Clientes
-ALTER TABLE Clientes ADD COLUMN status BOOLEAN DEFAULT TRUE;
+ALTER TABLE CLIENTES
+ADD COLUMN STATUS BOOLEAN DEFAULT TRUE;
+
 -- Agrega columna status a Profesionales
-ALTER TABLE Profesionales ADD COLUMN status BOOLEAN DEFAULT TRUE;
+ALTER TABLE PROFESIONALES
+ADD COLUMN STATUS BOOLEAN DEFAULT TRUE;
+
 -- Esto es para poner todos los status en true que estaban antes de la 
 -- agregacion del campo status, creo que ni es necesario
-UPDATE Clientes SET status = TRUE WHERE status IS NULL;
-UPDATE Profesionales SET status = TRUE WHERE status IS NULL;
+UPDATE CLIENTES
+SET
+	STATUS = TRUE
+WHERE
+	STATUS IS NULL;
+
+UPDATE PROFESIONALES
+SET
+	STATUS = TRUE
+WHERE
+	STATUS IS NULL;
+
 -- esto es para cambiar el tipo de dato y permita registrar clientes
 -- con una entrada como esta: ... '74kg', '174cm', '32cm','35cm','67cm','45cm' ...
-ALTER TABLE Clientes
-ALTER COLUMN brazor TYPE varchar(5),
-ALTER COLUMN brazoc TYPE varchar(5),
-ALTER COLUMN pierna TYPE varchar(5);
---}
+ALTER TABLE CLIENTES
+ALTER COLUMN BRAZOR TYPE VARCHAR(5),
+ALTER COLUMN BRAZOC TYPE VARCHAR(5),
+ALTER COLUMN PIERNA TYPE VARCHAR(5);
 
-SELECT c.id_cliente, p.id_profesional,
-            COALESCE(c.nombre, p.nombre) AS nombre, COALESCE(c.apellidos, p.apellidos) AS apellidos,
-            COALESCE(c.tipousuario, p.tipousuario) AS tipoUsuario
-			COALESCE(c.status, p.status) AS status 
-			FROM Clientes c
-            FULL OUTER JOIN Profesionales p ON 1=0 WHERE (c.email='lcardenas@gmail.com' AND c.contrasenia=sha224('1234'))
-            or (p.email='lcardenas@gmail.com' AND p.contrasenia=sha224('1234'));
-			
-insert into Clientes values(default, 'Guadalupe Elizabeth', 'Camarena Castro', 'ecamarena@gmail.com', sha224('2345'), 21,
-21,
-    '74kg', '174cm', '32cm','35cm','67cm','45cm'
-    'dieta',
-    'femenino',
-    'cliente'
-);
+--}
+SELECT
+	C.ID_CLIENTE,
+	P.ID_PROFESIONAL,
+	COALESCE(C.NOMBRE, P.NOMBRE) AS NOMBRE,
+	COALESCE(C.APELLIDOS, P.APELLIDOS) AS APELLIDOS,
+	COALESCE(C.TIPOUSUARIO, P.TIPOUSUARIO) AS TIPOUSUARIO COALESCE(C.STATUS, P.STATUS) AS STATUS
+FROM
+	CLIENTES C
+	FULL OUTER JOIN PROFESIONALES P ON 1 = 0
+WHERE
+	(
+		C.EMAIL = 'lcardenas@gmail.com'
+		AND C.CONTRASENIA = SHA224('1234')
+	)
+	OR (
+		P.EMAIL = 'lcardenas@gmail.com'
+		AND P.CONTRASENIA = SHA224('1234')
+	);
+
+INSERT INTO
+	CLIENTES
+VALUES
+	(
+		DEFAULT,
+		'Guadalupe Elizabeth',
+		'Camarena Castro',
+		'ecamarena@gmail.com',
+		SHA224('2345'),
+		21,
+		21,
+		'74kg',
+		'174cm',
+		'32cm',
+		'35cm',
+		'67cm',
+		'45cm' 'dieta',
+		'femenino',
+		'cliente'
+	);

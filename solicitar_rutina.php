@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Redirigir para evitar reenvío del formulario al refrescar
-    header("Location: solicitar_dieta.php");
+    header("Location: solicitar_rutina.php");
     exit;
 }
 ?>
@@ -47,7 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Solicitar Rutina</title>
     <link rel="stylesheet" href="css/estilosMain.css">
     <link rel="stylesheet" href="css/estilosVer_rutinas.css">
+    <link rel="stylesheet" href="css/estilosSolicitar_dieta.css">
 </head>
+
 <body>
 
 <?php
@@ -61,7 +63,7 @@ if (isset($_SESSION['message'])) {
 
 <h2>Solicitar Rutina</h2>
 
-<form method="POST" action="solicitar_dieta.php">
+<form method="POST" action="solicitar_rutina.php">
     <label for="id_profesional">Selecciona un Profesional:</label>
     <select name="id_profesional" id="id_profesional" required>
         <option value="0">-- Elige --</option>

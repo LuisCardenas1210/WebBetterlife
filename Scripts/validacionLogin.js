@@ -3,23 +3,34 @@ document.addEventListener("DOMContentLoaded", () => {
     const emailInput = document.getElementById("email");
     const passwordInput = document.getElementById("password");
 
+    function mostrarErrores(listaErrores) {
+        const errorDiv = document.getElementById("errores");
+        errorDiv.innerHTML = "";
+        errorDiv.style.display = "block";
+
+        listaErrores.forEach(msg => {
+            const div = document.createElement("div"); // sin etiqueta <p>
+            div.textContent = msg;
+            errorDiv.appendChild(div);
+        });
+    }
+
     form.addEventListener("submit", (event) => {
-        let valid = true;
+        const errores = [];
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
 
         if (email === "" || !email.includes("@")) {
-            alert("Por favor, ingrese un correo válido.");
-            valid = false;
+            errores.push("Por favor, ingrese un correo válido.");
         }
 
         if (password.length < 4) {
-            alert("La contraseña debe tener al menos 4 caracteres.");
-            valid = false;
+            errores.push("La contraseña debe tener al menos 4 caracteres.");
         }
 
-        if (!valid) {
-            event.preventDefault();
+        if (errores.length > 0) {
+            event.preventDefault(); // evita el envío
+            mostrarErrores(errores);
         }
     });
 });

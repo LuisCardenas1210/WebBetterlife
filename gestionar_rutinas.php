@@ -79,7 +79,7 @@ try {
                 <td><?php echo htmlspecialchars($rutina['cliente']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['profesional']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['tiporutina']); ?></td>
-                <td><?php echo htmlspecialchars($rutina['descripciónrutina']); ?></td>
+                <td><?php echo htmlspecialchars($rutina['descripcionrutina']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['lunes']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['martes']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['miercoles']); ?></td>

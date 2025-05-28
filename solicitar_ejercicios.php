@@ -31,6 +31,9 @@ require_once 'Datos/header.php';
         button:hover {
             background-color: #007B9E;
         }
+        body{
+            margin-top: 100px;
+        }
     </style>
 </head>
 <body>

@@ -18,6 +18,9 @@ session_start();
             border: 1px solid black;
             padding: 5px;
         }
+        body{
+            margin-top: 100px;
+        }
     </style>
 </head>
 

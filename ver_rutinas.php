@@ -34,7 +34,7 @@ $rutinas = $daoRutina->obtenerRutinasPorCliente($id_cliente);
 
 if ($rutinas):
     foreach ($rutinas as $rutina):
-        $tipo = strtolower($rutina['tiporutina']);
+        $tipo = strtolower($rutina['tipoRutina']);
         ?>
         <h2>Rutina semanal (<?php echo ucfirst($tipo); ?>)</h2>
         <table>

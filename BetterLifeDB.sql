@@ -34,7 +34,7 @@ create table Rutinas(
 id_Rutina serial primary key,
 id_Cliente int,
 id_Profesional int,
-descripciónRutina varchar(800),
+descripcionRutina varchar(800),
 tipoRutina varchar(15), 
 lunes varchar(100) not null,
 detallesL varchar(200) not null,
@@ -141,7 +141,7 @@ SELECT c.id_cliente, p.id_profesional,
 
 select * from clientes;
 
-SELECT  id_profesional, nombre, apellidos, tipousuario, email from profesionales where tipousuario != 'admin      ';
+SELECT  id_profesional, nombre, apellidos, tipousuario, email from profesionales where tipousuario != 'admin';
 
 -- ejecutar esto (ref pulpito){
 -- Agrega columna "status" a Clientes

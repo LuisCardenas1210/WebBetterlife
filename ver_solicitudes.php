@@ -1,5 +1,13 @@
 <?php
 session_start();
+
+// Validar si el usuario ha iniciado sesión
+if (!isset($_SESSION['id_cliente'])) {
+    echo "<p style='color: red; text-align: center;'>Debe iniciar sesión para ver sus solicitudes.</p>";
+    exit;
+}
+
+$id_cliente = $_SESSION['id_cliente']; // ID del cliente logueado
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -20,7 +28,7 @@ session_start();
         h2, p {
             text-align: center;
         }
-        body{
+        body {
             margin-top: 100px;
         }
     </style>
@@ -30,8 +38,6 @@ session_start();
 <?php require_once('Datos/header.php'); ?>
 <?php
 require_once 'Datos/Conexion.php';
-
-$id_cliente = 1; // puedes cambiar esto por $_SESSION["id_cliente"] si ya lo tienes en sesión
 
 try {
     $conexion = Conexion::conectar();

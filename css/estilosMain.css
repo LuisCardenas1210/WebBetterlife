@@ -329,3 +329,7 @@ th, td {
     border-bottom: 1px solid #ddd;
     border: 1px solid gray;
 }
+
+body{
+    margin-top: 100px;
+}

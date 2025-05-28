@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Redirigir para evitar reenvío del formulario al refrescar
-    header("Location: solicitar_dieta.php");
+    header("Location: solicitar_rutina.php");
     exit;
 }
 ?>
@@ -47,100 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <title>Solicitar Rutina</title>
     <link rel="stylesheet" href="css/estilosMain.css">
     <link rel="stylesheet" href="css/estilosVer_rutinas.css">
-    <style>
-        /* Aquí mantienes tus estilos actuales */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f7fa;
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            padding-top: 50px;
-        }
-        form {
-            background: white;
-            padding: 30px 40px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 450px;
-            box-sizing: border-box;
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 30px;
-            color: #333;
-            font-weight: 700;
-            font-size: 1.8rem;
-        }
-        label {
-            font-weight: 600;
-            color: #444;
-            margin-bottom: 8px;
-            display: block;
-            font-size: 1rem;
-        }
-        select {
-            width: 100%;
-            padding: 10px 14px;
-            font-size: 1rem;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            transition: border-color 0.3s ease;
-            margin-bottom: 25px;
-            background: #fafafa;
-            cursor: pointer;
-        }
-        select:focus {
-            border-color: #008CBA;
-            outline: none;
-            background: #fff;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #fff;
-            background-color: #008CBA;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0,140,186,0.4);
-        }
-        button:hover {
-            background-color: #007B9E;
-            box-shadow: 0 6px 14px rgba(0,123,158,0.6);
-        }
-        /* Mensajes */
-        .message {
-            max-width: 450px;
-            margin: 20px auto 0;
-            padding: 15px 20px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 1rem;
-            text-align: center;
-        }
-        .message.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .message.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        body{
-            margin-top: 100px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/estilosSolicitar_dieta.css">
 </head>
+
 <body>
 
 <?php
@@ -154,7 +63,7 @@ if (isset($_SESSION['message'])) {
 
 <h2>Solicitar Rutina</h2>
 
-<form method="POST" action="solicitar_dieta.php">
+<form method="POST" action="solicitar_rutina.php">
     <label for="id_profesional">Selecciona un Profesional:</label>
     <select name="id_profesional" id="id_profesional" required>
         <option value="0">-- Elige --</option>

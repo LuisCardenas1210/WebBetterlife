@@ -21,7 +21,7 @@
                             <span>Bienvenido, <?= htmlspecialchars($_SESSION["nombre"]) ?></span>
                             <ul class="submenu">
                                 <?php if (trim($_SESSION["tipoUsuario"]) === "cliente"): ?>
-                                    <li class="liSubmenu"><a href="solicitar_dieta.php">Solicitar Rutina</a></li> <!-- solicitar_dieta.php -->
+                                    <li class="liSubmenu"><a href="solicitar_rutina.php">Solicitar Rutina</a></li> <!-- solicitar_dieta.php -->
                                     <li class="liSubmenu"><a href="ver_solicitudes.php">Ver solicitudes</a></li> <!-- ver_solicitudes.php -->
                                     <li class="liSubmenu"><a href="ver_rutinas.php">Ver rutinas</a></li> <!-- ver_rutinas.php -->
                                 <?php elseif($_SESSION["tipoUsuario"] === "profesional"): ?>

@@ -37,9 +37,6 @@ $tipoUsuario = $_SESSION["tipoUsuario"];
 <?php
 require_once 'Datos/Conexion.php';
 
-// Usa el ID del cliente de la sesión si existe, si no, usa uno fijo (modo prueba)
-$id_cliente = isset($_SESSION["id_cliente"]) ? $_SESSION["id_cliente"] : 1;
-
 try {
     $conexion = Conexion::conectar();
 
@@ -53,20 +50,19 @@ try {
                 clientes.apellidos AS apellidos_cliente
             FROM solicitudes
             JOIN profesionales ON solicitudes.id_profesional = profesionales.id_profesional
-            JOIN clientes ON solicitudes.id_cliente = clientes.id_cliente
-            WHERE solicitudes.id_cliente = :id_cliente";
+            JOIN clientes ON solicitudes.id_cliente = clientes.id_cliente";
 
     // Filtrado según tipoUsuario
     if ($tipoUsuario === 'entrenador') {
-        $sql .= " AND solicitudes.tiporutina = 'ejercicio'";
+        $sql .= " WHERE solicitudes.tiporutina = 'ejercicio'";
     } elseif ($tipoUsuario === 'nutriologo') {
-        $sql .= " AND solicitudes.tiporutina = 'dieta'";
+        $sql .= " WHERE solicitudes.tiporutina = 'dieta'";
     }
 
     $sql .= " ORDER BY solicitudes.fecha_solicitud DESC";
 
     $stmt = $conexion->prepare($sql);
-    $stmt->execute(['id_cliente' => $id_cliente]);
+    $stmt->execute();
 
     $solicitudes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -97,7 +93,7 @@ try {
         </table>
     <?php
     else:
-        echo "<p>No se encontró ninguna solicitud para este cliente.</p>";
+        echo "<p>No se encontraron solicitudes.</p>";
     endif;
 
 } catch (Exception $e) {

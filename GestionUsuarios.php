@@ -3,29 +3,24 @@ session_start();
 include_once 'Datos/DAOCliente.php';
 include_once 'Datos/DAOProfesional.php';
 
-//recibe el post de el metodo eliminarCliente
-/*
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminarCliente'])) {
-    $id = intval($_POST['eliminarCliente']);
-    (new DAOCliente())->eliminarCliente($id);
-    exit;
-}
-
-if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminarProfesional'])) {
-    $id = intval($_POST['eliminarProfesional']);
-    (new DAOProfesional())->eliminarProfesional($id);
-    exit;
-}
-*/
-
 //recibe el metodo post del metodo para cambiar de estado el usuario
 if ($_SERVER["REQUEST_METHOD"] === "POST"){
     if (isset($_POST['cambiarEstado'])) {
-        $dao = new DAOUsuario();
+        $dao = new DAOCliente();
         $clienteId = $_POST['cambiarEstado'];
         $cliente = $dao->obtenerClientePorId($clienteId);
         $nuevoEstado = !$cliente->status;
         $dao->cambiarEstadoCliente($clienteId, $nuevoEstado);
+    }
+}
+
+if ($_SERVER["REQUEST_METHOD"] === "POST"){
+    if (isset($_POST['cambiarEstado'])) {
+        $dao = new DAOProfesional();
+        $profesionalId = $_POST['cambiarEstado'];
+        $profesional = $dao->obtenerProfesionalPorId($clienteId);
+        $nuevoEstado = !$profesional->status;
+        $dao->cambiarEstadoProfesional($clienteId, $nuevoEstado);
     }
 }
 
@@ -97,17 +92,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST"){
                 $lista = (new DAOProfesional())->obtenerProfesionales();
                 if ($lista != null) {
                     foreach ($lista as $Profesional) {
+                        $accion = $Profesional->status ? 'suspender' : 'reactivar';
                         echo "
                         <tr>
                             <td>$Profesional->nombreProfesional</td>
                             <td>$Profesional->apellidos</td>
                             <td>$Profesional->tipoUsuario</td>
                             <td>$Profesional->email</td>
+                            <td>" . ($Profesional->status ? 'Activo' : 'Suspendido') . "</td>
                             <td>
-                            <form method='POST' style='display:inline;'>
-                                <input type='hidden' name='eliminarProfesional' value='" . $Profesional->id_Profesional . "'>
-                                <button type='submit' onclick=\"return confirm('¿Eliminar Profesional?');\">Eliminar</button>
-                            </form>
+                                <button type='button' onclick=\"abrirModal('$Profesional->id_Profesional',
+                                '$accion')\">"
+                                    . ucfirst($accion) .
+                                "</button>
                             </td>
                         </tr>
                         ";

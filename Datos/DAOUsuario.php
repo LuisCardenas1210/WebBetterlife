@@ -2,6 +2,8 @@
 //importa la clase conexión y el modelo para usarlos
 require_once 'Conexion.php';
 require_once 'Modelos/Usuario.php';
+require_once 'Modelos/Cliente.php';
+require_once 'Modelos/Profesional.php';
 
 class DAOUsuario
 {
@@ -71,12 +73,12 @@ class DAOUsuario
             un arreglo de arreglos asociativos o un arreglo de objetos*/
             /*Se recorre el cursor para obtener los datos*/
             foreach ($resultado as $fila) {
-                $cliente = new Usuario();
+                $cliente = new Cliente();
                 $cliente->id_Cliente = $fila->id_cliente;
                 $cliente->nombre = $fila->nombre;
                 $cliente->apellidos = $fila->apellidos;
                 $cliente->tipoUsuario = $fila->tipousuario;
-                $cliente->correoE = $fila->email;
+                $cliente->email = $fila->email;
                 $cliente->status = $fila->status;
                 $lista[] = $cliente;
             }
@@ -105,12 +107,12 @@ class DAOUsuario
             un arreglo de arreglos asociativos o un arreglo de objetos*/
             /*Se recorre el cursor para obtener los datos*/
             foreach ($resultado as $fila) {
-                $cliente = new Usuario();
+                $cliente = new Profesional();
                 $cliente->id_Profesional = $fila->id_profesional;
-                $cliente->nombre = $fila->nombre;
+                $cliente->nombreProfesional = $fila->nombre;
                 $cliente->apellidos = $fila->apellidos;
                 $cliente->tipoUsuario = $fila->tipousuario;
-                $cliente->correoE = $fila->email;
+                $cliente->email = $fila->email;
                 $lista[] = $cliente;
             }
 
@@ -122,39 +124,6 @@ class DAOUsuario
         }
     }
 
-    /**
-     * Elimina el usuario con el id indicado como parametro
-     */
-    /*
-    public function eliminarCliente($id){
-        try {
-            $this->conectar();
-            $this->conexion->beginTransaction();
-
-            // actualizar status del cliente
-            $sqlCliente = "UPDATE Clientes SET status = FALSE WHERE id_cliente = ?";
-            $stmtCliente = $this->conexion->prepare($sqlCliente);
-            $stmtCliente->execute([$id]);
-
-            // poner en NULL el id_cliente en la tabla rutinas
-            $sqlRutinas = "UPDATE Rutinas SET id_cliente = NULL WHERE id_cliente = ?";
-            $stmtRutinas = $this->conexion->prepare($sqlRutinas);
-            $stmtRutinas->execute([$id]);
-
-            $this->conexion->commit();
-            return true;
-        } catch (PDOException $e) {
-            $this->conexion->rollBack();
-            echo "Error al eliminar: " . $e->getMessage();
-            return false;
-        } finally {
-            Conexion::desconectar();
-        }
-    }
-    */
-    // El metodo de arriba solo funciona para desactivar
-    // este metodo activa o reactiva dependiendo de el estado en el 
-    // que este el cliente
     public function cambiarEstadoCliente($idCliente, $nuevoEstado){
         try {
             $this->conectar();
@@ -179,12 +148,12 @@ class DAOUsuario
             $fila = $sql->fetch(PDO::FETCH_OBJ);
 
             if ($fila) {
-                $cliente = new Usuario();
+                $cliente = new Cliente();
                 $cliente->id_Cliente = $fila->id_cliente;
                 $cliente->nombre = $fila->nombre;
                 $cliente->apellidos = $fila->apellidos;
                 $cliente->tipoUsuario = $fila->tipousuario;
-                $cliente->correoE = $fila->email;
+                $cliente->email = $fila->email;
                 $cliente->status = $fila->status;
                 return $cliente;
             } else {
@@ -201,7 +170,7 @@ class DAOUsuario
     /**
      * Función para editar al empleado de acuerdo al objeto recibido como parámetro
      */
-    public function editar(Usuario $obj)
+    /* public function editar(Usuario $obj)
     {
         try {
             $sql = "UPDATE usuarios
@@ -242,5 +211,5 @@ class DAOUsuario
         } finally {
             Conexion::desconectar();
         }
-    }
+    } */
 }

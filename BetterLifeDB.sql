@@ -7,7 +7,8 @@ contrasenia bytea not null,
 especialidad varchar(30) not null,
 enfoque varchar(600)not null,
 eslogan varchar(150),
-tipoUsuario char(11) not null
+tipoUsuario char(11) not null,
+status BOOLEAN DEFAULT TRUE
 );
 
 create table Clientes(
@@ -19,13 +20,14 @@ contrasenia bytea not null,
 edad int not null,
 peso char(5) not null,
 estatura char(5) not null,
-brazoR char(4) not null,
-brazoC char(4) not null,
+brazoR varchar(5) not null,
+brazoC varchar(5) not null,
 cintura char(5) not null,
-pierna char(4) not null,
+pierna varchar(5) not null,
 intereses varchar(10) not null,
 genero varchar(10) not null,
-tipoUsuario char(7) not null
+tipoUsuario char(7) not null,
+status BOOLEAN DEFAULT TRUE
 );
 
 create table Rutinas(
@@ -158,6 +160,8 @@ ALTER COLUMN brazoc TYPE varchar(5),
 ALTER COLUMN pierna TYPE varchar(5);
 --}
 
+select * from profesionales;
+
 
 insert into Clientes values(default, 'Guadalupe Elizabeth', 'Camarena Castro', 'ecamarena@gmail.com', sha224('2345'), 21,
 21,
@@ -166,3 +170,5 @@ insert into Clientes values(default, 'Guadalupe Elizabeth', 'Camarena Castro', '
     'femenino',
     'cliente'
 );
+
+UPDATE profesionales SET status = TRUE WHERE id_profesional = 1;

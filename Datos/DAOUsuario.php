@@ -1,22 +1,17 @@
 <?php
-//importa la clase conexión y el modelo para usarlos
 require_once 'Conexion.php';
 require_once 'Modelos/Usuario.php';
 
 class DAOUsuario
 {
-
     private $conexion;
 
-    /**
-     * Permite obtener la conexión a la BD
-     */
     private function conectar()
     {
         try {
             $this->conexion = Conexion::conectar();
         } catch (Exception $e) {
-            die($e->getMessage()); /*Si la conexion no se establece se cortara el flujo enviando un mensaje con el error*/
+            die($e->getMessage());
         }
     }
 
@@ -25,27 +20,39 @@ class DAOUsuario
         try {
             $this->conectar();
 
-            //Almacenará el registro obtenido de la BD
             $obj = null;
-            $correoE2 = $correoE;
-            $contrasenia2 = $contrasenia;
-            $sentenciaSQL = $this->conexion->prepare("SELECT c.id_cliente, p.id_profesional,
-            COALESCE(c.nombre, p.nombre) AS nombre, COALESCE(c.apellidos, p.apellidos) AS apellidos,
-            COALESCE(c.tipousuario, p.tipousuario) AS tipoUsuario FROM Clientes c
-            FULL OUTER JOIN Profesionales p ON 1=0 WHERE (c.email=? AND c.contrasenia=sha224(?))
-            or (p.email=? AND p.contrasenia=sha224(?));");
-            $sentenciaSQL->execute([$correoE, $contrasenia, $correoE2, $contrasenia2]);
+            $sentenciaSQL = $this->conexion->prepare("
+                SELECT id_cliente AS id, nombre, apellidos, tipousuario, email, 'cliente' AS tipo 
+                FROM Clientes 
+                WHERE email = ? AND contrasenia = sha224(?)
+                
+                UNION
+                
+                SELECT id_profesional AS id, nombre, apellidos, tipousuario, email, 'profesional' AS tipo 
+                FROM Profesionales 
+                WHERE email = ? AND contrasenia = sha224(?)
+            ");
+            $sentenciaSQL->execute([$correoE, $contrasenia, $correoE, $contrasenia]);
 
-            /*Obtiene los datos*/
             $fila = $sentenciaSQL->fetch(PDO::FETCH_OBJ);
             if ($fila) {
-                $obj = new Usuario();
-                $obj->id_Cliente = $fila->id_cliente;
-                $obj->id_Profesional = $fila->id_profesional;
-                $obj->nombre = $fila->nombre;
-                $obj->apellidos = $fila->apellidos;
-                $obj->tipoUsuario = $fila->tipousuario;
-            }
+    $obj = new Usuario();
+    // asigna el ID al campo correcto:
+    if ($fila->tipo === 'cliente') {
+        $obj->id_Cliente = $fila->id;
+    } else {
+        $obj->id_Profesional = $fila->id;
+    }
+    $obj->nombre      = $fila->nombre;
+    $obj->apellidos   = $fila->apellidos;
+    $obj->tipoUsuario = $fila->tipousuario;
+    $obj->correoE     = $fila->email;
+    // el campo $fila->tipo ('cliente'|'profesional') podrías guardarlo en, por ejemplo:
+    $obj->sexo        = $fila->tipo;  // o crea una propiedad 'rol'
+}
+
+            
+
             return $obj;
         } catch (Exception $e) {
             var_dump($e);
@@ -61,15 +68,10 @@ class DAOUsuario
             $this->conectar();
 
             $lista = array();
-            /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
-            $sentenciaSQL = $this->conexion->prepare("SELECT  id_cliente, nombre, apellidos, tipousuario, email, status from clientes");
-            //Se ejecuta la sentencia sql, retorna un cursor con todos los elementos
+            $sentenciaSQL = $this->conexion->prepare("SELECT id_cliente, nombre, apellidos, tipousuario, email, status FROM clientes");
             $sentenciaSQL->execute();
-            //$resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
-            /*Podemos obtener un cursor (resultado con todos los renglones como 
-            un arreglo de arreglos asociativos o un arreglo de objetos*/
-            /*Se recorre el cursor para obtener los datos*/
+
             foreach ($resultado as $fila) {
                 $cliente = new Usuario();
                 $cliente->id_Cliente = $fila->id_cliente;
@@ -95,23 +97,18 @@ class DAOUsuario
             $this->conectar();
 
             $lista = array();
-            /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
-            $sentenciaSQL = $this->conexion->prepare("SELECT  id_profesional, nombre, apellidos, tipousuario, email, status from profesionales where tipousuario != 'admin';");
-            //Se ejecuta la sentencia sql, retorna un cursor con todos los elementos
+            $sentenciaSQL = $this->conexion->prepare("SELECT id_profesional, nombre, apellidos, tipousuario, email, status FROM profesionales WHERE tipousuario != 'admin'");
             $sentenciaSQL->execute();
-            //$resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
-            /*Podemos obtener un cursor (resultado con todos los renglones como 
-            un arreglo de arreglos asociativos o un arreglo de objetos*/
-            /*Se recorre el cursor para obtener los datos*/
+
             foreach ($resultado as $fila) {
-                $cliente = new Usuario();
-                $cliente->id_Profesional = $fila->id_profesional;
-                $cliente->nombre = $fila->nombre;
-                $cliente->apellidos = $fila->apellidos;
-                $cliente->tipoUsuario = $fila->tipousuario;
-                $cliente->correoE = $fila->email;
-                $lista[] = $cliente;
+                $profesional = new Usuario();
+                $profesional->id_Profesional = $fila->id_profesional;
+                $profesional->nombre = $fila->nombre;
+                $profesional->apellidos = $fila->apellidos;
+                $profesional->tipoUsuario = $fila->tipousuario;
+                $profesional->correoE = $fila->email;
+                $lista[] = $profesional;
             }
 
             return $lista;
@@ -122,40 +119,8 @@ class DAOUsuario
         }
     }
 
-    /**
-     * Elimina el usuario con el id indicado como parametro
-     */
-    /*
-    public function eliminarCliente($id){
-        try {
-            $this->conectar();
-            $this->conexion->beginTransaction();
-
-            // actualizar status del cliente
-            $sqlCliente = "UPDATE Clientes SET status = FALSE WHERE id_cliente = ?";
-            $stmtCliente = $this->conexion->prepare($sqlCliente);
-            $stmtCliente->execute([$id]);
-
-            // poner en NULL el id_cliente en la tabla rutinas
-            $sqlRutinas = "UPDATE Rutinas SET id_cliente = NULL WHERE id_cliente = ?";
-            $stmtRutinas = $this->conexion->prepare($sqlRutinas);
-            $stmtRutinas->execute([$id]);
-
-            $this->conexion->commit();
-            return true;
-        } catch (PDOException $e) {
-            $this->conexion->rollBack();
-            echo "Error al eliminar: " . $e->getMessage();
-            return false;
-        } finally {
-            Conexion::desconectar();
-        }
-    }
-    */
-    // El metodo de arriba solo funciona para desactivar
-    // este metodo activa o reactiva dependiendo de el estado en el 
-    // que este el cliente
-    public function cambiarEstadoCliente($idCliente, $nuevoEstado){
+    public function cambiarEstadoCliente($idCliente, $nuevoEstado)
+    {
         try {
             $this->conectar();
             $sql = $this->conexion->prepare("UPDATE clientes SET status = :estado WHERE id_cliente = :id");
@@ -169,7 +134,8 @@ class DAOUsuario
         }
     }
 
-    public function obtenerClientePorId($idCliente){
+    public function obtenerClientePorId($idCliente)
+    {
         try {
             $this->conectar();
 
@@ -197,47 +163,29 @@ class DAOUsuario
         }
     }
 
-
-    /**
-     * Función para editar al empleado de acuerdo al objeto recibido como parámetro
-     */
     public function editar(Usuario $obj)
     {
         try {
             $sql = "UPDATE usuarios
-                    SET
-                    nombre = ?,
-                    apellido1 = ?,
-                    apellido2 = ?,
-                    email = ?,
-                    genero = ?,
-                    telefono = ?,
-                    rol = ?,
-                    contrasenia = sha224(?)
-                    WHERE id = ?;";
+                    SET nombre = ?, apellido1 = ?, apellido2 = ?, email = ?, genero = ?, telefono = ?, rol = ?, contrasenia = sha224(?)
+                    WHERE id = ?";
 
             $this->conectar();
 
             $sentenciaSQL = $this->conexion->prepare($sql);
-            $sentenciaSQL->execute(
-                array(
-                    $obj->nombre,
-                    $obj->apellido1,
-                    $obj->apellido2,
-                    $obj->correo,
-                    $obj->genero,
-                    $obj->telefono,
-                    $obj->rol,
-                    $obj->contrasenia,
-                    $obj->id
-                )
-            );
+            $sentenciaSQL->execute([
+                $obj->nombre,
+                $obj->apellido1,
+                $obj->apellido2,
+                $obj->correo,
+                $obj->genero,
+                $obj->telefono,
+                $obj->rol,
+                $obj->contrasenia,
+                $obj->id
+            ]);
             return true;
         } catch (PDOException $e) {
-
-            //var_dump($e);
-            //Si quieres acceder expecíficamente al numero de error
-            //se puede consultar la propiedad errorInfo
             return false;
         } finally {
             Conexion::desconectar();

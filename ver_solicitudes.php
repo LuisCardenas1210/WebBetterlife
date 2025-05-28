@@ -20,6 +20,9 @@ session_start();
         h2, p {
             text-align: center;
         }
+        body{
+            margin-top: 100px;
+        }
     </style>
 </head>
 

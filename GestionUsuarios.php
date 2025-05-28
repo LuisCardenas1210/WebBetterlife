@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cambiarEstado'], $_PO
     <title>Document</title>
     <link rel="stylesheet" href="css/estilosMain.css">
     <link rel="stylesheet" href="css/modal.css">
+    <link rel="stylesheet" href="css/estilosGestionarUsuarios.css">
 </head>
 
 <body>
@@ -39,22 +40,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cambiarEstado'], $_PO
     ?>
     <main>
         <legend>Clientes</legend>
-        <table border="1">
-            <thead>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Tipo de usuario</th>
-                <th>Correo</th>
-                <th>Status</th>
-                <th>Acciones</th>
-            </thead>
-            <tbody>
-                <?php
-                $lista = (new DAOCliente())->obtenerClientes();
-                if ($lista != null) {
-                    foreach ($lista as $Cliente) {
-                        $accion = $Cliente->status ? 'suspender' : 'reactivar';
-                        echo "
+        <div class="usuarios">
+            <table border="1">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Tipo de usuario</th>
+                    <th>Correo</th>
+                    <th>Status</th>
+                    <th>Acciones</th>
+                </thead>
+                <tbody>
+                    <?php
+                    $lista = (new DAOCliente())->obtenerClientes();
+                    if ($lista != null) {
+                        foreach ($lista as $Cliente) {
+                            $accion = $Cliente->status ? 'suspender' : 'reactivar';
+                            echo "
                         <tr>
                             <td>$Cliente->nombreCliente</td>
                             <td>$Cliente->apellidos</td>
@@ -64,33 +66,35 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cambiarEstado'], $_PO
                             <td>
                                 <button type='button' onclick=\"abrirModalCliente('$Cliente->id_Cliente',
                                 '$accion')\">"
-                            . ucfirst($accion) .
-                            "</button>
+                                . ucfirst($accion) .
+                                "</button>
                             </td>
                         </tr>
                         ";
+                        }
                     }
-                }
-                ?>
-            </tbody>
-        </table>
-
+                    ?>
+                </tbody>
+            </table>
+        </div>
         <legend>Profesionales</legend>
-        <table border="1">
-            <thead>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Tipo de usuario</th>
-                <th>Correo</th>
-                <th>Acciones</th>
-            </thead>
-            <tbody>
-                <?php
-                $lista = (new DAOProfesional())->obtenerProfesionales();
-                if ($lista != null) {
-                    foreach ($lista as $Profesional) {
-                        $accion = $Profesional->status ? 'suspender' : 'reactivar';
-                        echo "
+        <div class="usuarios">
+            <table border="1">
+                <thead>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Tipo de usuario</th>
+                    <th>Correo</th>
+                    <th>Status</th>
+                    <th>Acciones</th>
+                </thead>
+                <tbody>
+                    <?php
+                    $lista = (new DAOProfesional())->obtenerProfesionales();
+                    if ($lista != null) {
+                        foreach ($lista as $Profesional) {
+                            $accion = $Profesional->status ? 'suspender' : 'reactivar';
+                            echo "
                         <tr>
                             <td>$Profesional->nombreProfesional</td>
                             <td>$Profesional->apellidos</td>
@@ -100,16 +104,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cambiarEstado'], $_PO
                             <td>
                                 <button type='button' onclick=\"abrirModalProfesional('$Profesional->id_Profesional',
                                 '$accion')\">"
-                            . ucfirst($accion) .
-                            "</button>
+                                . ucfirst($accion) .
+                                "</button>
                             </td>
                         </tr>
                         ";
+                        }
                     }
-                }
-                ?>
-            </tbody>
-        </table>
+                    ?>
+                </tbody>
+            </table>
+        </div>
     </main>
     <!-- modal generico que si quieres puedes tomar prestado
      nomas le pones los parametros yo creo -->

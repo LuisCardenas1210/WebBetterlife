@@ -1,0 +1,47 @@
+.usuarios {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0px 20px 0px;
+}
+
+legend {
+    font-family: "Kanit", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+    font-size: 30px;
+}
+
+table {
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+thead {
+    background: linear-gradient(to right, red, orange);
+    color: white;
+}
+
+th,
+td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    border: 1px solid gray;
+}
+
+button {
+    width: 6vw;
+    height: 4vh;
+    background-color: greenyellow;
+}
+
+button:hover{
+    background-color: rgb(10, 209, 53);
+}

@@ -263,11 +263,6 @@ main{
     z-index: 0;
 }
 
-
-
-
-
-
 .texto {
     position: absolute;
     bottom: 55vh;
@@ -307,3 +302,8 @@ main{
 .izquierda { left: 10px; }
 .derecha { right: 10px; }
 
+.kanit{
+    font-family: "Kanit", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}

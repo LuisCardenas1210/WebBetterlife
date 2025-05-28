@@ -3,6 +3,8 @@ session_start();
 include_once 'Datos/DAOCliente.php';
 include_once 'Datos/DAOProfesional.php';
 
+//recibe el post de el metodo eliminarCliente
+/*
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminarCliente'])) {
     $id = intval($_POST['eliminarCliente']);
     (new DAOCliente())->eliminarCliente($id);
@@ -14,6 +16,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminarProfesional']
     (new DAOProfesional())->eliminarProfesional($id);
     exit;
 }
+*/
+
+//recibe el metodo post del metodo para cambiar de estado el usuario
+if ($_SERVER["REQUEST_METHOD"] === "POST"){
+    if (isset($_POST['cambiarEstado'])) {
+        $dao = new DAOUsuario();
+        $clienteId = $_POST['cambiarEstado'];
+        $cliente = $dao->obtenerClientePorId($clienteId);
+        $nuevoEstado = !$cliente->status;
+        $dao->cambiarEstadoCliente($clienteId, $nuevoEstado);
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,6 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminarProfesional']
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/estilosMain.css">
+    <link rel="stylesheet" href="css/modal.css">
 </head>
 
 <body>
@@ -37,6 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminarProfesional']
                 <th>Apellidos</th>
                 <th>Tipo de usuario</th>
                 <th>Correo</th>
+                <th>Status</th>
                 <th>Acciones</th>
             </thead>
             <tbody>
@@ -44,17 +61,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminarProfesional']
                 $lista = (new DAOCliente())->obtenerClientes();
                 if ($lista != null) {
                     foreach ($lista as $Cliente) {
+                        $accion = $Cliente->status ? 'suspender' : 'reactivar';
                         echo "
                         <tr>
                             <td>$Cliente->nombreCliente</td>
                             <td>$Cliente->apellidos</td>
                             <td>$Cliente->tipoUsuario</td>
                             <td>$Cliente->email</td>
+                            <td>" . ($Cliente->status ? 'Activo' : 'Suspendido') . "</td>
                             <td>
-                            <form method='POST' style='display:inline;'>
-                                <input type='hidden' name='eliminarCliente' value='" . $Cliente->id_Cliente . "'>
-                                <button type='submit' onclick=\"return confirm('¿Eliminar cliente?');\">Eliminar</button>
-                            </form>
+                                <button type='button' onclick=\"abrirModal('$Cliente->id_Cliente',
+                                '$accion')\">"
+                                    . ucfirst($accion) .
+                                "</button>
                             </td>
                         </tr>
                         ";
@@ -98,6 +117,38 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['eliminarProfesional']
             </tbody>
         </table>
     </main>
+    <!-- modal generico que si quieres puedes tomar prestado
+     nomas le pones los parametros yo creo -->
+    <div id="modalConfirmacion" class="modal">
+    <div class="modal-contenido">
+        <p id="textoModal">¿Estás seguro?</p>
+        <form id="formularioModal" method="POST">
+        <input type="hidden" name="cambiarEstado" id="clienteIdModal">
+        <button type="submit">Sí</button>
+        <button type="button" onclick="cerrarModal()">Cancelar</button>
+        </form>
+    </div>
+    </div>
+    <script>
+        function abrirModal(idCliente, nombreAccion) {
+            document.getElementById("clienteIdModal").value = idCliente;
+            document.getElementById("textoModal").innerText = `¿Deseas ${nombreAccion} al cliente?`;
+            document.getElementById("modalConfirmacion").style.display = "block";
+        }
+
+        function cerrarModal() {
+            document.getElementById("modalConfirmacion").style.display = "none";
+        }
+        // esto hace que se cierre el modal al dar un clik fuera
+        window.onclick = function(event) {
+            const modal = document.getElementById("modalConfirmacion");
+            if (event.target === modal) {
+            cerrarModal();
+            }
+        };
+    </script>
+
+
 </body>
 
 </html>

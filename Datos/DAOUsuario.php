@@ -55,7 +55,148 @@ class DAOUsuario
         }
     }
 
-    
+    public function obtenerClientes()
+    {
+        try {
+            $this->conectar();
+
+            $lista = array();
+            /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
+            $sentenciaSQL = $this->conexion->prepare("SELECT  id_cliente, nombre, apellidos, tipousuario, email, status from clientes");
+            //Se ejecuta la sentencia sql, retorna un cursor con todos los elementos
+            $sentenciaSQL->execute();
+            //$resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
+            /*Podemos obtener un cursor (resultado con todos los renglones como 
+            un arreglo de arreglos asociativos o un arreglo de objetos*/
+            /*Se recorre el cursor para obtener los datos*/
+            foreach ($resultado as $fila) {
+                $cliente = new Usuario();
+                $cliente->id_Cliente = $fila->id_cliente;
+                $cliente->nombre = $fila->nombre;
+                $cliente->apellidos = $fila->apellidos;
+                $cliente->tipoUsuario = $fila->tipousuario;
+                $cliente->correoE = $fila->email;
+                $cliente->status = $fila->status;
+                $lista[] = $cliente;
+            }
+
+            return $lista;
+        } catch (PDOException $e) {
+            return null;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
+
+    public function obtenerProfesionales()
+    {
+        try {
+            $this->conectar();
+
+            $lista = array();
+            /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
+            $sentenciaSQL = $this->conexion->prepare("SELECT  id_profesional, nombre, apellidos, tipousuario, email, status from profesionales where tipousuario != 'admin';");
+            //Se ejecuta la sentencia sql, retorna un cursor con todos los elementos
+            $sentenciaSQL->execute();
+            //$resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
+            $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
+            /*Podemos obtener un cursor (resultado con todos los renglones como 
+            un arreglo de arreglos asociativos o un arreglo de objetos*/
+            /*Se recorre el cursor para obtener los datos*/
+            foreach ($resultado as $fila) {
+                $cliente = new Usuario();
+                $cliente->id_Profesional = $fila->id_profesional;
+                $cliente->nombre = $fila->nombre;
+                $cliente->apellidos = $fila->apellidos;
+                $cliente->tipoUsuario = $fila->tipousuario;
+                $cliente->correoE = $fila->email;
+                $lista[] = $cliente;
+            }
+
+            return $lista;
+        } catch (PDOException $e) {
+            return null;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
+
+    /**
+     * Elimina el usuario con el id indicado como parametro
+     */
+    /*
+    public function eliminarCliente($id){
+        try {
+            $this->conectar();
+            $this->conexion->beginTransaction();
+
+            // actualizar status del cliente
+            $sqlCliente = "UPDATE Clientes SET status = FALSE WHERE id_cliente = ?";
+            $stmtCliente = $this->conexion->prepare($sqlCliente);
+            $stmtCliente->execute([$id]);
+
+            // poner en NULL el id_cliente en la tabla rutinas
+            $sqlRutinas = "UPDATE Rutinas SET id_cliente = NULL WHERE id_cliente = ?";
+            $stmtRutinas = $this->conexion->prepare($sqlRutinas);
+            $stmtRutinas->execute([$id]);
+
+            $this->conexion->commit();
+            return true;
+        } catch (PDOException $e) {
+            $this->conexion->rollBack();
+            echo "Error al eliminar: " . $e->getMessage();
+            return false;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
+    */
+    // El metodo de arriba solo funciona para desactivar
+    // este metodo activa o reactiva dependiendo de el estado en el 
+    // que este el cliente
+    public function cambiarEstadoCliente($idCliente, $nuevoEstado){
+        try {
+            $this->conectar();
+            $sql = $this->conexion->prepare("UPDATE clientes SET status = :estado WHERE id_cliente = :id");
+            $sql->bindParam(':estado', $nuevoEstado, PDO::PARAM_BOOL);
+            $sql->bindParam(':id', $idCliente, PDO::PARAM_INT);
+            $sql->execute();
+        } catch (PDOException $e) {
+            // Manejo de errores
+        } finally {
+            Conexion::desconectar();
+        }
+    }
+
+    public function obtenerClientePorId($idCliente){
+        try {
+            $this->conectar();
+
+            $sql = $this->conexion->prepare("SELECT id_cliente, nombre, apellidos, tipousuario, email, status FROM clientes WHERE id_cliente = :id");
+            $sql->bindParam(':id', $idCliente, PDO::PARAM_INT);
+            $sql->execute();
+            $fila = $sql->fetch(PDO::FETCH_OBJ);
+
+            if ($fila) {
+                $cliente = new Usuario();
+                $cliente->id_Cliente = $fila->id_cliente;
+                $cliente->nombre = $fila->nombre;
+                $cliente->apellidos = $fila->apellidos;
+                $cliente->tipoUsuario = $fila->tipousuario;
+                $cliente->correoE = $fila->email;
+                $cliente->status = $fila->status;
+                return $cliente;
+            } else {
+                return null;
+            }
+        } catch (PDOException $e) {
+            return null;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
+
 
     /**
      * Función para editar al empleado de acuerdo al objeto recibido como parámetro

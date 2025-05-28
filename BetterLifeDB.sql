@@ -162,7 +162,6 @@ ALTER COLUMN pierna TYPE varchar(5);
 
 select * from profesionales;
 
-
 insert into Clientes values(default, 'Guadalupe Elizabeth', 'Camarena Castro', 'ecamarena@gmail.com', sha224('2345'), 21,
 21,
     '74kg', '174cm', '32cm','35cm','67cm','45cm'
@@ -170,5 +169,3 @@ insert into Clientes values(default, 'Guadalupe Elizabeth', 'Camarena Castro', '
     'femenino',
     'cliente'
 );
-
-UPDATE profesionales SET status = TRUE WHERE id_profesional = 1;

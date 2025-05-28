@@ -91,6 +91,7 @@ class DAOProfesional
                 $Profesional->apellidos = $fila->apellidos;
                 $Profesional->tipoUsuario = $fila->tipousuario;
                 $Profesional->email = $fila->email;
+                $Profesional->status = $fila->status;
                 $lista[] = $Profesional;
             }
 

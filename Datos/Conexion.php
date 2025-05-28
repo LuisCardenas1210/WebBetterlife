@@ -9,8 +9,7 @@ class Conexion
     private static $db = 'BetterLife' ;
     private static $usuario = 'postgres';
     private static $password = 'root';
-    private static $puerto = '3308';
-    #private static $puerto = '5432';
+    private static $puerto = '5432';
 
     //Referencia de la conexión a la BD para que 
     //si ocupamos transacciones podamos usar siempre la misma

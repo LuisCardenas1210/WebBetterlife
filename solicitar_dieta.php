@@ -1,33 +1,7 @@
 <?php
 session_start();
 require_once 'Datos/Conexion.php';
-
-// Suponiendo que el id_cliente está guardado en la sesión
-$id_cliente = 1; // O reemplaza con $_SESSION['id_cliente'];
-
-$mensaje = "";
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $id_profesional = $_POST['id_profesional'];
-    $tipo_rutina = 'dieta'; // fija porque es solo para solicitar dieta
-
-    try {
-        $conexion = Conexion::conectar();
-        $sql = "INSERT INTO solicitudes (id_Cliente, id_Profesional, TipoRutina)
-                VALUES (:id_cliente, :id_profesional, :tipo_rutina)";
-        $stmt = $conexion->prepare($sql);
-        $stmt->execute([
-            ':id_cliente' => $id_cliente,
-            ':id_profesional' => $id_profesional,
-            ':tipo_rutina' => $tipo_rutina
-        ]);
-        $mensaje = "Solicitud enviada correctamente.";
-    } catch (Exception $e) {
-        $mensaje = "Error al enviar la solicitud: " . $e->getMessage();
-    } finally {
-        Conexion::desconectar();
-    }
-}
+require_once 'Datos/header.php';
 ?>
 
 <!DOCTYPE html>
@@ -36,53 +10,90 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <title>Solicitar Dieta</title>
     <link rel="stylesheet" href="css/estilosMain.css">
+    <link rel="stylesheet" href="css/estilosVer_rutinas.css">
     <style>
         form {
-            margin: 40px;
+            margin: 50px 20px;
         }
-        label, select, input {
+        label, select, button {
             display: block;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            font-size: 16px;
         }
-        input[type="submit"] {
-            margin-top: 20px;
+        button {
+            padding: 6px 12px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #007B9E;
         }
     </style>
 </head>
 <body>
 
-<?php require_once('Datos/header.php'); ?>
-
-<h2 style="margin-left: 40px;">Solicitar una Dieta</h2>
-
 <?php
-if ($mensaje) {
-    echo "<p style='margin-left: 40px; color: green;'>$mensaje</p>";
-}
-?>
+$id_cliente = $_SESSION["id_cliente"] ?? 1; // por defecto 1 si no está en sesión
 
-<form method="post" action="solicitar_dieta.php">
-    <label for="id_profesional">Selecciona un Profesional:</label>
-    <select name="id_profesional" id="id_profesional" required>
-        <option value="">-- Elige --</option>
-        <?php
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $id_profesional = $_POST["id_profesional"] ?? null;
+
+    if ($id_profesional && $id_profesional != "0") {
         try {
             $conexion = Conexion::conectar();
-            $sql = "SELECT id_Profesional, nombre, apellidos FROM Profesionales WHERE especialidad = 'Nutriologo'";
-            $stmt = $conexion->query($sql);
-            while ($fila = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                echo "<option value='{$fila['id_Profesional']}'>" . htmlspecialchars($fila['nombre']) . " " . htmlspecialchars($fila['apellidos']) . "</option>";
-            }
+            $sql = "INSERT INTO solicitudes (id_cliente, id_profesional, tiporutina, fecha_solicitud)
+                    VALUES (:id_cliente, :id_profesional, 'dieta', NOW())";
+            $stmt = $conexion->prepare($sql);
+            $stmt->execute([
+                'id_cliente' => $id_cliente,
+                'id_profesional' => $id_profesional
+            ]);
+            echo "<p style='color: green; margin-left: 20px;'>✅ Solicitud enviada exitosamente.</p>";
         } catch (Exception $e) {
-            echo "<option disabled>Error al cargar profesionales</option>";
+            echo "<p style='color: red; margin-left: 20px;'>❌ Error: " . $e->getMessage() . "</p>";
         } finally {
             Conexion::desconectar();
         }
-        ?>
-    </select>
+    } else {
+        echo "<p style='color: red; margin-left: 20px;'>❌ Por favor, selecciona un Nutriologo válido.</p>";
+    }
+}
+?>
 
-    <input type="submit" value="Enviar Solicitud">
+<h2 style="margin-left: 20px;">Solicitar Dieta</h2>
+
+<form method="POST" action="solicitar_dieta.php">
+    <label for="id_profesional"><strong>Selecciona un Nutriologo:</strong></label>
+<select name="id_profesional" id="id_profesional" required>
+    <option value="0">-- Elige --</option>
+    <?php
+    try {
+        $conexion = Conexion::conectar();
+        $stmt = $conexion->prepare("SELECT id_profesional, nombre, apellidos FROM profesionales WHERE especialidad ILIKE 'Nutriologo'");
+        $stmt->execute();
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $id = htmlspecialchars($row["id_profesional"]);
+            $nombre = htmlspecialchars($row["nombre"]);
+            $apellidos = htmlspecialchars($row["apellidos"]);
+            echo "<option value=\"$id\">$nombre $apellidos</option>";
+        }
+    } catch (Exception $e) {
+        echo "<option disabled>❌ Error al cargar nutriologos</option>";
+    } finally {
+        Conexion::desconectar();
+    }
+    ?>
+</select>
+
+    </select>
+    <button type="submit">Enviar Solicitud</button>
 </form>
+
+
 
 </body>
 </html>

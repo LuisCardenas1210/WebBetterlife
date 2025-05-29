@@ -330,6 +330,10 @@ th, td {
     border: 1px solid gray;
 }
 
-body{
-    margin-top: 100px;
+
+
+body {
+  margin: 0;
+  padding-top: 20px;
+  overflow-x: hidden; 
 }

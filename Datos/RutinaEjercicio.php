@@ -5,7 +5,7 @@
                 Dias de la semana
             </td>
             <td>
-                Area a entrenar
+                Grupo muscular
             </td>
             <td>
                 Ejercicios

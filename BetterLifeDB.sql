@@ -209,11 +209,6 @@ WHERE
 		AND P.CONTRASENIA = SHA224('8765')
 	);
 
-SELECT
-	*
-FROM
-	CLIENTES;
-
 SELECT  id_profesional, nombre, apellidos, tipousuario, email from profesionales where tipousuario != 'admin      ';
 
 -- ejecutar esto (ref pulpito){
@@ -286,3 +281,6 @@ VALUES
 		'femenino',
 		'cliente'
 	);
+
+
+select tipoRutina from solicitudes where id_Solicitud=1;

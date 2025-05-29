@@ -62,7 +62,7 @@ class DAORutina
         try {
             $sql = "INSERT INTO rutinas (
                 id_cliente,
-                descripciónrutina,
+                descripcionrutina,
                 lunes,
                 martes,
                 miercoles,
@@ -72,7 +72,7 @@ class DAORutina
                 domingo
             ) VALUES (
                 :id_cliente,
-                :descripciónrutina,
+                :descripcionrutina,
                 :lunes,
                 :martes,
                 :miercoles,
@@ -86,7 +86,7 @@ class DAORutina
             $this->conexion->prepare($sql)
                 ->execute(array(
                     ':id_cliente' => $obj->id_Cliente,
-                ':descripciónrutina' => $obj->descripciónRutina,
+                ':descripcionrutina' => $obj->descripcionRutina,
                 ':lunes'=> $obj->lunes,
                 ':martes'=> $obj->martes,
                 ':miercoles'=> $obj->miercoles,

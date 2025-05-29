@@ -23,9 +23,41 @@ td {
 button {
     width: 6vw;
     height: 4vh;
-    background-color: greenyellow;
+    background-color: rgb(179, 212, 255);
+    border-radius: 4px;
 }
 
 button:hover{
-    background-color: rgb(10, 209, 53);
+    background-color: rgb(47, 186, 255);
+}
+
+
+.estado-activo {
+    color: rgb(0, 255, 8);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.estado-suspendido {
+    color: rgb(255, 17, 0);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.boton-reactivar {
+    background-color: #28a745; /* verde */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.boton-suspender {
+    background-color: #dc3545; /* rojo */
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    border-radius: 4px;
 }

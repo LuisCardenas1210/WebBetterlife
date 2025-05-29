@@ -56,16 +56,22 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cambiarEstado'], $_PO
                     if ($lista != null) {
                         foreach ($lista as $Cliente) {
                             $accion = $Cliente->status ? 'suspender' : 'reactivar';
+                            $claseBoton = $accion === 'reactivar' ? 'boton-reactivar' : 'boton-suspender';
                             echo "
                         <tr>
                             <td>$Cliente->nombreCliente</td>
                             <td>$Cliente->apellidos</td>
                             <td>$Cliente->tipoUsuario</td>
                             <td>$Cliente->email</td>
-                            <td>" . ($Cliente->status ? 'Activo' : 'Suspendido') . "</td>
+                            <!--  <td>" . ($Cliente->status ? 'Activo' : 'Suspendido') . "</td> -->
                             <td>
-                                <button type='button' onclick=\"abrirModalCliente('$Cliente->id_Cliente',
-                                '$accion')\">"
+                                <span class='" . ($Cliente->status ? 'estado-activo' : 'estado-suspendido') . "'>" .
+                                    ($Cliente->status ? 'Activo' : 'Suspendido') .
+                                "</span>
+                            </td>
+
+                            <td>
+                                <button type='button' class='$claseBoton' onclick=\"abrirModalCliente('$Cliente->id_Cliente', '$accion')\">"
                                 . ucfirst($accion) .
                                 "</button>
                             </td>
@@ -94,16 +100,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cambiarEstado'], $_PO
                     if ($lista != null) {
                         foreach ($lista as $Profesional) {
                             $accion = $Profesional->status ? 'suspender' : 'reactivar';
+                            $claseBoton = $accion === 'reactivar' ? 'boton-reactivar' : 'boton-suspender';
                             echo "
                         <tr>
                             <td>$Profesional->nombreProfesional</td>
                             <td>$Profesional->apellidos</td>
                             <td>$Profesional->tipoUsuario</td>
                             <td>$Profesional->email</td>
-                            <td>" . ($Profesional->status ? 'Activo' : 'Suspendido') . "</td>
+                            <!-- <td>" . ($Profesional->status ? 'Activo' : 'Suspendido') . "</td> -->
                             <td>
-                                <button type='button' onclick=\"abrirModalProfesional('$Profesional->id_Profesional',
-                                '$accion')\">"
+                                <span class='" . ($Profesional->status ? 'estado-activo' : 'estado-suspendido') . "'>" .
+                                    ($Profesional->status ? 'Activo' : 'Suspendido') .
+                                "</span>
+                            </td>
+                            <td>
+                                <button type='button' class='$claseBoton' onclick=\"abrirModalProfesional('$Profesional->id_Profesional','$accion')\">"
                                 . ucfirst($accion) .
                                 "</button>
                             </td>

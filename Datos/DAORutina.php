@@ -109,4 +109,22 @@ class DAORutina
             Conexion::desconectar();
         }
     }
+
+    public function eliminarSolicitud($id)
+    {
+        try {
+            $this->conectar();
+
+            $sentenciaSQL = $this->conexion->prepare("DELETE FROM Solicitudes WHERE id_Solicitud = ?");
+            $resultado = $sentenciaSQL->execute(array($id));
+            return $resultado;
+        } catch (PDOException $e) {
+            //Si quieres acceder expecíficamente al numero de error
+            //se puede consultar la propiedad errorInfo
+            echo "Error al eliminar: " . $e->getMessage();
+            return false;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
 }

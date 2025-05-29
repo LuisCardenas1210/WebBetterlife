@@ -102,6 +102,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $idInsertado = $dao->Agregar($rutina);
 
         if ($idInsertado > 0) {
+            $dao->eliminarSolicitud($_SESSION['id_Solicitud']);
+
             $_SESSION['exito'] = "Rutina creada exitosamente.";
             header("Location: CrearRutina.php");
             exit;

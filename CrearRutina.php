@@ -67,7 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $rutina = new Rutina();
         $rutina->id_Cliente = $_POST['id_Usuario'] ?? null;
-        $rutina->id_Profesional = $_SESSION['id_Profesional'] ?? null;
+        $rutina->id_Profesional = $_SESSION['id_profesional'] ?? null;
         $rutina->descripcionRutina = trim($_POST['txtRutina'] ?? '');
         $rutina->tiporutina = $solicitud ?? '';
 
@@ -83,11 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         foreach ($dias_letras as $dia => $letra) {
             if ($rutina->tiporutina === 'dieta') {
-                $campoDia = "Comida $dia";
-                $campoDetalle = "Ingredientes $dia";
+                $campoDia = "Comida_$dia";
+                $campoDetalle = "Ingredientes_$dia";
             } else {
-                $campoDia = "Area $dia";
-                $campoDetalle = "Ejercicios $dia";
+                $campoDia = "Area_$dia";
+                $campoDetalle = "Ejercicios_$dia";
             }
 
             $propDia = strtolower($dia); // lunes, martes, etc.
@@ -141,6 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         <?php endif; ?>
         <?php
+        var_dump($_SESSION);
         $cliente = null;
         if (isset($_SESSION['id_Usuario'])) {
             $cliente = (new DAORutina())->obtenerUno($_SESSION['id_Usuario']);

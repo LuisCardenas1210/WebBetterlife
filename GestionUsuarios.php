@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cambiarEstado'], $_PO
                                 <form action='cambiarCredenciales.php' method='GET' style='display:inline;'>
                                     <input type='hidden' name='id' value='" . $Cliente->id_Cliente . "'>
                                     <input type='hidden' name='tipo' value='cliente'>
-                                    <button type='submit'>Cambiar correo/contraseña</button>
+                                    <button type='submit'>Cambiar correo/ contraseña</button>
                                 </form>
 
                             </td>

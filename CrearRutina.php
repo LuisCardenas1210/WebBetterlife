@@ -63,53 +63,29 @@ require_once 'Modelos/Rutina.php';
                     <input type="text" name="txtPierna" id="txtPierna" disabled value="<?= $cliente?->pierna ?? '' ?>">
                     <br>
                 </div>
-                <div>
-                    <div class="Rutina">
-                        <legend class="kanit">Descripción de rutina</legend>
-                        <textarea name="txtRutina" id="txtRutina"
-                            placeholder="Describa la rutina aqui y lo que se espera lograr"></textarea>
+                <div class="Rutina">
+                    <legend class="kanit">Descripción de rutina</legend>
+                    <textarea name="txtRutina" id="txtRutina"
+                        placeholder="Describa la rutina aqui y lo que se espera lograr"></textarea>
 
-                        <legend class="kanit">Rutina</legend>
-                        <?php
-                        $solicitud = null;
-                        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_Solicitud'])) {
-                            $solicitud = (new DAOSolicitud())->obtenerTipoRutina($_POST['id_Solicitud']);
-                        }
-                        if ($solicitud === "ejercicio") {
-                            include_once('Datos/RutinaEjercicio.php');
-                        } else {
-                            include_once('Datos/RutinaDieta.php');
-                        }
-                        ?>
-                        <button type="submit" id="btnGuardar">Guardar y volver</button>
-                    </div>
+                    <legend class="kanit">Rutina</legend>
+                    <?php
+                    $solicitud = null;
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_Solicitud'])) {
+                        $solicitud = (new DAOSolicitud())->obtenerTipoRutina($_POST['id_Solicitud']);
+                    }
+                    if ($solicitud === "ejercicio") {
+                        include_once('Datos/RutinaEjercicio.php');
+                    } else {
+                        include_once('Datos/RutinaDieta.php');
+                    }
+                    ?>
+                    <div id="errores" class="error" style="display: none;"></div>
+                    <button type="button" id="btnGuardar" formnovalidate>Guardar y volver</button>
+                </div>
         </form>
-        <!-- <?php
-        /* if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $rutina = new Rutina();
-            $rutina->id_Cliente = $_POST['id_Cliente']; // Asegúrate de enviar este ID desde antes (por sesión o campo hidden)
-            $rutina->descripciónRutina = $_POST['txtRutina'];
-            // Días de la semana
-            $rutina->lunes = $_POST['txtComidaL'];
-            $rutina->martes = $_POST['txtComidaM'];
-            $rutina->miercoles = $_POST['txtComidaW'];
-            $rutina->jueves = $_POST['txtComidaJ'];
-            $rutina->viernes = $_POST['txtComidaV'];
-            $rutina->sabado = $_POST['txtComidaS'];
-            $rutina->domingo = $_POST['txtComidaD'];
-
-            $dao = new DAORutina();
-            $resultado = $dao->agregar($rutina);
-
-            if ($resultado > 0) {
-                echo "<script>alert('Rutina guardada correctamente'); window.location='Usuarios.php';</script>";
-            } else {
-                echo "<script>alert('Error al guardar la rutina');</script>";
-            }
-        } */
-        ?> -->
-
     </main>
+    <script src="Scripts/validacionCrearRutina.js"></script>
 </body>
 
 </html>

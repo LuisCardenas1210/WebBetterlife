@@ -16,64 +16,64 @@
         <tr>
             <td>Lunes</td>
             <td>
-                <input type="text" name="txtLunes" id="txtLunes">
+                <input type="text" name="Comida Lunes" class="dia">
             </td>
             <td>
-                <input type="text" name="txtComidaL" id="txtComidaL">
+                <input type="text" name="Ingredientes Lunes" class="detalle">
             </td>
         </tr>
         <tr>
             <td>Martes</td>
             <td>
-                <input type="text" name="txtMartes" id="txtMartes">
+                <input type="text" name="Comida Martes" class="dia">
             </td>
             <td>
-                <input type="text" name="txtComidaM" id="txtComidaM">
+                <input type="text" name="Ingredientes Martes" class="detalle">
             </td>
         </tr>
         <tr>
             <td>Miercoles</td>
             <td>
-                <input type="text" name="txtMiercoles" id="txtMiercoles">
+                <input type="text" name="Comida Miercoles" class="dia">
             </td>
             <td>
-                <input type="text" name="txtComidaW" id="txtComidaW">
+                <input type="text" name="Ingredientes Miercoles" class="detalle">
             </td>
         </tr>
         <tr>
             <td>Jueves</td>
             <td>
-                <input type="text" name="txtJueves" id="txtJueves">
+                <input type="text" name="Comida Jueves" class="dia">
             </td>
             <td>
-                <input type="text" name="txtComidaJ" id="txtComidaJ">
+                <input type="text" name="Ingredientes Jueves" class="detalle">
             </td>
         </tr>
         <tr>
             <td>Viernes</td>
             <td>
-                <input type="text" name="txtViernes" id="txtViernes">
+                <input type="text" name="Comida Viernes" class="dia">
             </td>
             <td>
-                <input type="text" name="txtComidaV" id="txtComidaV">
+                <input type="text" name="Ingredientes Viernes" class="detalle">
             </td>
         </tr>
         <tr>
             <td>Sábado</td>
             <td>
-                <input type="text" name="txtSabado" id="txtSabado">
+                <input type="text" name="Comida Sabado" class="dia">
             </td>
             <td>
-                <input type="text" name="txtComidaS" id="txtComidaS">
+                <input type="text" name="Ingredientes Sabado" class="detalle">
             </td>
         </tr>
         <tr>
             <td>Domingo</td>
             <td>
-                <input type="text" name="txtDomingo" id="txtDomingo">
+                <input type="text" name="Comida Domingo" class="dia">
             </td>
             <td>
-                <input type="text" name="txtComidaD" id="txtComidaD">
+                <input type="text" name="Ingredientes Domingo" class="detalle">
             </td>
         </tr>
     </tbody>

@@ -1,11 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const btnGuardar = document.getElementById("btnGuardar");
     const formulario = document.querySelector("form");
 
-    btnGuardar.addEventListener("click", () => {
-        if (validarFormulario()) {
-            formulario.submit();
+    formulario.addEventListener("submit", (event) => {
+        const botonPresionado = event.submitter; // Botón que disparó el submit
+        const accion = botonPresionado?.value;
+
+        if (accion === "guardar") {
+            if (!validarFormulario()) {
+                event.preventDefault(); // Detiene envío si hay errores
+            }
         }
+        // Si es "volver", no se valida
     });
 });
 
@@ -48,7 +53,7 @@ function validarFormulario() {
 }
 
 function mostrarErrores(errores) {
-    const divErrores = document.getElementById("errores");
+    const divErrores = document.getElementById("erroresjs");
     divErrores.innerHTML = errores.map(error => `<p>${error}</p>`).join("");
     divErrores.style.display = "block";
 }

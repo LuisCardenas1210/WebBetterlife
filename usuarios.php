@@ -54,7 +54,7 @@ include_once('Datos/DAOCliente.php');
                 </tbody>
             </table>
         </div>
-        <script src="Scripts/scriptUsuarios.js"></script>
+        <script src="Scripts\scriptUsuarios.js"></script>
     </main>
 </body>
 

@@ -217,7 +217,7 @@ class DAOCliente
             $sql->execute();
         } catch (PDOException $e) {
         } finally {
-            Conexion::desconectar($conn);
+            Conexion::desconectar();
         }
     }
 

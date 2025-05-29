@@ -205,4 +205,41 @@ class DAOCliente
             Conexion::desconectar();
         }
     }
+
+    public function modificarCliente($id, $nombre, $apellidos, $email) {
+        try {
+            $conn = Conexion::conectar();
+            $sql = $conn->prepare("UPDATE clientes SET nombreCliente = :nombre, apellidos = :apellidos, email = :email WHERE id_cliente = :id");
+            $sql->bindParam(':nombre', $nombre);
+            $sql->bindParam(':apellidos', $apellidos);
+            $sql->bindParam(':email', $email);
+            $sql->bindParam(':id', $id, PDO::PARAM_INT);
+            $sql->execute();
+        } catch (PDOException $e) {
+        } finally {
+            Conexion::desconectar($conn);
+        }
+    }
+
+
+    public function actualizarCorreoYContrasena($id, $nuevoCorreo, $nuevaContrasena) {
+        try {
+            $conn = Conexion::conectar();
+            $sql = $conn->prepare("UPDATE clientes SET email = :email, contrasenia = sha224(:contrasenia) WHERE id_cliente = :id");
+            $sql->bindParam(':email', $nuevoCorreo, PDO::PARAM_STR);
+            $sql->bindParam(':contrasenia', $nuevaContrasena, PDO::PARAM_STR);
+            $sql->bindParam(':id', $id, PDO::PARAM_INT);
+            $sql->execute();
+            return true; // actualización exitosa
+        } catch (PDOException $e) {
+            // Muestra el error real (solo para desarrollo)
+            echo "Error PDO: " . $e->getMessage();
+            return false;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
+
+
+
 }

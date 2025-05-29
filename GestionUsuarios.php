@@ -74,6 +74,12 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cambiarEstado'], $_PO
                                 <button type='button' class='$claseBoton' onclick=\"abrirModalCliente('$Cliente->id_Cliente', '$accion')\">"
                                 . ucfirst($accion) .
                                 "</button>
+                                <form action='cambiarCredenciales.php' method='GET' style='display:inline;'>
+                                    <input type='hidden' name='id' value='" . $Cliente->id_Cliente . "'>
+                                    <input type='hidden' name='tipo' value='cliente'>
+                                    <button type='submit'>Cambiar correo/contraseña</button>
+                                </form>
+
                             </td>
                         </tr>
                         ";

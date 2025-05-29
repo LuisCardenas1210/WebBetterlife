@@ -22,6 +22,7 @@ session_start();
             margin-top: 100px;
         }
     </style>
+    
 </head>
 
 <body>
@@ -48,17 +49,20 @@ if ($rutinas):
                     <td><?php echo ($tipo == 'dieta') ? 'Ingredientes o preparación' : 'Ejercicios'; ?></td>
                 </tr>
             </thead>
+
             <tbody>
             <?php
-            $dias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
-            foreach ($dias as $dia) {
-                echo "<tr>
-                        <td>" . ucfirst($dia) . "</td>
-                        <td>" . htmlspecialchars($rutina[$dia]) . "</td>
-                        <td><input type='text' name='txtExtra{$rutina['id_rutina']}{$dia}'></td>
-                      </tr>";
-            }
+                $dias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
+                foreach ($dias as $dia) {
+                    $detalleKey = "detalles" . substr($dia, 0, 1); // l, m, w, j, v, s, d
+                    echo "<tr>
+                            <td>" . ucfirst($dia) . "</td>
+                            <td>" . htmlspecialchars($rutina[$dia]) . "</td>
+                            <td>" . htmlspecialchars($rutina[$detalleKey]) . "</td>
+                        </tr>";
+                }
             ?>
+
             </tbody>
         </table>
         <br><br>

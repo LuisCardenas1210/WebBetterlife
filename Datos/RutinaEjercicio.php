@@ -16,64 +16,64 @@
         <tr>
             <td>Lunes</td>
             <td>
-                <input type="text" name="Area Lunes" class="dia" value="<?= htmlspecialchars($_POST['Area Lunes'] ?? '') ?>">
+                <input type="text" name="Area_Lunes" class="dia" value="<?= htmlspecialchars($_POST['Area_Lunes'] ?? '') ?>">
             </td>
             <td>
-                <input type="text" name="Ejercicios Lunes" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios Lunes'] ?? '') ?>">
+                <input type="text" name="Ejercicios_Lunes" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios_Lunes'] ?? '') ?>">
             </td>
         </tr>
         <tr>
             <td>Martes</td>
             <td>
-                <input type="text" name="Area Martes" class="dia" value="<?= htmlspecialchars($_POST['Area Martes'] ?? '') ?>">
+                <input type="text" name="Area_Martes" class="dia" value="<?= htmlspecialchars($_POST['Area_Martes'] ?? '') ?>">
             </td>
             <td>
-                <input type="text" name="Ejercicios Martes" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios Martes'] ?? '') ?>">
+                <input type="text" name="Ejercicios_Martes" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios_Martes'] ?? '') ?>">
             </td>
         </tr>
         <tr>
             <td>Miercoles</td>
             <td>
-                <input type="text" name="Area Miercoles" class="dia" value="<?= htmlspecialchars($_POST['Area Miercoles'] ?? '') ?>">
+                <input type="text" name="Area_Miercoles" class="dia" value="<?= htmlspecialchars($_POST['Area_Miercoles'] ?? '') ?>">
             </td>
             <td>
-                <input type="text" name="Ejercicios Miercoles" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios Miercoles'] ?? '') ?>">
+                <input type="text" name="Ejercicios_Miercoles" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios_Miercoles'] ?? '') ?>">
             </td>
         </tr>
         <tr>
             <td>Jueves</td>
             <td>
-                <input type="text" name="Area Jueves" class="dia" value="<?= htmlspecialchars($_POST['Area Jueves'] ?? '') ?>">
+                <input type="text" name="Area_Jueves" class="dia" value="<?= htmlspecialchars($_POST['Area_Jueves'] ?? '') ?>">
             </td>
             <td>
-                <input type="text" name="Ejercicios Jueves" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios Jueves'] ?? '') ?>">
+                <input type="text" name="Ejercicios_Jueves" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios_Jueves'] ?? '') ?>">
             </td>
         </tr>
         <tr>
             <td>Viernes</td>
             <td>
-                <input type="text" name="Area Viernes" class="dia" value="<?= htmlspecialchars($_POST['Area Viernes'] ?? '') ?>">
+                <input type="text" name="Area_Viernes" class="dia" value="<?= htmlspecialchars($_POST['Area_Viernes'] ?? '') ?>">
             </td>
             <td>
-                <input type="text" name="Ejercicios Viernes" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios Viernes'] ?? '') ?>">
+                <input type="text" name="Ejercicios_Viernes" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios_Viernes'] ?? '') ?>">
             </td>
         </tr>
         <tr>
             <td>Sábado</td>
             <td>
-                <input type="text" name="Area Sabado" class="dia" value="<?= htmlspecialchars($_POST['Area Sabado'] ?? '') ?>">
+                <input type="text" name="Area_Sabado" class="dia" value="<?= htmlspecialchars($_POST['Area_Sabado'] ?? '') ?>">
             </td>
             <td>
-                <input type="text" name="Ejercicios Sabado" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios Sabado'] ?? '') ?>">
+                <input type="text" name="Ejercicios_Sabado" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios_Sabado'] ?? '') ?>">
             </td>
         </tr>
         <tr>
             <td>Domingo</td>
             <td>
-                <input type="text" name="Area Domingo" class="dia" value="<?= htmlspecialchars($_POST['Area Domingo'] ?? '') ?>">
+                <input type="text" name="Area_Domingo" class="dia" value="<?= htmlspecialchars($_POST['Area_Domingo'] ?? '') ?>">
             </td>
             <td>
-                <input type="text" name="Ejercicios Domingo" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios Domingo'] ?? '') ?>">
+                <input type="text" name="Ejercicios_Domingo" class="detalle" value="<?= htmlspecialchars($_POST['Ejercicios_Domingo'] ?? '') ?>">
             </td>
         </tr>
     </tbody>

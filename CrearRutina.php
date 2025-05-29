@@ -1,9 +1,18 @@
 <?php
 session_start();
+
 require_once 'Datos/DAORutina.php';
 require_once 'Datos/DAOSolicitud.php';
 require_once 'Modelos/Rutina.php';
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (isset($_POST['id_Usuario'])) {
+        $_SESSION['id_Usuario'] = $_POST['id_Usuario'];
+    }
+    if (isset($_POST['id_Solicitud'])) {
+        $_SESSION['id_Solicitud'] = $_POST['id_Solicitud'];
+    }
+}
 
 $errores = [];
 
@@ -11,13 +20,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $accion = $_POST['accion'] ?? '';
 
     if ($accion === 'volver') {
-        // Redirige a la vista anterior, por ejemplo al listado de solicitudes o dashboard
-        header("Location: usuarios.php"); // Ajusta la ruta si es necesario
+        unset($_SESSION['id_Usuario'], $_SESSION['id_Solicitud']);
+        header("Location: usuarios.php");
         exit;
     }
 
+
     if ($accion === 'guardar') {
-        // Validar datos
         $errores = [];
 
         if (empty(trim($_POST['txtRutina'] ?? ''))) {
@@ -25,21 +34,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
-        $esDieta = false;
-        foreach ($dias as $dia) {
-            if (isset($_POST["Comida $dia"]) || isset($_POST["Ingredientes $dia"])) {
-                $esDieta = true;
-                break;
-            }
+
+        // Recuperar tipo de rutina según id de solicitud
+        $solicitud = null;
+        if (isset($_SESSION['id_Solicitud'])) {
+            $solicitud = (new DAOSolicitud())->obtenerTipoRutina($_SESSION['id_Solicitud']);
         }
 
+
         foreach ($dias as $dia) {
-            if ($esDieta) {
-                $campoDia = "Comida $dia";
-                $campoDetalle = "Ingredientes $dia";
+            if ($solicitud === 'dieta') {
+                $campoDia = "Comida_$dia";
+                $campoDetalle = "Ingredientes_$dia";
             } else {
-                $campoDia = "Area $dia";
-                $campoDetalle = "Ejercicios $dia";
+                $campoDia = "Area_$dia";
+                $campoDetalle = "Ejercicios_$dia";
             }
 
             if (empty(trim($_POST[$campoDia] ?? ''))) {
@@ -54,6 +63,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['errores'] = $errores;
             header("Location: CrearRutina.php");
             exit;
+        }
+
+        $rutina = new Rutina();
+        $rutina->id_Cliente = $_POST['id_Usuario'] ?? null;
+        $rutina->id_Profesional = $_SESSION['id_Profesional'] ?? null;
+        $rutina->descripcionRutina = trim($_POST['txtRutina'] ?? '');
+        $rutina->tiporutina = $solicitud ?? '';
+
+        $dias_letras = [
+            'Lunes' => 'L',
+            'Martes' => 'M',
+            'Miercoles' => 'W',
+            'Jueves' => 'J',
+            'Viernes' => 'V',
+            'Sabado' => 'S',
+            'Domingo' => 'D'
+        ];
+
+        foreach ($dias_letras as $dia => $letra) {
+            if ($rutina->tiporutina === 'dieta') {
+                $campoDia = "Comida $dia";
+                $campoDetalle = "Ingredientes $dia";
+            } else {
+                $campoDia = "Area $dia";
+                $campoDetalle = "Ejercicios $dia";
+            }
+
+            $propDia = strtolower($dia); // lunes, martes, etc.
+            $propDetalle = "detalles$letra"; // detallesL, detallesM, etc.
+
+            $rutina->$propDia = trim($_POST[$campoDia] ?? '');
+            $rutina->$propDetalle = trim($_POST[$campoDetalle] ?? '');
+        }
+
+        // Guardar rutina en BD
+        $dao = new DAORutina();
+        $idInsertado = $dao->Agregar($rutina);
+
+        if ($idInsertado > 0) {
+            unset($_SESSION['id_Usuario'], $_SESSION['id_Solicitud']);
+            $_SESSION['exito'] = "Rutina creada exitosamente.";
+            header("Location: usuarios.php");
+            exit;
+        } else {
+            $_SESSION['errores'] = ["Hubo un error al guardar la rutina. Intente nuevamente."];
+            header("Location: CrearRutina.php");
+            exit;
+
         }
     }
 }
@@ -85,13 +142,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
         <?php
         $cliente = null;
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_Usuario'])) {
-            $cliente = (new DAORutina())->obtenerUno($_POST['id_Usuario']);
+        if (isset($_SESSION['id_Usuario'])) {
+            $cliente = (new DAORutina())->obtenerUno($_SESSION['id_Usuario']);
         }
         ?>
         <form action="CrearRutina.php" method="POST">
-            <input type="hidden" name="id_Usuario" value="<?= htmlspecialchars($_POST['id_Usuario'] ?? '') ?>">
-            <input type="hidden" name="id_Solicitud" value="<?= htmlspecialchars($_POST['id_Solicitud'] ?? '') ?>">
+            <input type="hidden" name="id_Usuario" value="<?= htmlspecialchars($_SESSION['id_Usuario'] ?? '') ?>">
+            <input type="hidden" name="id_Solicitud" value="<?= htmlspecialchars($_SESSION['id_Solicitud'] ?? '') ?>">
 
             <!-- Aquí irá el contenido del formulario -->
             <div class="contenedorInfo">
@@ -136,8 +193,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <legend class="kanit">Rutina</legend>
                     <?php
                     $solicitud = null;
-                    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_Solicitud'])) {
-                        $solicitud = (new DAOSolicitud())->obtenerTipoRutina($_POST['id_Solicitud']);
+                    if (isset($_SESSION['id_Solicitud'])) {
+                        $solicitud = (new DAOSolicitud())->obtenerTipoRutina($_SESSION['id_Solicitud']);
                     }
                     if ($solicitud === "ejercicio") {
                         include_once('Datos/RutinaEjercicio.php');

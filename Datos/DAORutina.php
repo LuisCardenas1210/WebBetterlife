@@ -55,61 +55,6 @@ class DAORutina
             Conexion::desconectar();
         }
     }
-
-    public function agregar(Rutina $obj)
-    {
-        $clave = 0;
-        try {
-            $sql = "INSERT INTO rutinas (
-                id_cliente,
-                descripcionrutina,
-                lunes,
-                martes,
-                miercoles,
-                jueves,
-                viernes,
-                sabado,
-                domingo
-            ) VALUES (
-                :id_cliente,
-                :descripcionrutina,
-                :lunes,
-                :martes,
-                :miercoles,
-                :jueves,
-                :viernes,
-                :sabado,
-                :domingo  -- domingo
-            );";
-
-            $this->conectar();
-            $this->conexion->prepare($sql)
-                ->execute(array(
-                    ':id_cliente' => $obj->id_Cliente,
-                ':descripcionrutina' => $obj->descripcionRutina,
-                ':lunes'=> $obj->lunes,
-                ':martes'=> $obj->martes,
-                ':miercoles'=> $obj->miercoles,
-                ':jueves'=> $obj->jueves,
-                ':viernes'=> $obj->viernes,
-                ':sabado'=> $obj->sabado,
-                ':domingo'=> $obj->domingo
-                ));
-
-            $clave = $this->conexion->lastInsertId();
-            return $clave;
-        } catch (Exception $e) {
-
-            return $clave;
-        } finally {
-
-            /*En caso de que se necesite manejar transacciones, 
-            no deberá desconectarse mientras la transacción deba 
-            persistir*/
-
-            Conexion::desconectar();
-        }
-    }
     public function obtenerRutinasPorCliente($id_cliente)
     {
         $this->conectar();
@@ -119,5 +64,49 @@ class DAORutina
         $stmt->execute(['id' => $id_cliente]);
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function Agregar(Rutina $obj)
+    {
+        $clave = 0;
+        try {
+            $sql = "INSERT INTO RUTINAS (id_cliente, id_profesional, descripcionrutina, tiporutina,
+            lunes, detallesl, martes, detallesm, miercoles, detallesw, jueves, detallesj, viernes, detallesv,
+            sabado, detalless, domingo, detallesd)
+    VALUES
+	(:id_cliente, :id_profesional, :descripcionrutina, :tiporutina, :lunes, :detallesl, :martes, :detallesm,
+    :miercoles, :detallesw, :jueves, :detallesj, :viernes, :detallesv, :sabado, :detalless, :domingo, :detallesd);";
+
+            $this->conectar();
+            $this->conexion->prepare($sql)
+                ->execute(array(
+                    ':id_cliente' => $obj->id_Cliente,
+                    ':id_profesional' => $obj->id_Profesional,
+                    ':descripcionrutina' => $obj->descripcionRutina,
+                    ':tiporutina' => $obj->tiporutina,
+                    ':lunes' => $obj->lunes,
+                    ':detallesl' => $obj->detallesL,
+                    ':martes' => $obj->martes,
+                    ':detallesm' => $obj->detallesM,
+                    ':miercoles' => $obj->miercoles,
+                    ':detallesw' => $obj->detallesW,
+                    ':jueves' => $obj->jueves,
+                    ':detallesj' => $obj->detallesJ,
+                    ':viernes' => $obj->viernes,
+                    ':detallesv' => $obj->detallesV,
+                    ':sabado' => $obj->sabado,
+                    ':detalless' => $obj->detallesS,
+                    ':domingo' => $obj->domingo,
+                    ':detallesd' => $obj->detallesD
+                ));
+
+            $clave = $this->conexion->lastInsertId();
+            return $clave;
+        } catch (Exception $e) {
+
+            return $clave;
+        } finally {
+            Conexion::desconectar();
+        }
     }
 }

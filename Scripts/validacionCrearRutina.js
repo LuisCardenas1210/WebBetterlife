@@ -27,6 +27,13 @@ function validarFormulario() {
         rutina.style.border = "";
     }
 
+    if (rutina.value.trim().length > 1000) {
+        errores.push("La Descrición de la rutina no puede tener más de 1000 caracteres");
+        rutina.style.border = "2px solid red";
+    } else {
+        rutina.style.border = "";
+    }
+
     camposDia.forEach(campo => {
         if (campo.value.trim() === "") {
             errores.push("Debe ingresar " + campo.name);

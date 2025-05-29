@@ -1,4 +1,7 @@
-function enviarFormulario(id) {
-    document.getElementById('inputIdUsuario').value = id;
+function enviarFormulario(id_Usuario, id_Solicitud) {
+    document.getElementById('inputIdUsuario').value = id_Usuario;
+    document.getElementById('formEnviar').submit();
+
+    document.getElementById('inputIdSolicitud').value = id_Solicitud;
     document.getElementById('formEnviar').submit();
 }

@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once 'Datos/DAORutina.php';
+require_once 'Datos/DAOSolicitud.php';
 require_once 'Modelos/Rutina.php';
 ?>
 
@@ -22,8 +23,8 @@ require_once 'Modelos/Rutina.php';
     <main>
         <?php
         $cliente = null;
-        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id'])) {
-            $cliente = (new DAORutina())->obtenerUno($_POST['id']);
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_Usuario'])) {
+            $cliente = (new DAORutina())->obtenerUno($_POST['id_Usuario']);
         }
         ?>
         <form action="usuarios.php" method="POST">
@@ -70,9 +71,15 @@ require_once 'Modelos/Rutina.php';
 
                         <legend class="kanit">Rutina</legend>
                         <?php
-                        include_once('Datos/RutinaEjercicio.php');
-                        echo "<br>";
-                        include_once('Datos/RutinaDieta.php');
+                        $solicitud = null;
+                        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_Solicitud'])) {
+                            $solicitud = (new DAOSolicitud())->obtenerTipoRutina($_POST['id_Solicitud']);
+                        }
+                        if ($solicitud === "ejercicio") {
+                            include_once('Datos/RutinaEjercicio.php');
+                        } else {
+                            include_once('Datos/RutinaDieta.php');
+                        }
                         ?>
                         <button type="submit" id="btnGuardar">Guardar y volver</button>
                     </div>

@@ -20,7 +20,8 @@ include_once('Datos/DAOCliente.php');
     ?>
     <main>
         <form id="formEnviar" method="POST" action="CrearRutina.php">
-            <input type="hidden" name="id" id="inputIdUsuario">
+            <input type="hidden" name="id_Usuario" id="inputIdUsuario">
+            <input type="hidden" name="id_Solicitud" id="inputIdSolicitud">
         </form>
         <div id="tabla">
             <table border="1">
@@ -38,7 +39,7 @@ include_once('Datos/DAOCliente.php');
                     if ($lista != null) {
                         foreach ($lista as $Cliente) {
                             echo "
-                        <tr onclick=\"enviarFormulario($Cliente->id_Cliente)\">
+                        <tr onclick=\"enviarFormulario($Cliente->id_Cliente, $Cliente->id_Solicitud)\">
                             <td>$Cliente->nombreCliente</td>
                             <td>$Cliente->apellidos</td>
                             <td>$Cliente->edad</td>

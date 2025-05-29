@@ -21,6 +21,7 @@ class Cliente
 
 class ClienteConRutina{
     public $id_Cliente;
+    public $id_Solicitud;
     public $nombreCliente;
     public $apellidos;
     public $edad;

@@ -41,3 +41,13 @@ tbody tr:hover {
         padding: 10px;
     }
 }
+
+button {
+    width: 6vw;
+    height: 4vh;
+    background-color: greenyellow;
+}
+
+button:hover{
+    background-color: rgb(10, 209, 53);
+}

@@ -102,9 +102,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $idInsertado = $dao->Agregar($rutina);
 
         if ($idInsertado > 0) {
-            unset($_SESSION['id_Usuario'], $_SESSION['id_Solicitud']);
             $_SESSION['exito'] = "Rutina creada exitosamente.";
-            header("Location: usuarios.php");
+            header("Location: CrearRutina.php");
             exit;
         } else {
             $_SESSION['errores'] = ["Hubo un error al guardar la rutina. Intente nuevamente."];
@@ -132,6 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once('Datos/header.php');
     ?>
     <main>
+        <!-- Mensajes de error -->
         <?php if (isset($_SESSION['errores'])): ?>
             <div id="errores" class="error">
                 <?php foreach ($_SESSION['errores'] as $error): ?>
@@ -140,8 +140,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unset($_SESSION['errores']); ?>
             </div>
         <?php endif; ?>
+        <!-- Mensajes de exito -->
+        <?php if (isset($_SESSION['exito'])): ?>
+            <div class="exito">
+                <p><?= htmlspecialchars($_SESSION['exito']) ?></p>
+            </div>
+            <?php unset($_SESSION['exito']); ?>
+        <?php endif; ?>
+
         <?php
-        var_dump($_SESSION);
         $cliente = null;
         if (isset($_SESSION['id_Usuario'])) {
             $cliente = (new DAORutina())->obtenerUno($_SESSION['id_Usuario']);

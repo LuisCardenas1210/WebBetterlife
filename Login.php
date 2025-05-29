@@ -19,7 +19,6 @@
         $email = trim($_POST["email"]);
         $password = trim($_POST["password"]);
 
-        // Validación de servidor
         if ($email === "" || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errores[] = "Por favor, ingrese un correo válido.";
         }
@@ -34,12 +33,10 @@
             if ($usuario != null && $usuario->status == 1) {
                 session_start();
 
-                // Guardar nombre, apellidos y tipo de usuario
                 $_SESSION["nombre"] = $usuario->nombre;
                 $_SESSION["apellidos"] = $usuario->apellidos;
                 $_SESSION["tipoUsuario"] = $usuario->tipoUsuario;
 
-                // Guardar ID dependiendo del tipo de usuario
                 if ($usuario->tipoUsuario === 'cliente') {
                     $_SESSION["id_cliente"] = $usuario->id_Cliente;
                 } else {

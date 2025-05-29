@@ -12,8 +12,6 @@ class Usuario {
     public $contrasenia = "";
     public $tipoUsuario = "";
     public $status = 0;
-
-    // Agregado para usuarios tipo profesional
     public $especialidad = "";
 }
 ?>

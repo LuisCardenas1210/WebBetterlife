@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function mostrarErrores(listaErrores) {
         const errorDiv = document.getElementById("errores");
         errorDiv.innerHTML = "";
-        errorDiv.style.display = "block"; // Mostrarlo si había estado oculto
+        errorDiv.style.display = "block";
 
         listaErrores.forEach(msg => {
             const p = document.createElement("p");

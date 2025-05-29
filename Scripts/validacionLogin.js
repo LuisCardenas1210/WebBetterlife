@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
         errorDiv.style.display = "block";
 
         listaErrores.forEach(msg => {
-            const div = document.createElement("div"); // sin etiqueta <p>
+            const div = document.createElement("div"); 
             div.textContent = msg;
             errorDiv.appendChild(div);
         });
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         if (errores.length > 0) {
-            event.preventDefault(); // evita el envío
+            event.preventDefault(); 
             mostrarErrores(errores);
         }
     });

@@ -35,7 +35,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado', 'Domingo'];
 
-        // Recuperar tipo de rutina según id de solicitud
         $solicitud = null;
         if (isset($_SESSION['id_Solicitud'])) {
             $solicitud = (new DAOSolicitud())->obtenerTipoRutina($_SESSION['id_Solicitud']);
@@ -90,14 +89,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $campoDetalle = "Ejercicios_$dia";
             }
 
-            $propDia = strtolower($dia); // lunes, martes, etc.
-            $propDetalle = "detalles$letra"; // detallesL, detallesM, etc.
+            $propDia = strtolower($dia); 
+            $propDetalle = "detalles$letra";
 
             $rutina->$propDia = trim($_POST[$campoDia] ?? '');
             $rutina->$propDetalle = trim($_POST[$campoDetalle] ?? '');
         }
 
-        // Guardar rutina en BD
         $dao = new DAORutina();
         $idInsertado = $dao->Agregar($rutina);
 
@@ -133,7 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once('Datos/header.php');
     ?>
     <main>
-        <!-- Mensajes de error -->
         <?php if (isset($_SESSION['errores'])): ?>
             <div id="errores" class="error">
                 <?php foreach ($_SESSION['errores'] as $error): ?>
@@ -142,7 +139,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 unset($_SESSION['errores']); ?>
             </div>
         <?php endif; ?>
-        <!-- Mensajes de exito -->
         <?php if (isset($_SESSION['exito'])): ?>
             <div class="exito">
                 <p><?= htmlspecialchars($_SESSION['exito']) ?></p>
@@ -160,7 +156,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="hidden" name="id_Usuario" value="<?= htmlspecialchars($_SESSION['id_Usuario'] ?? '') ?>">
             <input type="hidden" name="id_Solicitud" value="<?= htmlspecialchars($_SESSION['id_Solicitud'] ?? '') ?>">
 
-            <!-- Aquí irá el contenido del formulario -->
             <div class="contenedorInfo">
                 <div class="DatosGenerales">
                     <legend class="kanit">Crear Rutina</legend>

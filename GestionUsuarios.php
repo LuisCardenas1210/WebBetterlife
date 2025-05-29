@@ -3,7 +3,6 @@ session_start();
 include_once 'Datos/DAOCliente.php';
 include_once 'Datos/DAOProfesional.php';
 
-//recibe el metodo post del metodo para cambiar de estado el usuario
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cambiarEstado'], $_POST['tipoUsuario'])) {
     $id = $_POST['cambiarEstado'];
     $tipo = $_POST['tipoUsuario'];
@@ -77,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cambiarEstado'], $_PO
                                 <form action='cambiarCredenciales.php' method='GET' style='display:inline;'>
                                     <input type='hidden' name='id' value='" . $Cliente->id_Cliente . "'>
                                     <input type='hidden' name='tipo' value='cliente'>
-                                    <button type='submit'>Cambiar correo/contraseña</button>
+                                    <button type='submit'>Cambiar correo/ contraseña</button>
                                 </form>
 
                             </td>
@@ -133,8 +132,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cambiarEstado'], $_PO
             </table>
         </div>
     </main>
-    <!-- modal generico que si quieres puedes tomar prestado
-     nomas le pones los parametros yo creo -->
     <div id="modalConfirmacionCliente" class="modal">
         <div class="modal-contenido">
             <p id="textoModalCliente">¿Estás seguro?</p>
@@ -180,7 +177,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cambiarEstado'], $_PO
             document.getElementById("modalConfirmacionProfesional").style.display = "none";
         }
 
-        // esto hace que se cierre el modal al dar un clik fuera
         window.onclick = function (event) {
             if (event.target === document.getElementById("modalConfirmacionCliente")) {
                 cerrarModalCliente();

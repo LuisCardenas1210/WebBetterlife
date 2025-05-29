@@ -1,13 +1,12 @@
 <?php
 session_start();
 
-// Validar si el usuario ha iniciado sesión
 if (!isset($_SESSION['id_cliente'])) {
     echo "<p style='color: red; text-align: center;'>Debe iniciar sesión para ver sus solicitudes.</p>";
     exit;
 }
 
-$id_cliente = $_SESSION['id_cliente']; // ID del cliente logueado
+$id_cliente = $_SESSION['id_cliente'];
 ?>
 <!DOCTYPE html>
 <html lang="es">

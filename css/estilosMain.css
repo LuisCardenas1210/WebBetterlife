@@ -352,3 +352,39 @@ body {
     border-radius:5px;
     text-align:center;
 }
+
+.boton-primario {
+    background-color: #2fbaff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: "Kanit", sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.boton-primario:hover {
+    background-color: #189bd6;
+    transform: scale(1.03);
+}
+
+.boton-secundario {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: "Kanit", sans-serif;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.boton-secundario:hover {
+    background-color: #d32f2f;
+    transform: scale(1.03);
+}

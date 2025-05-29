@@ -52,7 +52,6 @@ try {
             JOIN profesionales ON solicitudes.id_profesional = profesionales.id_profesional
             JOIN clientes ON solicitudes.id_cliente = clientes.id_cliente";
 
-    // Filtrado según tipoUsuario
     if ($tipoUsuario === 'entrenador') {
         $sql .= " WHERE solicitudes.tiporutina = 'ejercicio'";
     } elseif ($tipoUsuario === 'nutriologo') {

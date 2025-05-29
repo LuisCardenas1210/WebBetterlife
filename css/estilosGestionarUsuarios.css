@@ -25,6 +25,8 @@ button {
     height: 4vh;
     background-color: rgb(179, 212, 255);
     border-radius: 4px;
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
 
 button:hover{
@@ -61,3 +63,4 @@ button:hover{
     cursor: pointer;
     border-radius: 4px;
 }
+

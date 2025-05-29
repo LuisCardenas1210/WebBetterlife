@@ -2,15 +2,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const formulario = document.querySelector("form");
 
     formulario.addEventListener("submit", (event) => {
-        const botonPresionado = event.submitter; // Botón que disparó el submit
+        const botonPresionado = event.submitter;
         const accion = botonPresionado?.value;
 
         if (accion === "guardar") {
             if (!validarFormulario()) {
-                event.preventDefault(); // Detiene envío si hay errores
+                event.preventDefault(); 
             }
         }
-        // Si es "volver", no se valida
     });
 });
 

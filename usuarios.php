@@ -15,7 +15,7 @@ include_once('Datos/DAOCliente.php');
     <style>
         .boton-crear-rutina {
             padding: 5px 10px;
-            background-color: #28a745; /* verde */
+            background-color: #28a745;
             color: white;
             border: none;
             border-radius: 5px;

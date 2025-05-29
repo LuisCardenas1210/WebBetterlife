@@ -1,5 +1,4 @@
 <?php
-//importa la clase conexión y el modelo para usarlos
 require_once 'Conexion.php';
 require_once 'Modelos/Rutina.php';
 require_once 'Modelos/Cliente.php';
@@ -9,15 +8,13 @@ class DAORutina
 
     private $conexion;
 
-    /**
-     * Permite obtener la conexión a la BD
-     */
+   
     private function conectar()
     {
         try {
             $this->conexion = Conexion::conectar();
         } catch (Exception $e) {
-            die($e->getMessage()); /*Si la conexion no se establece se cortara el flujo enviando un mensaje con el error*/
+            die($e->getMessage()); 
         }
     }
     public function obtenerUno($id)
@@ -25,14 +22,11 @@ class DAORutina
         try {
             $this->conectar();
 
-            //Almacenará el registro obtenido de la BD
             $obj = null;
 
             $sentenciaSQL = $this->conexion->prepare("SELECT nombre, edad, peso, estatura, brazoR, brazoC, cintura, pierna from clientes where id_Cliente=?;");
-            //Se ejecuta la sentencia sql con los parametros dentro del arreglo 
             $sentenciaSQL->execute([$id]);
 
-            /*Obtiene los datos*/
             $fila = $sentenciaSQL->fetch(PDO::FETCH_OBJ);
 
             $obj = null;
@@ -119,8 +113,6 @@ class DAORutina
             $resultado = $sentenciaSQL->execute(array($id));
             return $resultado;
         } catch (PDOException $e) {
-            //Si quieres acceder expecíficamente al numero de error
-            //se puede consultar la propiedad errorInfo
             echo "Error al eliminar: " . $e->getMessage();
             return false;
         } finally {

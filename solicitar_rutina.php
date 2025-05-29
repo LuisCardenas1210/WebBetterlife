@@ -3,12 +3,10 @@ session_start();
 require_once 'Datos/Conexion.php';
 require_once 'Datos/header.php';
 
-$id_cliente = $_SESSION["id_cliente"] ?? 1; // por defecto 1 si no está en sesión
+$id_cliente = $_SESSION["id_cliente"] ?? 1; 
 
-// Lista permitida de tipos de rutina
 $tipos_permitidos = ['dieta', 'ejercicio'];
 
-// Procesar POST
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $id_profesional = $_POST["id_profesional"] ?? null;
     $tipo_rutina = $_POST["tiporutina"] ?? null;
@@ -34,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['message'] = ['type' => 'error', 'text' => '❌ Por favor, selecciona un Profesional válido y un tipo de rutina correcto.'];
     }
 
-    // Redirigir para evitar reenvío del formulario al refrescar
     header("Location: solicitar_rutina.php");
     exit;
 }
@@ -53,7 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <body>
 
 <?php
-// Mostrar mensaje si existe y luego eliminarlo para que no se repita
 if (isset($_SESSION['message'])) {
     $msg = $_SESSION['message'];
     echo '<p class="message ' . ($msg['type'] === 'success' ? 'success' : 'error') . '">' . htmlspecialchars($msg['text']) . '</p>';

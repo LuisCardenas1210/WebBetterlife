@@ -2,7 +2,6 @@
 session_start();
 require_once 'Datos/Conexion.php';
 
-// Verificar si el usuario está autenticado y es profesional
 if (!isset($_SESSION['tipoUsuario']) || trim($_SESSION['tipoUsuario']) !== 'profesional') {
     header("Location: index.php");
     exit();

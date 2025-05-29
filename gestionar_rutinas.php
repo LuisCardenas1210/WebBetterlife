@@ -3,7 +3,6 @@ session_start();
 require_once 'Datos/Conexion.php';
 require_once 'Datos/DAORutina.php';
 
-// Eliminar rutina si se recibió una petición POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_rutina'])) {
     $id_rutina = $_POST['id_rutina'];
 
@@ -19,7 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_rutina'])) {
     }
 }
 
-// Obtener todas las rutinas
 try {
     $conexion = Conexion::conectar();
     $sql = "SELECT r.*, c.nombre AS cliente, p.nombre AS profesional
@@ -79,7 +77,7 @@ try {
                 <td><?php echo htmlspecialchars($rutina['cliente']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['profesional']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['tiporutina']); ?></td>
-                <td><?php echo htmlspecialchars($rutina['descripciónrutina']); ?></td>
+                <td><?php echo htmlspecialchars($rutina['descripcionrutina']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['lunes']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['martes']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['miercoles']); ?></td>
@@ -87,14 +85,7 @@ try {
                 <td><?php echo htmlspecialchars($rutina['viernes']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['sabado']); ?></td>
                 <td><?php echo htmlspecialchars($rutina['domingo']); ?></td>
-        <!--
-                <td>
-                    <form method="post" action="" onsubmit="return confirm('¿Seguro que deseas eliminar esta rutina?')">
-                        <input type="hidden" name="id_rutina" value="<?php echo $rutina['id_rutina']; ?>">
-                        <button type="submit">Eliminar</button>
-                    </form>
-                </td>
-        -->
+
                 <td>
                     <form method="post" action="" class="form-eliminar">
                         <input type="hidden" name="id_rutina" value="<?php echo $rutina['id_rutina']; ?>">

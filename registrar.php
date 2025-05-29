@@ -21,7 +21,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
 
-    // Validaciones generales
     if (strlen($nombre) < 2)
         $errores[] = "El nombre debe tener al menos 2 caracteres.";
     if (strlen($apellidos) < 2)
@@ -67,11 +66,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (empty($errores)) {
-        // Registro exitoso
         $mensaje = $tipo === 'cliente'
             ? "Cliente registrado correctamente."
             : "Profesional registrado correctamente.";
-        // Aquí iría la lógica de inserción en BD
         if ($tipo === 'cliente') {
             $cliente = new Cliente();
             $cliente->nombreCliente = $nombre;
@@ -159,7 +156,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
             </div>
 
-            <!-- Comunes -->
             <div class="input-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" value="<?= htmlspecialchars($_POST['nombre'] ?? '') ?>"
@@ -184,7 +180,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="password" id="confirm_password" name="confirm_password" required>
             </div>
 
-            <!-- Cliente -->
             <div id="camposCliente">
                 <div class="input-group"><label>Edad:</label><input type="number" name="txtEdad"
                         value="<?= htmlspecialchars($_POST['txtEdad'] ?? '') ?>" required></div>
@@ -229,7 +224,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
 
-            <!-- Profesional -->
             <div id="camposProfesional" style="display: none;">
                 <div class="input-group"><label>Especialidad:</label><input type="text" name="txtEspecialidad"
                         value="<?= htmlspecialchars($_POST['txtEspecialidad'] ?? '') ?>"

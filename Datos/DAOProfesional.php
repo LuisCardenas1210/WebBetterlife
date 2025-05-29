@@ -1,5 +1,4 @@
 <?php
-//importa la clase conexión y el modelo para usarlos
 require_once 'Conexion.php';
 require_once 'Modelos/Profesional.php';
 
@@ -8,15 +7,13 @@ class DAOProfesional
 
     private $conexion;
 
-    /**
-     * Permite obtener la conexión a la BD
-     */
+  
     private function conectar()
     {
         try {
             $this->conexion = Conexion::conectar();
         } catch (Exception $e) {
-            die($e->getMessage()); /*Si la conexion no se establece se cortara el flujo enviando un mensaje con el error*/
+            die($e->getMessage()); 
         }
     }
 
@@ -47,9 +44,7 @@ class DAOProfesional
             return $clave;
         } finally {
 
-            /*En caso de que se necesite manejar transacciones, 
-            no deberá desconectarse mientras la transacción deba 
-            persistir*/
+            
 
             Conexion::desconectar();
         }
@@ -75,15 +70,10 @@ class DAOProfesional
             $this->conectar();
 
             $lista = array();
-            /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
             $sentenciaSQL = $this->conexion->prepare("SELECT  id_profesional, nombre, apellidos, tipousuario, email, status from profesionales where tipousuario != 'admin';");
-            //Se ejecuta la sentencia sql, retorna un cursor con todos los elementos
             $sentenciaSQL->execute();
-            //$resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
-            /*Podemos obtener un cursor (resultado con todos los renglones como 
-            un arreglo de arreglos asociativos o un arreglo de objetos*/
-            /*Se recorre el cursor para obtener los datos*/
+            
             foreach ($resultado as $fila) {
                 $Profesional = new Profesional();
                 $Profesional->id_Profesional = $fila->id_profesional;
@@ -111,7 +101,6 @@ class DAOProfesional
             $sql->bindParam(':id', $idProfesional, PDO::PARAM_INT);
             $sql->execute();
         } catch (PDOException $e) {
-            // Manejo de errores
         } finally {
             Conexion::desconectar();
         }

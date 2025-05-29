@@ -13,17 +13,16 @@
             <div class="login">
                 <?php if (isset($_SESSION["nombre"])):?>
                     <?php
-                    # print_r($_SESSION);
-                    # var_dump(trim($_SESSION["tipoUsuario"]) );
+                    
                     ?>
                     <ul class="menu">
                         <li>
                             <span>Bienvenido, <?= htmlspecialchars($_SESSION["nombre"]) ?></span>
                             <ul class="submenu">
                                 <?php if (trim($_SESSION["tipoUsuario"]) === "cliente"): ?>
-                                    <li class="liSubmenu"><a href="solicitar_rutina.php">Solicitar Rutina</a></li> <!-- solicitar_dieta.php -->
-                                    <li class="liSubmenu"><a href="ver_solicitudes.php">Ver solicitudes</a></li> <!-- ver_solicitudes.php -->
-                                    <li class="liSubmenu"><a href="ver_rutinas.php">Ver rutinas</a></li> <!-- ver_rutinas.php -->
+                                    <li class="liSubmenu"><a href="solicitar_rutina.php">Solicitar Rutina</a></li> 
+                                    <li class="liSubmenu"><a href="ver_solicitudes.php">Ver solicitudes</a></li> 
+                                    <li class="liSubmenu"><a href="ver_rutinas.php">Ver rutinas</a></li> 
                                 <?php elseif($_SESSION["tipoUsuario"] === "profesional"): ?>
                                     <li class="liSubmenu"><a href="usuarios.php">Crear Rutina</a></li>
                                     <li class="liSubmenu"><a href="ver_solicitudes_profesionales.php">Ver Solicitudes</a></li>                                

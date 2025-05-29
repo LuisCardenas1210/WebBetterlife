@@ -1,5 +1,4 @@
 <?php
-//importa la clase conexión y el modelo para usarlos
 require_once 'Conexion.php';
 require_once 'Modelos/Cliente.php';
 require_once 'Modelos/Rutina.php';
@@ -9,16 +8,12 @@ class DAOCliente
 {
 
     private $conexion;
-
-    /**
-     * Permite obtener la conexión a la BD
-     */
     private function conectar()
     {
         try {
             $this->conexion = Conexion::conectar();
         } catch (Exception $e) {
-            die($e->getMessage()); /*Si la conexion no se establece se cortara el flujo enviando un mensaje con el error*/
+            die($e->getMessage()); 
         }
     }
 
@@ -28,17 +23,12 @@ class DAOCliente
             $this->conectar();
 
             $lista = array();
-            /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
             $sentenciaSQL = $this->conexion->prepare("SELECT c.id_Cliente, s.id_solicitud, c.nombre as nombreCliente, c.apellidos, c.edad, c.genero, s.tipoRutina, p.nombre as nombreProfesional
             FROM Clientes c JOIN solicitudes s ON c.id_Cliente=s.id_Cliente
             JOIN profesionales p ON p.id_profesional=s.id_profesional;");
-            //Se ejecuta la sentencia sql, retorna un cursor con todos los elementos
             $sentenciaSQL->execute();
-            //$resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
-            /*Podemos obtener un cursor (resultado con todos los renglones como 
-            un arreglo de arreglos asociativos o un arreglo de objetos*/
-            /*Se recorre el cursor para obtener los datos*/
+
             foreach ($resultado as $fila) {
                 $cliente = new ClienteConRutina();
                 $cliente->id_Cliente = $fila->id_cliente;
@@ -94,9 +84,6 @@ class DAOCliente
             return $clave;
         } finally {
 
-            /*En caso de que se necesite manejar transacciones, 
-            no deberá desconectarse mientras la transacción deba 
-            persistir*/
 
             Conexion::desconectar();
         }
@@ -121,8 +108,7 @@ class DAOCliente
             $resultado = $sentenciaSQL->execute(array($id));
             return $resultado;
         } catch (PDOException $e) {
-            //Si quieres acceder expecíficamente al numero de error
-            //se puede consultar la propiedad errorInfo
+           
             echo "Error al eliminar: " . $e->getMessage();
             return false;
         } finally {
@@ -136,15 +122,10 @@ class DAOCliente
             $this->conectar();
 
             $lista = array();
-            /*Se arma la sentencia sql para seleccionar todos los registros de la base de datos*/
             $sentenciaSQL = $this->conexion->prepare("SELECT  id_cliente, nombre, apellidos, tipousuario, email, status from clientes");
-            //Se ejecuta la sentencia sql, retorna un cursor con todos los elementos
             $sentenciaSQL->execute();
-            //$resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);
             $resultado = $sentenciaSQL->fetchAll(PDO::FETCH_OBJ);
-            /*Podemos obtener un cursor (resultado con todos los renglones como 
-            un arreglo de arreglos asociativos o un arreglo de objetos*/
-            /*Se recorre el cursor para obtener los datos*/
+            
             foreach ($resultado as $fila) {
                 $cliente = new Cliente();
                 $cliente->id_Cliente = $fila->id_cliente;
@@ -172,7 +153,6 @@ class DAOCliente
             $sql->bindParam(':id', $idCliente, PDO::PARAM_INT);
             $sql->execute();
         } catch (PDOException $e) {
-            // Manejo de errores
         } finally {
             Conexion::desconectar();
         }

@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const password = passwordInput.value;
         const confirmPassword = confirmInput.value;
 
-        // Validar correo electrónico
+        // aqui valido el correo :p
         if (!/^\S+@\S+\.\S+$/.test(email)) {
             alert("Correo inválido.");
             emailInput.focus();
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Validar longitud de contraseña
+        // validacion de que password no sea menor a 4
         if (password.length < 4) {
             alert("La contraseña debe tener al menos 4 caracteres.");
             passwordInput.focus();
@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Validar coincidencia de contraseñas
+        // valido que coincidan las contrasenias
         if (password !== confirmPassword) {
             alert("Las contraseñas no coinciden.");
             confirmInput.focus();

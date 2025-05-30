@@ -31,10 +31,8 @@ session_start();
 <?php
 require_once 'Datos/DAORutina.php';
 
-$id_cliente = 1;
-
 $daoRutina = new DAORutina();
-$rutinas = $daoRutina->obtenerRutinasPorCliente($id_cliente);
+$rutinas = $daoRutina->obtenerRutinasPorCliente($_SESSION['id_cliente']);
 
 if ($rutinas):
     foreach ($rutinas as $rutina):

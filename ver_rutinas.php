@@ -54,7 +54,8 @@ if ($rutinas):
             <?php
                 $dias = ["lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"];
                 foreach ($dias as $dia) {
-                    $detalleKey = "detalles" . substr($dia, 0, 1); // l, m, w, j, v, s, d
+                    $detalleKey = ($dia === 'miercoles') ? 'detallesw' : 'detalles' . 
+                    substr($dia, 0, 1); // l, m, w, j, v, s, d
                     echo "<tr>
                             <td>" . ucfirst($dia) . "</td>
                             <td>" . htmlspecialchars($rutina[$dia]) . "</td>

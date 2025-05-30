@@ -1,0 +1,38 @@
+// Scripts/validarCambiarCredenciales.js
+
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.querySelector("form");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("contrasena");
+    const confirmInput = document.getElementById("confirmar_contrasena");
+
+    form.addEventListener("submit", (e) => {
+        const email = emailInput.value.trim();
+        const password = passwordInput.value;
+        const confirmPassword = confirmInput.value;
+
+        // Validar correo electrónico
+        if (!/^\S+@\S+\.\S+$/.test(email)) {
+            alert("Correo inválido.");
+            emailInput.focus();
+            e.preventDefault();
+            return;
+        }
+
+        // Validar longitud de contraseña
+        if (password.length < 4) {
+            alert("La contraseña debe tener al menos 4 caracteres.");
+            passwordInput.focus();
+            e.preventDefault();
+            return;
+        }
+
+        // Validar coincidencia de contraseñas
+        if (password !== confirmPassword) {
+            alert("Las contraseñas no coinciden.");
+            confirmInput.focus();
+            e.preventDefault();
+            return;
+        }
+    });
+});

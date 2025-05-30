@@ -122,6 +122,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['cambiarEstado'], $_PO
                                 <button type='button' class='$claseBoton' onclick=\"abrirModalProfesional('$Profesional->id_Profesional','$accion')\">"
                                 . ucfirst($accion) .
                                 "</button>
+                                <form action='cambiarCredenciales.php' method='GET' style='display:inline;'>
+                                <input type='hidden' name='id' value='" . $Profesional->id_Profesional . "'>
+                                <input type='hidden' name='tipo' value='profesional'>
+                                <button type='submit'>Cambiar correo/ contraseña</button>
+                            </form>
                             </td>
                         </tr>
                         ";

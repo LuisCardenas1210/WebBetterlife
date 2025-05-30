@@ -133,4 +133,21 @@ class DAOProfesional
             Conexion::desconectar();
         }
     }
+    public function actualizarCorreoYContrasena($id, $nuevoCorreo, $nuevaContrasena) {
+        try {
+            $conn = Conexion::conectar();
+            $sql = $conn->prepare("UPDATE profesionales SET email = :email, contrasenia = sha224(:contrasenia) WHERE id_profesional = :id");
+            $sql->bindParam(':email', $nuevoCorreo, PDO::PARAM_STR);
+            $sql->bindParam(':contrasenia', $nuevaContrasena, PDO::PARAM_STR);
+            $sql->bindParam(':id', $id, PDO::PARAM_INT);
+            $sql->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo "Error PDO: " . $e->getMessage();
+            return false;
+        } finally {
+            Conexion::desconectar();
+        }
+    }
+
 }

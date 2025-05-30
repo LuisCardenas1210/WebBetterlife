@@ -110,10 +110,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <label for="confirmar_contrasena">Confirmar contraseña:</label>
                 <input type="password" id="confirmar_contrasena" name="confirmar_contrasena" required style="width: 250px; padding: 5px;"><br>
-
+                
+                <div id="erroresjs" class="error" style="display: none;"></div>
 
                 <div style="display: flex; gap: 10px; margin-top: 10px;">
-                    <button type="submit" class="boton-primario">Guardar</button>
+                    <button type="submit" class="boton-primario" formnovalidate>Guardar</button>
                     <button type="button" class="boton-secundario" onclick="window.location.href='GestionUsuarios.php'">Volver</button>
                 </div>
             </form>

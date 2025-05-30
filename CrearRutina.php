@@ -208,14 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
                     ?>
                     <div id="erroresjs" class="error" style="display: none;"></div>
-                    <?php if (isset($_SESSION['errores'])): ?>
-                        <div id="errores" class="error">
-                            <?php foreach ($_SESSION['errores'] as $error): ?>
-                                <p><?= htmlspecialchars($error) ?></p>
-                            <?php endforeach;
-                            unset($_SESSION['errores']); ?>
-                        </div>
-                    <?php endif; ?>
+                    
                     <div id="botones">
                         <button type="submit" name="accion" value="guardar" id="btnGuardar">Guardar</button>
                         <button type="submit" name="accion" value="volver" id="btnVolver" formnovalidate>Volver</button>

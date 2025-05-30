@@ -90,7 +90,7 @@ if (isset($_SESSION['message'])) {
         <option value="ejercicio">Ejercicio</option>
     </select>
 
-    <button type="submit">Enviar Solicitud</button>
+    <button type="submit" formnovalidate>Enviar Solicitud</button>
 </form>
 
 </body>
